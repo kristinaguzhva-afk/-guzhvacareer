@@ -4109,10 +4109,15 @@ body.dialog-open { overflow: hidden; }
   .metric-label { font-size: 0.74rem; }
   .metrics-caption { padding: 14px 0 0; }
 
-  .pain-heading { grid-template-columns: 1fr; gap: 24px; }
+  .pain-section { padding: 30px 0; }
+  .pain-heading { grid-template-columns: 1fr; gap: 6px; margin-bottom: 14px; }
+  .pain-heading h2 { max-width: 100%; font-size: clamp(1.25rem, 5.6vw, 1.5rem); line-height: 1.2; margin-top: 4px; }
+  .pain-heading > p:last-child { margin-top: 2px; font-size: 0.86rem; line-height: 1.42; }
   .pain-grid { grid-template-columns: 1fr; }
-  .pain-item { min-height: 220px; }
-  .pain-item > span { margin-bottom: 42px; }
+  .pain-item { min-height: 0; padding: 12px 14px; display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; row-gap: 3px; align-items: baseline; justify-content: start; }
+  .pain-item > span { grid-column: 1; grid-row: 1 / span 2; margin-bottom: 0; font-size: 0.74rem; }
+  .pain-item h3 { grid-column: 2; max-width: none; font-size: 0.96rem; line-height: 1.24; margin: 0; }
+  .pain-item p { grid-column: 2; max-width: none; margin-top: 0; font-size: 0.82rem; line-height: 1.36; }
 
   .service-card { min-height: 0; padding: 28px 0; grid-template-columns: 46px 1fr auto; }
   .service-details { grid-column: 2 / -1; }
