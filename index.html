@@ -29,7 +29,7 @@
 
   <link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=20">
+  <link rel="stylesheet" href="css/styles.css?v=21">
 
   <script type="application/ld+json">
   {
@@ -1661,11 +1661,12 @@
           <svg viewBox="0 0 24 24" width="36" height="36"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/></svg>
         </div>
         <h3>Заявка успешно отправлена!</h3>
-        <p class="success-subtitle">Спасибо за обращение! Мы свяжемся с вами в ближайшее время для уточнения деталей и согласования удобного времени встречи.</p>
+        <p class="success-subtitle" id="order-success-subtitle">Спасибо за обращение! Мы свяжемся с вами в ближайшее время для уточнения деталей и согласования удобного времени встречи.</p>
         
         <div class="success-details-box">
           <p><strong>Услуга:</strong> <span id="success-tariff-name">Консультация</span></p>
           <p><strong>Контакт:</strong> <span id="success-contact-value">-</span></p>
+          <p id="success-bonus-row" hidden><strong>Бонус:</strong> <span id="success-bonus-value">Отправим в указанный вами мессенджер</span></p>
         </div>
 
         <div class="success-actions">
@@ -1673,7 +1674,6 @@
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.74 6.66-2.89 8.01-3.45 3.82-1.59 4.61-1.87 5.13-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.21-.04.32z"/></svg>
             <span>Написать в Telegram</span>
           </a>
-          <button class="button button-outline" type="button" data-order-dialog-close style="width: 100%;">Закрыть окно</button>
         </div>
       </div>
     </div>
@@ -1783,6 +1783,6 @@
   </aside>
 
   <noscript><div class="noscript-note">Для работы функций сайта нужен JavaScript.</div></noscript>
-  <script src="js/main.js?v=10" defer></script>
+  <script src="js/main.js?v=11" defer></script>
 </body>
 </html>
