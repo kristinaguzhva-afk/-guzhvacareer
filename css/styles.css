@@ -7357,3 +7357,332 @@ body.dialog-open { overflow: hidden; }
     padding: 14px 16px 16px;
   }
 }
+
+/* ==========================================================================
+   Mobile Horizontal Carousels with Arrows (Reviews & Portfolio on Smartphones)
+   ========================================================================== */
+.mobile-carousel-stage[hidden] {
+  display: none !important;
+}
+
+.mobile-carousel-side-btn,
+.mobile-carousel-bar {
+  display: none;
+}
+
+@media (max-width: 679.98px) {
+  .mobile-carousel-stage {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Compact Tab Switchers on Mobile */
+  .reviews-tabs,
+  .portfolio-main-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .reviews-tab-btn,
+  .portfolio-main-tab-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 9px 10px;
+    font-size: 0.76rem;
+    line-height: 1.2;
+  }
+
+  /* Horizontal Snap Tracks (1 item at a time) */
+  .review-grid:not([hidden]),
+  .reviews-screenshots-grid:not([hidden]),
+  #panel-before-after .portfolio-grid,
+  #panel-cases .case-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 16px;
+    padding-bottom: 4px;
+  }
+
+  .review-grid::-webkit-scrollbar,
+  .reviews-screenshots-grid::-webkit-scrollbar,
+  #panel-before-after .portfolio-grid::-webkit-scrollbar,
+  #panel-cases .case-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-grid > .review-card,
+  .reviews-screenshots-grid > .phone-mockup-item,
+  #panel-before-after .portfolio-grid > .portfolio-card,
+  #panel-cases .case-grid > .case-card {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    box-sizing: border-box;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Compact Card Heights on Smartphone */
+  .review-grid > .review-card {
+    min-height: 210px;
+    padding: 20px 22px;
+    justify-content: space-between;
+  }
+
+  .review-grid > .review-card blockquote {
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+
+  .review-grid > .review-card figcaption {
+    margin-top: 16px;
+  }
+
+  /* Single Phone Mockup Centered with Side Arrows */
+  .reviews-screenshots-grid > .phone-mockup-item {
+    gap: 10px;
+    padding-inline: 36px;
+  }
+
+  .reviews-screenshots-grid .phone-device-3d {
+    width: min(62vw, 232px);
+    margin-inline: auto;
+  }
+
+  /* Compact Portfolio & Case Cards on Smartphone */
+  #panel-before-after .portfolio-card,
+  #panel-cases .case-card {
+    padding: 16px 16px;
+    height: auto;
+  }
+
+  #panel-before-after .portfolio-header {
+    margin-bottom: 10px;
+  }
+
+  #panel-before-after .comparison-box {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  #panel-before-after .comparison-side {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  #panel-before-after .portfolio-result {
+    padding-top: 10px;
+    font-size: 0.8rem;
+  }
+
+  #panel-cases .case-card h3 {
+    font-size: 0.98rem;
+    margin-bottom: 12px;
+  }
+
+  #panel-cases .case-steps-accordion {
+    gap: 6px;
+  }
+
+  #panel-cases .case-step-trigger {
+    padding: 7px 10px;
+  }
+
+  #panel-cases .case-step-content {
+    padding: 2px 10px 8px;
+  }
+
+  #panel-cases .case-step-content p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  /* Side Floating Arrow Buttons */
+  .mobile-carousel-side-btn {
+    position: absolute;
+    top: 44%;
+    transform: translateY(-50%);
+    z-index: 12;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    background: var(--lime);
+    color: var(--ink);
+    box-shadow: 0 6px 18px rgba(18, 18, 23, 0.24);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mobile-carousel-side-btn.is-prev {
+    left: -6px;
+  }
+
+  .mobile-carousel-side-btn.is-next {
+    right: -6px;
+  }
+
+  .mobile-carousel-stage.is-phones-stage .mobile-carousel-side-btn {
+    width: 40px;
+    height: 40px;
+    top: 43%;
+  }
+
+  .mobile-carousel-stage.is-phones-stage .mobile-carousel-side-btn.is-prev {
+    left: 2px;
+  }
+
+  .mobile-carousel-stage.is-phones-stage .mobile-carousel-side-btn.is-next {
+    right: 2px;
+  }
+
+  .mobile-carousel-side-btn:active {
+    transform: translateY(-50%) scale(0.93);
+    background: var(--magenta);
+    border-color: var(--magenta);
+    color: #ffffff;
+  }
+
+  .mobile-carousel-side-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Bottom Arrow & Indicator Control Bar */
+  .mobile-carousel-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  .mobile-carousel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .mobile-carousel-btn:active {
+    transform: scale(0.94);
+    background: var(--magenta);
+    border-color: var(--magenta);
+    color: #ffffff;
+  }
+
+  .mobile-carousel-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2.3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mobile-carousel-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(18, 18, 23, 0.06);
+    border: 1px solid rgba(18, 18, 23, 0.12);
+  }
+
+  .mobile-carousel-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mobile-carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: rgba(18, 18, 23, 0.25);
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: width 0.25s ease, background 0.25s ease;
+  }
+
+  .mobile-carousel-dot.is-active {
+    width: 18px;
+    background: var(--magenta);
+  }
+
+  .mobile-carousel-counter {
+    font-family: "Unbounded", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  /* Dark Section Theme (Portfolio) for Carousel Controls */
+  .section-dark .mobile-carousel-btn {
+    background: var(--ink-soft);
+    color: var(--lime);
+    border-color: rgba(216, 255, 87, 0.45);
+    box-shadow: 2px 2px 0 rgba(216, 255, 87, 0.3);
+  }
+
+  .section-dark .mobile-carousel-btn:active {
+    background: var(--lime);
+    color: var(--ink);
+  }
+
+  .section-dark .mobile-carousel-status {
+    background: rgba(245, 240, 232, 0.06);
+    border-color: rgba(245, 240, 232, 0.16);
+  }
+
+  .section-dark .mobile-carousel-dot {
+    background: rgba(245, 240, 232, 0.28);
+  }
+
+  .section-dark .mobile-carousel-dot.is-active {
+    background: var(--lime);
+  }
+
+  .section-dark .mobile-carousel-counter {
+    color: var(--paper);
+  }
+}
+
