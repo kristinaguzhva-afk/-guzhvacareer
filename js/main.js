@@ -1004,16 +1004,22 @@ if (reviewsTabButtons.length > 0) {
   reviewsTabButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tab = button.dataset.reviewsTab;
+      const textStage = reviewsTextGrid?.closest(".mobile-carousel-stage");
+      const shotsStage = reviewsScreenshotsGrid?.closest(".mobile-carousel-stage");
 
       reviewsTabButtons.forEach((btn) => btn.classList.remove("is-active"));
       button.classList.add("is-active");
 
       if (tab === "text") {
         if (reviewsTextGrid) reviewsTextGrid.hidden = false;
+        if (textStage) textStage.hidden = false;
         if (reviewsScreenshotsGrid) reviewsScreenshotsGrid.hidden = true;
+        if (shotsStage) shotsStage.hidden = true;
       } else {
         if (reviewsTextGrid) reviewsTextGrid.hidden = true;
+        if (textStage) textStage.hidden = true;
         if (reviewsScreenshotsGrid) reviewsScreenshotsGrid.hidden = false;
+        if (shotsStage) shotsStage.hidden = false;
       }
     });
   });
@@ -1343,5 +1349,162 @@ function initCookieBanner() {
 }
 
 initCookieBanner();
+
+/* ==========================================================================
+   Mobile Carousels with Left/Right Arrows (Reviews & Portfolio on Smartphones)
+   ========================================================================== */
+function initMobileCarousels() {
+  const carouselConfigs = [
+    {
+      track: document.getElementById("reviews-text-grid"),
+      itemSelector: ".review-card",
+      isPhones: false,
+    },
+    {
+      track: document.getElementById("reviews-screenshots-grid"),
+      itemSelector: ".phone-mockup-item",
+      isPhones: true,
+    },
+    {
+      track: document.querySelector("#panel-before-after .portfolio-grid"),
+      itemSelector: ".portfolio-card",
+      isPhones: false,
+    },
+    {
+      track: document.querySelector("#panel-cases .case-grid"),
+      itemSelector: ".case-card",
+      isPhones: false,
+    },
+  ];
+
+  carouselConfigs.forEach(({ track, itemSelector, isPhones }) => {
+    if (!track || track.parentElement?.classList.contains("mobile-carousel-stage")) return;
+
+    const items = Array.from(track.querySelectorAll(itemSelector));
+    const total = items.length;
+    if (total <= 1) return;
+
+    const stage = document.createElement("div");
+    stage.className = "mobile-carousel-stage" + (isPhones ? " is-phones-stage" : "");
+    if (track.hidden) {
+      stage.hidden = true;
+    }
+
+    track.parentNode.insertBefore(stage, track);
+    stage.appendChild(track);
+
+    // Side floating arrows
+    const sidePrev = document.createElement("button");
+    sidePrev.type = "button";
+    sidePrev.className = "mobile-carousel-side-btn is-prev";
+    sidePrev.setAttribute("aria-label", "Предыдущий пример");
+    sidePrev.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>';
+
+    const sideNext = document.createElement("button");
+    sideNext.type = "button";
+    sideNext.className = "mobile-carousel-side-btn is-next";
+    sideNext.setAttribute("aria-label", "Следующий пример");
+    sideNext.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
+    // Bottom arrow & indicator bar
+    const bar = document.createElement("div");
+    bar.className = "mobile-carousel-bar";
+
+    const barPrev = document.createElement("button");
+    barPrev.type = "button";
+    barPrev.className = "mobile-carousel-btn";
+    barPrev.setAttribute("aria-label", "Предыдущий слайд");
+    barPrev.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
+
+    const status = document.createElement("div");
+    status.className = "mobile-carousel-status";
+
+    const dotsWrap = document.createElement("div");
+    dotsWrap.className = "mobile-carousel-dots";
+
+    const dots = items.map((_, i) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "mobile-carousel-dot" + (i === 0 ? " is-active" : "");
+      dot.setAttribute("aria-label", `Слайд ${i + 1} из ${total}`);
+      dot.addEventListener("click", () => goToIndex(i));
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    const counter = document.createElement("span");
+    counter.className = "mobile-carousel-counter";
+    counter.textContent = `1 / ${total}`;
+
+    status.appendChild(dotsWrap);
+    status.appendChild(counter);
+
+    const barNext = document.createElement("button");
+    barNext.type = "button";
+    barNext.className = "mobile-carousel-btn";
+    barNext.setAttribute("aria-label", "Следующий слайд");
+    barNext.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+    bar.appendChild(barPrev);
+    bar.appendChild(status);
+    bar.appendChild(barNext);
+
+    stage.appendChild(sidePrev);
+    stage.appendChild(sideNext);
+    stage.appendChild(bar);
+
+    let currentIndex = 0;
+
+    function updateIndicators(idx) {
+      currentIndex = idx;
+      counter.textContent = `${idx + 1} / ${total}`;
+      dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+    }
+
+    function goToIndex(targetIdx) {
+      const normalized = ((targetIdx % total) + total) % total;
+      const targetEl = items[normalized];
+      if (!targetEl) return;
+      updateIndicators(normalized);
+      track.scrollTo({
+        left: targetEl.offsetLeft,
+        behavior: "smooth",
+      });
+    }
+
+    sidePrev.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goToIndex(currentIndex - 1);
+    });
+
+    sideNext.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goToIndex(currentIndex + 1);
+    });
+
+    barPrev.addEventListener("click", () => goToIndex(currentIndex - 1));
+    barNext.addEventListener("click", () => goToIndex(currentIndex + 1));
+
+    let scrollTimer = null;
+    track.addEventListener(
+      "scroll",
+      () => {
+        if (scrollTimer) cancelAnimationFrame(scrollTimer);
+        scrollTimer = requestAnimationFrame(() => {
+          const width = track.clientWidth;
+          if (!width) return;
+          const idx = Math.min(total - 1, Math.max(0, Math.round(track.scrollLeft / width)));
+          if (idx !== currentIndex) {
+            updateIndicators(idx);
+          }
+        });
+      },
+      { passive: true }
+    );
+  });
+}
+
+initMobileCarousels();
+
 
 
