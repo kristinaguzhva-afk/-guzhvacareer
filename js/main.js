@@ -2,6 +2,18 @@
 
 document.documentElement.classList.add("js");
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+if (window.location.hash) {
+  history.replaceState(null, "", window.location.pathname + window.location.search);
+}
+window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+window.addEventListener("pageshow", () => {
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+});
+
 const SITE_CONFIG = Object.freeze({
   workerEndpoint: "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev",
   formEnabled: false,
