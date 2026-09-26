@@ -614,7 +614,7 @@ if (quizForm) {
       if (successTariff) successTariff.textContent = payload.selectedService;
       if (successContact) successContact.textContent = `${payload.phone} (${payload.preferredMessenger}: ${payload.messengerHandle})`;
       if (successBonusRow && successBonusValue) {
-        successBonusValue.textContent = `«${bonusTitleText}» → отправим в ${payload.preferredMessenger}`;
+        successBonusValue.textContent = `${bonusTitleText} → отправим в ${payload.preferredMessenger}`;
         successBonusRow.hidden = false;
       }
       if (dForm) dForm.hidden = true;
