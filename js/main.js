@@ -581,19 +581,30 @@ if (quizForm) {
     if (quizState.isSubmitting || !validateContactStep()) return;
 
     const payload = buildPayload();
-    const confirmMsg = "Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время для уточнения деталей и согласования удобного времени встречи.";
+    const bonusTitleText = $("[data-bonus-title]", quizForm)?.textContent?.trim() || "Персональный бонус";
+    const confirmMsg = `Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время для уточнения деталей, а бонус за прохождение диагностики отправим в указанный вами мессенджер (${payload.preferredMessenger}).`;
     formStatus.textContent = confirmMsg;
 
     const dlg = $("#order-dialog");
     if (dlg) {
       const successCard = $("#order-success-card", dlg);
+      const successSubtitle = $("#order-success-subtitle", dlg);
       const successTariff = $("#success-tariff-name", dlg);
       const successContact = $("#success-contact-value", dlg);
+      const successBonusRow = $("#success-bonus-row", dlg);
+      const successBonusValue = $("#success-bonus-value", dlg);
       const headerNode = $(".order-dialog-header", dlg);
       const dForm = $("#direct-order-form", dlg);
 
+      if (successSubtitle) {
+        successSubtitle.textContent = "Спасибо за ответы! Мы свяжемся с вами в ближайшее время для уточнения деталей и подбора удобного времени, а ваш бонус за прохождение диагностики отправим в указанный вами мессенджер.";
+      }
       if (successTariff) successTariff.textContent = payload.selectedService;
       if (successContact) successContact.textContent = `${payload.phone} (${payload.preferredMessenger}: ${payload.messengerHandle})`;
+      if (successBonusRow && successBonusValue) {
+        successBonusValue.textContent = `«${bonusTitleText}» → отправим в ${payload.preferredMessenger}`;
+        successBonusRow.hidden = false;
+      }
       if (dForm) dForm.hidden = true;
       if (headerNode) headerNode.hidden = true;
       if (successCard) successCard.hidden = false;
@@ -633,7 +644,7 @@ if (quizForm) {
 
 // Direct Order Modal Handler
 const orderDialog = $("#order-dialog");
-const orderDialogClose = $("[data-order-dialog-close]");
+const orderDialogCloseButtons = $$("[data-order-dialog-close]");
 const orderForm = $("#direct-order-form");
 const orderTariffButtons = $$("[data-order-tariff]");
 
@@ -683,22 +694,29 @@ if (orderDialog && orderForm) {
   }
 
   function closeOrderDialog() {
-    if (orderDialog.open) orderDialog.close();
+    document.body.classList.remove("dialog-open");
+    if (orderDialog.open) {
+      orderDialog.close();
+    } else {
+      orderDialog.removeAttribute("open");
+    }
   }
 
   orderTariffButtons.forEach((button) => {
     button.addEventListener("click", () => openOrderDialog(button));
   });
 
-  orderDialogClose?.addEventListener("click", closeOrderDialog);
-
-  orderDialog.addEventListener("click", (event) => {
-    if (event.target === orderDialog) closeOrderDialog();
+  orderDialogCloseButtons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeOrderDialog();
+    });
   });
 
-  orderDialog.addEventListener("close", () => {
-    document.body.classList.remove("dialog-open");
-    window.requestAnimationFrame(() => lastOrderTrigger?.focus());
+  orderDialog.addEventListener("click", (event) => {
+    if (event.target === orderDialog || event.target.closest("[data-order-dialog-close], .order-dialog-close")) {
+      closeOrderDialog();
+    }
   });
 
   initMessengerSelector(orderDialog, "orderMessenger", "order-messenger-label", "order-messenger-handle", "order-messenger-error", "order-phone");
@@ -774,12 +792,18 @@ if (orderDialog && orderForm) {
 
     // Show Success Card Screen
     const successCard = $("#order-success-card", orderDialog);
+    const successSubtitle = $("#order-success-subtitle", orderDialog);
     const successTariff = $("#success-tariff-name", orderDialog);
     const successContact = $("#success-contact-value", orderDialog);
+    const successBonusRow = $("#success-bonus-row", orderDialog);
     const headerNode = $(".order-dialog-header", orderDialog);
 
+    if (successSubtitle) {
+      successSubtitle.textContent = "Спасибо за обращение! Мы свяжемся с вами в ближайшее время для уточнения деталей и согласования удобного времени встречи.";
+    }
     if (successTariff) successTariff.textContent = payload.selectedService;
     if (successContact) successContact.textContent = `${phoneVal} (${checkedMessenger}: ${handleVal})`;
+    if (successBonusRow) successBonusRow.hidden = true;
 
     if (orderForm) orderForm.hidden = true;
     if (headerNode) headerNode.hidden = true;
@@ -806,6 +830,7 @@ if (orderDialog && orderForm) {
 
     // Reset form and views for next use
     const successCard = $("#order-success-card", orderDialog);
+    const successBonusRow = $("#success-bonus-row", orderDialog);
     const headerNode = $(".order-dialog-header", orderDialog);
     const submitBtn = $("#order-submit-btn", orderDialog);
 
@@ -815,6 +840,7 @@ if (orderDialog && orderForm) {
     }
     if (headerNode) headerNode.hidden = false;
     if (successCard) successCard.hidden = true;
+    if (successBonusRow) successBonusRow.hidden = true;
     if (submitBtn) submitBtn.disabled = false;
   });
 }
