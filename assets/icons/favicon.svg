@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="18" fill="#121217"/>
+  <!-- Левое сердце (опора) -->
+  <path d="M28 20 C20 11, 12 13, 12 24 C12 36, 29 46, 32 49" stroke="#ffffff" stroke-width="3.6" stroke-linecap="round"/>
+  <!-- Правое крыло взлетает вверх -->
+  <path d="M26 32 C32 40, 42 36, 48 27 C51 22, 53 17, 56 13" stroke="#d9366a" stroke-width="4" stroke-linecap="round"/>
+  <!-- Наконечник стрелы (лайм) -->
+  <path d="M47 13 H56 V22" stroke="#d8ff57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="31" cy="26" r="2.8" fill="#d8ff57"/>
+</svg>

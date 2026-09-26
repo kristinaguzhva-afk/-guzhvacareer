@@ -1,0 +1,19 @@
+{
+  "name": "Кристина Гужва — карьерный консультант",
+  "short_name": "Кристина Гужва",
+  "description": "Карьерная стратегия, резюме, подготовка к собеседованиям и сопровождение до оффера.",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F5F0E8",
+  "theme_color": "#121217",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
