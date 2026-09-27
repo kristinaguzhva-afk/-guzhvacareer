@@ -1115,11 +1115,12 @@ function setupFileUpload(inputId, nameWrapId, textId, removeBtnId, errorId) {
 setupFileUpload("order-resume-file", "order-file-name", "order-file-text", "order-file-remove", "order-file-error");
 setupFileUpload("quiz-resume-file", "quiz-file-name", "quiz-file-text", "quiz-file-remove", "quiz-file-error");
 
-/* Sticky Mobile Bar Scroll Logic */
+/* Sticky Mobile Bar & Mobile Scroll-to-Top Logic */
 const stickyMobileBar = document.getElementById("sticky-mobile-bar");
+const mobileScrollTopBtn = document.getElementById("mobile-scroll-top-btn");
 const diagnosticSection = document.getElementById("diagnostic");
 
-if (stickyMobileBar) {
+if (stickyMobileBar || mobileScrollTopBtn) {
   const toggleStickyBar = () => {
     const scrollY = window.scrollY;
     let inDiagnostic = false;
@@ -1131,16 +1132,38 @@ if (stickyMobileBar) {
       }
     }
 
-    if (scrollY > 350 && !inDiagnostic) {
-      stickyMobileBar.classList.add("is-visible");
-    } else {
-      stickyMobileBar.classList.remove("is-visible");
+    if (stickyMobileBar) {
+      if (scrollY > 350 && !inDiagnostic) {
+        stickyMobileBar.classList.add("is-visible");
+      } else {
+        stickyMobileBar.classList.remove("is-visible");
+      }
+    }
+
+    if (mobileScrollTopBtn) {
+      if (scrollY > 500) {
+        mobileScrollTopBtn.classList.add("is-visible");
+      } else {
+        mobileScrollTopBtn.classList.remove("is-visible");
+      }
     }
   };
 
   window.addEventListener("scroll", toggleStickyBar, { passive: true });
   toggleStickyBar();
 }
+
+mobileScrollTopBtn?.addEventListener("click", () => {
+  header?.classList.remove("is-hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+/* Ensure Comic Card Button & Cover Always Open comics.html on Mobile & Desktop */
+document.querySelectorAll(".comic-view-btn").forEach((btn) => {
+  btn.setAttribute("href", "comics.html");
+  btn.removeAttribute("target");
+  btn.textContent = "Ознакомиться с комиксом →";
+});
 
 
 
