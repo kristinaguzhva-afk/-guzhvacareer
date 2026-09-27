@@ -746,23 +746,42 @@ if (quizForm) {
     return !firstInvalid;
   }
 
+  function generateSubmissionId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+      return window.crypto.randomUUID();
+    }
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
   function buildPayload() {
     const data = new FormData(quizForm);
     const phone = String(data.get("phone") || "").trim();
     const preferredMessenger = String(data.get("quizMessenger") || "Telegram").trim();
     const messengerHandle = String(data.get("messengerHandle") || "").trim();
-    const compositeContact = `Тел: ${phone} | ${preferredMessenger}: ${messengerHandle}`;
+    const selectedService = recommendationCopy[inferRecommendation()]?.title || "Консультация";
 
     return {
+      submissionId: generateSubmissionId(),
       name: String(data.get("name") || "").trim(),
+      contact: phone,
       phone,
+      contactMethod: preferredMessenger.toLowerCase(),
       preferredMessenger,
       messengerHandle,
-      contact: compositeContact,
       comment: String(data.get("comment") || "").trim(),
       consent: data.get("consent") === "on",
+      consentAcceptedAt: new Date().toISOString(),
+      consentVersion: "2026-09-27",
+      source: "quiz",
+      formId: "diagnostic-quiz",
+      phoneCountry: "RU",
+      packageName: selectedService,
+      selectedService,
       website: String(data.get("website") || "").trim(),
-      selectedService: recommendationCopy[inferRecommendation()]?.title || "Консультация",
       quiz: getQuizAnswers(),
       pageUrl: window.location.href,
     };
@@ -973,18 +992,34 @@ if (orderDialog && orderForm) {
     if (submitBtn) submitBtn.disabled = true;
     if (statusNode) statusNode.textContent = "Отправляем заявку…";
 
-    const compositeContact = `Тел: ${phoneVal} | ${checkedMessenger}: ${handleVal}`;
+    const selectedService = $("#order-service-input", orderDialog)?.value || "Консультация";
+    const submissionId =
+      window.crypto && typeof window.crypto.randomUUID === "function"
+        ? window.crypto.randomUUID()
+        : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+          });
 
     const payload = {
+      submissionId,
       name: nameVal,
+      contact: phoneVal,
       phone: phoneVal,
+      contactMethod: checkedMessenger.toLowerCase(),
       preferredMessenger: checkedMessenger,
       messengerHandle: handleVal,
-      contact: compositeContact,
       comment: commentInput ? commentInput.value.trim() : "",
       consent: true,
+      consentAcceptedAt: new Date().toISOString(),
+      consentVersion: "2026-09-27",
+      source: "modal",
+      formId: "direct-order-form",
+      phoneCountry: "RU",
+      packageName: selectedService,
+      selectedService,
       website: $("#order-website", orderDialog)?.value.trim() || "",
-      selectedService: $("#order-service-input", orderDialog)?.value || "Консультация",
       quiz: { directOrder: "Прямой заказ тарифа без квиза" },
       pageUrl: window.location.href,
     };
