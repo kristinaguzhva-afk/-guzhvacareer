@@ -29,7 +29,7 @@
 
   <link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=28">
+  <link rel="stylesheet" href="css/styles.css?v=29">
 
   <script type="application/ld+json">
   {
@@ -86,6 +86,7 @@
       history.scrollRestoration = "manual";
     }
     if (window.location.hash) {
+      window.__initialHash = window.location.hash;
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
     window.scrollTo(0, 0);
@@ -896,8 +897,7 @@
 
         <div class="price-grid">
           <article class="price-card reveal" id="price-consultation">
-            <div class="price-top"><span class="price-index">01</span><p>Стратегический аудит</p></div>
-            <h3>Консультация</h3>
+            <div class="price-top"><span class="price-index">01</span><h3>Консультация</h3></div>
             <p class="price-best">Подойдет, если уперлись в потолок, выбираете между развилками или хотите точно оценить свою рыночную стоимость.</p>
             <ul>
               <li>Формат: Индивидуальная онлайн-встреча</li>
@@ -925,8 +925,7 @@
           </article>
 
           <article class="price-card reveal" id="price-resume">
-            <div class="price-top"><span class="price-index">02</span><p>Конверсионное резюме</p></div>
-            <h3>Резюме</h3>
+            <div class="price-top"><span class="price-index">02</span><h3>Резюме</h3></div>
             <p class="price-best">Упаковка вашего опыта в сильный инструмент, который привлекает внимание рекрутера за 6 секунд и пробивает ATS-фильтры.</p>
             <ul>
               <li>Срок готовности: 24–72 часа</li>
@@ -957,8 +956,7 @@
               <span class="badge-fire-icon" aria-hidden="true">🔥</span>
               <span>Выбор 70% клиентов</span>
             </div>
-            <div class="price-top"><span class="price-index">03</span><p>Система выхода на оффер</p></div>
-            <h3>Резюме + стратегия</h3>
+            <div class="price-top"><span class="price-index">03</span><h3>Резюме + стратегия</h3></div>
             <p class="price-best">Полная экосистема для быстрого выхода на рынок: от сильного резюме до скрытых вакансий и сценариев интервью.</p>
             <ul>
               <li>Срок готовности материалов: 48–72 часа</li>
@@ -988,8 +986,7 @@
           </article>
 
           <article class="price-card reveal" id="price-support">
-            <div class="price-top"><span class="price-index">04</span><p>Персональный карьерный трек</p></div>
-            <h3>До оффера</h3>
+            <div class="price-top"><span class="price-index">04</span><h3>До оффера</h3></div>
             <p class="price-best">Индивидуальное партнерство: берем на себя всю рутину и стратегию до момента выхода на работу вашей мечты.</p>
             <ul>
               <li>Полное сопровождение до подписания договора и поддержка в первый месяц работы</li>
@@ -1791,6 +1788,6 @@
   </aside>
 
   <noscript><div class="noscript-note">Для работы функций сайта нужен JavaScript.</div></noscript>
-  <script src="js/main.js?v=17" defer></script>
+  <script src="js/main.js?v=18" defer></script>
 </body>
 </html>
