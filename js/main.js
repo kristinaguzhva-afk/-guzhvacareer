@@ -15,8 +15,8 @@ window.addEventListener("pageshow", () => {
 });
 
 const SITE_CONFIG = Object.freeze({
-  workerEndpoint: "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev",
-  formEnabled: false,
+  workerEndpoint: "https://functions.yandexcloud.net/d4endesn5v98ke9csm9v",
+  formEnabled: true,
 });
 
 window.SITE_CONFIG = SITE_CONFIG;
@@ -821,9 +821,6 @@ if (quizForm) {
     if (!SITE_CONFIG.formEnabled) {
       return;
     }
-    if (sessionStorage.getItem("kristinaLeadSubmitted") === "true") {
-      return;
-    }
 
     setSubmitting(true);
     try {
@@ -834,13 +831,10 @@ if (quizForm) {
       });
       const result = await response.json().catch(() => ({ ok: false, error: "Некорректный ответ сервера" }));
       if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
-
-      sessionStorage.setItem("kristinaLeadSubmitted", "true");
-      submitButton.disabled = true;
     } catch (error) {
       console.warn("Lead dispatch warning:", error);
     } finally {
-      if (sessionStorage.getItem("kristinaLeadSubmitted") !== "true") setSubmitting(false);
+      setSubmitting(false);
     }
   });
 
