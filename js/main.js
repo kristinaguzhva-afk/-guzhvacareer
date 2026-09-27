@@ -94,9 +94,7 @@ function computeTargetScrollY(target) {
   const rawTop = getDocumentTop(target);
 
   if (target.tagName === "SECTION") {
-    const padTop = parseFloat(window.getComputedStyle(target).paddingTop) || 48;
-    const tuckIntoHeader = Math.min(24, Math.max(8, padTop - 26));
-    return Math.max(0, Math.round(rawTop - headerHeight + tuckIntoHeader));
+    return Math.max(0, Math.round(rawTop - headerHeight + 2));
   }
 
   return Math.max(0, Math.round(rawTop - headerHeight - 16));
