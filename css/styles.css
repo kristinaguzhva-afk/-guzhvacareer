@@ -8166,12 +8166,16 @@ body.is-tariff-cursor-guided * {
   }
 
   .quiz-side-route {
-    display: none !important;
+    display: block !important;
+    width: min(100%, 165px);
+    height: 26px;
+    margin-top: 6px;
+    margin-bottom: 4px;
   }
 
   .confidentiality-trust-badge {
-    margin-top: 8px;
-    padding: 6px 10px;
+    margin-top: 4px;
+    padding: 5px 10px;
     gap: 6px;
     font-size: 0.72rem;
     line-height: 1.25;
@@ -8191,7 +8195,67 @@ body.is-tariff-cursor-guided * {
     padding: 10px 14px;
     font-size: 0.86rem;
   }
+
+  /* Compact FAQ (#faq) on Smartphone */
+  .faq-grid {
+    gap: 12px;
+  }
+
+  .faq-intro p:last-child {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    line-height: 1.36;
+  }
+
+  .faq-shutter-list {
+    --faq-closed-h: 64px;
+    gap: 8px;
+  }
+
+  .faq-shutter-card {
+    border-radius: 13px;
+    border-width: 1.5px;
+  }
+
+  .faq-question-shutter {
+    padding: 10px 12px;
+    gap: 8px;
+    border-radius: 11px;
+  }
+
+  .faq-question-shutter h3 {
+    font-size: 0.84rem !important;
+    line-height: 1.22 !important;
+  }
+
+  .faq-shutter-handle {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    gap: 5px;
+  }
+
+  .faq-shutter-handle svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .faq-answer-layer {
+    padding: 11px 12px;
+    gap: 10px;
+  }
+
+  .faq-answer-content p,
+  .faq-answer-content ul {
+    font-size: 0.8rem;
+    line-height: 1.38;
+  }
+
+  .faq-shutter-back {
+    padding: 6px 12px;
+    font-size: 0.74rem;
+  }
 }
+
 
 
 
