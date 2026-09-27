@@ -79,25 +79,65 @@ if (menuToggle && menuDrawer) {
   });
 }
 
-let previousScrollY = window.scrollY;
-let scrollTicking = false;
-
-function updateHeader() {
-  const currentScrollY = window.scrollY;
-  const menuIsOpen = menuToggle?.getAttribute("aria-expanded") === "true";
-  if (header && !menuIsOpen) {
-    header.classList.toggle("is-hidden", currentScrollY > previousScrollY && currentScrollY > 180);
+function getDocumentTop(el) {
+  let top = 0;
+  let node = el;
+  while (node && node !== document.body && node !== document.documentElement) {
+    top += node.offsetTop || 0;
+    node = node.offsetParent;
   }
-  previousScrollY = currentScrollY;
-  scrollTicking = false;
+  return top;
 }
 
-window.addEventListener("scroll", () => {
-  if (!scrollTicking) {
-    window.requestAnimationFrame(updateHeader);
-    scrollTicking = true;
+function computeTargetScrollY(target) {
+  const headerHeight = header ? header.offsetHeight : 78;
+  const rawTop = getDocumentTop(target);
+
+  if (target.tagName === "SECTION") {
+    const padTop = parseFloat(window.getComputedStyle(target).paddingTop) || 48;
+    const tuckIntoHeader = Math.min(24, Math.max(8, padTop - 26));
+    return Math.max(0, Math.round(rawTop - headerHeight + tuckIntoHeader));
   }
-}, { passive: true });
+
+  return Math.max(0, Math.round(rawTop - headerHeight - 16));
+}
+
+$$('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", (event) => {
+    const href = anchor.getAttribute("href");
+    if (!href || href === "#") return;
+
+    if (href === "#top") {
+      event.preventDefault();
+      closeMenu();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const targetId = href.slice(1);
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+
+    event.preventDefault();
+    closeMenu();
+    header?.classList.remove("is-hidden");
+
+    // Ensure reveal elements inside target section are immediately visible
+    targetEl.classList.add("is-visible");
+    $$(".reveal", targetEl).forEach((el) => el.classList.add("is-visible"));
+
+    const destY = computeTargetScrollY(targetEl);
+    window.scrollTo({ top: destY, behavior: "smooth" });
+
+    // Re-verify position once layout/images settle so it never undershoots
+    setTimeout(() => {
+      const settledY = computeTargetScrollY(targetEl);
+      if (Math.abs(window.scrollY - settledY) > 4) {
+        window.scrollTo({ top: settledY, behavior: "smooth" });
+      }
+    }, 380);
+  });
+});
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const revealItems = $$(".reveal");
