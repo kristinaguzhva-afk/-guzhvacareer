@@ -91,14 +91,89 @@ function getDocumentTop(el) {
 
 function computeTargetScrollY(target) {
   const headerHeight = header ? header.offsetHeight : 78;
+
+  // When jumping to a specific tariff card, scroll to #prices section on desktop/laptop
+  // (where all 4 cards are in a row), or directly to the card on tablet/smartphone
+  if (target.classList.contains("price-card") && window.innerWidth > 959.98) {
+    const pricesSection = document.getElementById("prices");
+    if (pricesSection) {
+      const sectionTop = getDocumentTop(pricesSection);
+      return Math.max(0, Math.round(sectionTop - headerHeight + 2));
+    }
+  }
+
   const rawTop = getDocumentTop(target);
 
   if (target.tagName === "SECTION") {
     return Math.max(0, Math.round(rawTop - headerHeight + 2));
   }
 
-  return Math.max(0, Math.round(rawTop - headerHeight - 16));
+  return Math.max(0, Math.round(rawTop - headerHeight - 24));
 }
+
+let tariffSpotlightStartTimer = null;
+let tariffSpotlightEndTimer = null;
+
+function clearTariffSpotlight() {
+  if (tariffSpotlightStartTimer) {
+    clearTimeout(tariffSpotlightStartTimer);
+    tariffSpotlightStartTimer = null;
+  }
+  if (tariffSpotlightEndTimer) {
+    clearTimeout(tariffSpotlightEndTimer);
+    tariffSpotlightEndTimer = null;
+  }
+  const priceGrid = $(".price-grid");
+  priceGrid?.classList.remove("has-tariff-spotlight");
+  $$(".price-card.is-tariff-spotlight").forEach((card) => {
+    card.classList.remove("is-tariff-spotlight");
+  });
+}
+
+function triggerTariffSpotlight(cardEl) {
+  if (!cardEl || !cardEl.classList.contains("price-card")) return;
+  clearTariffSpotlight();
+
+  const pricesSection = document.getElementById("prices");
+  if (pricesSection) {
+    pricesSection.classList.add("is-visible");
+    $$(".reveal", pricesSection).forEach((el) => el.classList.add("is-visible"));
+  }
+
+  const priceGrid = cardEl.closest(".price-grid");
+
+  // Trigger pop-up + spotlight right as the scroll arrives at the tariffs section
+  tariffSpotlightStartTimer = setTimeout(() => {
+    priceGrid?.classList.add("has-tariff-spotlight");
+    cardEl.classList.add("is-tariff-spotlight");
+
+    // Smoothly lower the card back into place after ~2.7 seconds
+    tariffSpotlightEndTimer = setTimeout(() => {
+      clearTariffSpotlight();
+    }, 2700);
+  }, 260);
+}
+
+// Clear spotlight immediately if user interacts with another price card
+$$(".price-card").forEach((card) => {
+  card.addEventListener("pointerenter", () => {
+    if (!card.classList.contains("is-tariff-spotlight")) {
+      clearTariffSpotlight();
+    }
+  });
+  card.addEventListener("click", () => {
+    clearTariffSpotlight();
+  });
+});
+
+// Allow clicking anywhere on a service-card row to trigger its arrow link
+$$(".service-card").forEach((serviceCard) => {
+  serviceCard.addEventListener("click", (event) => {
+    if (event.target.closest("a, button")) return;
+    const arrowLink = $(".circle-link", serviceCard);
+    if (arrowLink) arrowLink.click();
+  });
+});
 
 $$('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", (event) => {
@@ -108,6 +183,7 @@ $$('a[href^="#"]').forEach((anchor) => {
     if (href === "#top") {
       event.preventDefault();
       closeMenu();
+      clearTariffSpotlight();
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -123,6 +199,12 @@ $$('a[href^="#"]').forEach((anchor) => {
     // Ensure reveal elements inside target section are immediately visible
     targetEl.classList.add("is-visible");
     $$(".reveal", targetEl).forEach((el) => el.classList.add("is-visible"));
+
+    if (targetEl.classList.contains("price-card")) {
+      triggerTariffSpotlight(targetEl);
+    } else {
+      clearTariffSpotlight();
+    }
 
     const destY = computeTargetScrollY(targetEl);
     window.scrollTo({ top: destY, behavior: "smooth" });
