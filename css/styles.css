@@ -1804,33 +1804,42 @@ body.dialog-open { overflow: hidden; }
 
 .price-top {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 10px;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-bottom: 12px;
   border-bottom: 1px solid currentColor;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .price-index {
   font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--magenta);
+  flex-shrink: 0;
+  transition: color 0.3s var(--ease);
+}
+
+.price-card:hover .price-index,
+.price-card.is-tariff-spotlight .price-index {
+  color: var(--lime);
 }
 
 .price-card h3 {
   min-height: auto;
-  margin-top: 12px;
+  margin: 0;
   font-family: var(--font-heading);
-  font-size: var(--h3-size);
+  font-size: clamp(1rem, 1.2vw, 1.16rem);
   font-weight: 600;
   letter-spacing: var(--h3-ls);
-  line-height: var(--h3-lh);
+  line-height: 1.22;
+  text-transform: none;
 }
 
 .price-best {
   min-height: 0;
-  margin-top: 6px;
+  margin-top: 12px;
   font-size: var(--body-size);
   line-height: var(--body-lh);
   color: var(--muted);
