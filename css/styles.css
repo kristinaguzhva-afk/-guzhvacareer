@@ -2135,6 +2135,7 @@ body.dialog-open { overflow: hidden; }
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 0;
+  align-items: start;
 }
 
 @media (max-width: 959.98px) {
@@ -2148,7 +2149,7 @@ body.dialog-open { overflow: hidden; }
 .case-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
   padding: 22px 20px;
   background: var(--ink-soft);
   border: 1px solid var(--line-light);
@@ -2209,7 +2210,7 @@ body.dialog-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .case-step-item {
@@ -2274,13 +2275,18 @@ body.dialog-open { overflow: hidden; }
   margin-left: auto;
   font-size: 0.68rem;
   font-weight: 700;
-  color: rgba(245, 240, 232, 0.45);
+  color: rgba(245, 240, 232, 0.55);
   transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .case-step-item:hover .case-step-action-hint {
   color: var(--lime);
   opacity: 1;
+}
+
+.case-step-item[open] .case-step-action-hint {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .case-step-arrow {
