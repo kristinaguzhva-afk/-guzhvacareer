@@ -7719,3 +7719,130 @@ body.dialog-open { overflow: hidden; }
   }
 }
 
+/* ==========================================================================
+   Service -> Tariff Spotlight Pop-Up & Highlight (Triggered via #services Arrows)
+   ========================================================================== */
+.service-card {
+  cursor: pointer;
+}
+
+.price-grid .price-card {
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease,
+    filter 0.45s ease,
+    color 0.35s var(--ease),
+    background 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Gently dim the other 3 tariffs while the matched tariff is spotlighted */
+.price-grid.has-tariff-spotlight .price-card:not(.is-tariff-spotlight) {
+  opacity: 0.42;
+  transform: scale(0.975);
+  filter: saturate(0.65);
+}
+
+/* Elevate and highlight the matched tariff card */
+.price-card.is-tariff-spotlight {
+  z-index: 6;
+  opacity: 1 !important;
+  filter: none !important;
+  color: var(--paper);
+  background: var(--magenta);
+  border-color: var(--ink);
+  transform: translateY(-16px) scale(1.035);
+  box-shadow:
+    0 0 0 3px var(--lime),
+    10px 10px 0 var(--ink),
+    0 24px 52px rgba(217, 54, 106, 0.42);
+}
+
+.price-card.is-tariff-spotlight .price-best {
+  color: rgba(245, 240, 232, 0.9);
+}
+
+.price-card.is-tariff-spotlight li {
+  color: var(--paper);
+}
+
+.price-card.is-tariff-spotlight li::before {
+  border-color: var(--paper);
+}
+
+.price-card.is-tariff-spotlight .price-card-artifacts {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.price-card.is-tariff-spotlight .price-card-artifacts summary {
+  color: var(--lime);
+}
+
+.price-card.is-tariff-spotlight .card-artifacts-arrow,
+.price-card.is-tariff-spotlight .card-artifacts-content,
+.price-card.is-tariff-spotlight .artifacts-mini-list li {
+  color: var(--paper);
+}
+
+.price-card.is-tariff-spotlight .price-footer .button {
+  background: var(--lime) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+  box-shadow: 0 6px 18px rgba(18, 18, 23, 0.25);
+}
+
+/* Temporary floating badge at top of spotlighted tariff card */
+.price-card.is-tariff-spotlight::after {
+  content: "✓ Ваш тариф по задаче";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: var(--lime);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(18, 18, 23, 0.24);
+  animation: spotlight-badge-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.price-card-featured.is-tariff-spotlight .price-featured-badge {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+@keyframes spotlight-badge-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 959.98px) {
+  .price-card.is-tariff-spotlight {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow:
+      0 0 0 3px var(--lime),
+      7px 7px 0 var(--ink),
+      0 18px 36px rgba(217, 54, 106, 0.38);
+  }
+}
+
