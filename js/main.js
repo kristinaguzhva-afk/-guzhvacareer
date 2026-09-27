@@ -277,6 +277,21 @@ $$('a[href^="#"]').forEach((anchor) => {
   });
 });
 
+if (window.__initialHash && window.__initialHash.length > 1) {
+  const navEntry = performance.getEntriesByType?.("navigation")?.[0];
+  const isReload = navEntry && navEntry.type === "reload";
+  const initialId = window.__initialHash.slice(1);
+  const initialTarget = !isReload && initialId !== "top" ? document.getElementById(initialId) : null;
+  if (initialTarget) {
+    setTimeout(() => {
+      initialTarget.classList.add("is-visible");
+      $$(".reveal", initialTarget).forEach((el) => el.classList.add("is-visible"));
+      const destY = computeTargetScrollY(initialTarget);
+      window.scrollTo({ top: destY, behavior: "smooth" });
+    }, 120);
+  }
+}
+
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const revealItems = $$(".reveal");
 
