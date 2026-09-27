@@ -85,7 +85,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 24px);
+  scroll-padding-top: calc(var(--header-height) - 18px);
   overflow-x: hidden;
 }
 
@@ -355,13 +355,13 @@ fieldset {
   z-index: 90;
   height: var(--header-height);
   border-bottom: 1px solid rgba(18, 18, 23, 0.12);
-  background: rgba(245, 240, 232, 0.88);
+  background: rgba(245, 240, 232, 0.98);
   backdrop-filter: blur(18px);
   transition: transform 0.35s var(--ease), background 0.25s ease;
 }
 
 .site-header.is-hidden {
-  transform: translateY(-105%);
+  transform: translateY(0);
 }
 
 .header-inner {
@@ -1535,7 +1535,7 @@ body.dialog-open { overflow: hidden; }
   display: grid;
   gap: 28px;
   max-width: 58ch;
-  align-self: center;
+  align-self: start;
 }
 
 .about-copy {
