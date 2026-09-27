@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Охотница за смыслами - Авторский HR-комикс Кристины Гужвы</title>
+  <meta name="description" content="Все выпуски авторского HR-комикса Кристины Гужвы Охотница за смыслами: изнанка найма, курьёзы на собеседованиях и поиск смысла в карьере.">
+  <meta name="theme-color" content="#121217">
+
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/styles.css?v=28">
+  <style>
+    .comics-page-main {
+      background: var(--night);
+      color: #f4f1ea;
+      min-height: calc(100vh - 80px);
+      padding-bottom: 56px;
+    }
+
+    .comics-hero {
+      padding: 42px 0 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        radial-gradient(circle at 82% 18%, rgba(235, 31, 118, 0.16), transparent 38%),
+        radial-gradient(circle at 16% 80%, rgba(190, 242, 45, 0.09), transparent 36%);
+    }
+
+    .comics-hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .comics-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f4f1ea;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .comics-back-link:hover {
+      background: rgba(235, 31, 118, 0.16);
+      border-color: rgba(235, 31, 118, 0.45);
+      transform: translateX(-2px);
+    }
+
+    .comics-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(235, 31, 118, 0.15);
+      border: 1px solid rgba(235, 31, 118, 0.38);
+      color: #ff6ea7;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .comics-hero h1 {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.8vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+    }
+
+    .comics-hero-lead {
+      margin: 0;
+      max-width: 68ch;
+      font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+      line-height: 1.6;
+      color: rgba(244, 241, 234, 0.78);
+    }
+
+    .comics-catalog-section {
+      padding: 36px 0 24px;
+    }
+
+    .comics-catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .comic-issue-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .comic-issue-card.is-available:hover {
+      transform: translateY(-6px);
+      border-color: rgba(235, 31, 118, 0.55);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.42), 0 0 28px rgba(235, 31, 118, 0.16);
+    }
+
+    .comic-issue-cover-wrap {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      background: #1a1a22;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .comic-issue-card.is-upcoming .comic-issue-cover-wrap {
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(235, 31, 118, 0.14), transparent 60%),
+        linear-gradient(165deg, #1b1b24 0%, #13131a 100%);
+    }
+
+    .comic-issue-cover-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .comic-issue-card.is-available:hover .comic-issue-cover-wrap img {
+      transform: scale(1.03);
+    }
+
+    .comic-issue-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(18, 18, 23, 0.86);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .comic-issue-pill.is-lime {
+      background: rgba(190, 242, 45, 0.92);
+      color: #121217;
+      border-color: transparent;
+    }
+
+    .comic-upcoming-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+
+    .comic-upcoming-label {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 6px;
+    }
+
+    .comic-upcoming-sub {
+      font-size: 0.86rem;
+      color: rgba(244, 241, 234, 0.6);
+      margin: 0;
+    }
+
+    .comic-issue-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+    }
+
+    .comic-issue-meta {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ff6ea7;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .comic-issue-body h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      line-height: 1.28;
+      color: #ffffff;
+    }
+
+    .comic-issue-body p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(244, 241, 234, 0.74);
+      flex: 1;
+    }
+
+    .comic-issue-action {
+      margin-top: 8px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Built-in Comic Reader Modal */
+    .comic-reader-dialog {
+      width: min(920px, 94vw);
+      max-height: 92vh;
+      margin: auto;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px;
+      background: #14141b;
+      color: #f4f1ea;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75);
+    }
+
+    .comic-reader-dialog::backdrop {
+      background: rgba(10, 10, 14, 0.86);
+      backdrop-filter: blur(8px);
+    }
+
+    .comic-reader-inner {
+      display: flex;
+      flex-direction: column;
+      max-height: 92vh;
+    }
+
+    .comic-reader-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comic-reader-title {
+      font-family: var(--font-display);
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .comic-reader-close {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .comic-reader-stage {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d0d12;
+      padding: 16px;
+      min-height: 360px;
+      max-height: calc(92vh - 130px);
+      overflow: auto;
+    }
+
+    .comic-reader-stage img {
+      max-width: 100%;
+      max-height: calc(92vh - 162px);
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .comic-reader-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: #181820;
+    }
+
+    .comic-reader-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .comic-reader-nav-btn:hover:not(:disabled) {
+      background: rgba(235, 31, 118, 0.22);
+      border-color: rgba(235, 31, 118, 0.55);
+    }
+
+    .comic-reader-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .comic-reader-counter {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: rgba(244, 241, 234, 0.82);
+    }
+
+    .comics-cta-banner {
+      margin-top: 38px;
+      padding: 28px 32px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(235, 31, 118, 0.16) 0%, rgba(255, 255, 255, 0.04) 100%);
+      border: 1px solid rgba(235, 31, 118, 0.3);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .comics-cta-banner h3 {
+      margin: 0 0 6px;
+      font-family: var(--font-display);
+      font-size: 1.22rem;
+      color: #ffffff;
+    }
+
+    .comics-cta-banner p {
+      margin: 0;
+      font-size: 0.94rem;
+      color: rgba(244, 241, 234, 0.78);
+    }
+
+    @media (max-width: 959.98px) {
+      .comics-catalog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 639.98px) {
+      .comics-hero {
+        padding: 28px 0 22px;
+      }
+      .comics-catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .comics-cta-banner {
+        padding: 22px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к выпускам комикса</a>
+
+  <header class="site-header" data-header>
+    <div class="shell header-inner">
+      <a class="brand" href="index.html" aria-label="Кристина Гужва - на главную">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="6 7 34 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 14 C14 8, 8 9, 8 16 C8 25, 20 32, 22 34" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M18 22 C22 28, 29 25, 33 19 C35 15, 36 12, 38 9" stroke="var(--magenta)" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M32 9 H38 V15" stroke="var(--magenta)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="21" cy="18" r="2.0" fill="var(--ink)"/>
+          </svg>
+        </span>
+        <span>Кристина<br>Гужва</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Навигация">
+        <a href="index.html#services">Услуги</a>
+        <a href="index.html#portfolio">Кейсы</a>
+        <a href="index.html#prices">Тарифы</a>
+        <a class="nav-cta" href="index.html">← На главную</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="comics-page-main">
+    <section class="comics-hero">
+      <div class="shell">
+        <div class="comics-hero-top">
+          <a href="index.html#media-comics" class="comics-back-link">← Вернуться на сайт</a>
+          <span class="comics-hero-badge">🎨 Авторский HR-комикс</span>
+        </div>
+        <h1>Охотница за смыслами</h1>
+        <p class="comics-hero-lead">Серия комиксов о закулисье найма, реальных диалогах на собеседованиях, управленческих парадоксах и поиске своего места в карьере. Выбирайте выпуск и листайте страницы прямо на сайте.</p>
+      </div>
+    </section>
+
+    <section class="comics-catalog-section" aria-label="Каталог выпусков комикса">
+      <div class="shell">
+        <div class="comics-catalog-grid">
+          <!-- Выпуск №1 -->
+          <article class="comic-issue-card is-available" data-issue-id="1">
+            <div class="comic-issue-cover-wrap" data-open-issue="1" role="button" tabindex="0" aria-label="Читать Выпуск №1">
+              <img src="images/comic-cover-1.jpg" alt="Обложка комикса Охотница за смыслами - Выпуск №1">
+              <span class="comic-issue-pill is-lime">Выпуск №1 • Доступен</span>
+            </div>
+            <div class="comic-issue-body">
+              <span class="comic-issue-meta">Выпуск №1 • Август 2025</span>
+              <h2>Охотница за смыслами: начало истории</h2>
+              <p>Первое знакомство с героиней, реальные будни HR-директора и ироничный взгляд на то, как кандидаты и компании ищут друг друга.</p>
+              <button type="button" class="button button-primary comic-issue-action" data-open-issue="1">Читать выпуск →</button>
+            </div>
+          </article>
+
+          <!-- Выпуск №2 (Слот под загрузку) -->
+          <article class="comic-issue-card is-upcoming">
+            <div class="comic-issue-cover-wrap">
+              <span class="comic-issue-pill">Выпуск №2</span>
+              <div class="comic-upcoming-icon" aria-hidden="true">📖</div>
+              <p class="comic-upcoming-label">Выпуск №2</p>
+              <p class="comic-upcoming-sub">Готовится к публикации на сайте</p>
+            </div>
+            <div class="comic-issue-body">
+              <span class="comic-issue-meta">Следующая серия</span>
+              <h2>Новые истории из практики найма</h2>
+              <p>Разбор курьёзных собеседований, скрытых ожиданий руководителей и ситуаций, в которых каждый узнает себя.</p>
+            </div>
+          </article>
+
+          <!-- Выпуск №3 (Слот под загрузку) -->
+          <article class="comic-issue-card is-upcoming">
+            <div class="comic-issue-cover-wrap">
+              <span class="comic-issue-pill">Выпуск №3</span>
+              <div class="comic-upcoming-icon" aria-hidden="true">✨</div>
+              <p class="comic-upcoming-label">Выпуск №3</p>
+              <p class="comic-upcoming-sub">Готовится к публикации на сайте</p>
+            </div>
+            <div class="comic-issue-body">
+              <span class="comic-issue-meta">Продолжение серии</span>
+              <h2>Карьерные развилки и переговоры</h2>
+              <p>О том, как на самом деле принимаются решения об офферах и почему сильные специалисты иногда сомневаются в себе.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="comics-cta-banner">
+          <div>
+            <h3>Хотите разобрать свою карьерную задачу без комиксных курьёзов?</h3>
+            <p>Пройдите короткую диагностику на главной странице или выберите подходящий формат работы.</p>
+          </div>
+          <a href="index.html#diagnostic" class="button button-lime">Пройти диагностику →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно-ридер для постраничного чтения выпусков -->
+  <dialog class="comic-reader-dialog" id="comic-reader-dialog" aria-label="Чтение выпуска комикса">
+    <div class="comic-reader-inner">
+      <div class="comic-reader-header">
+        <h3 class="comic-reader-title" id="comic-reader-title">Выпуск №1 - Охотница за смыслами</h3>
+        <button type="button" class="comic-reader-close" id="comic-reader-close" aria-label="Закрыть комикс">✕</button>
+      </div>
+      <div class="comic-reader-stage">
+        <img src="images/comic-cover-1.jpg" id="comic-reader-img" alt="Страница комикса">
+      </div>
+      <div class="comic-reader-footer">
+        <button type="button" class="comic-reader-nav-btn" id="comic-prev-btn">← Назад</button>
+        <span class="comic-reader-counter" id="comic-page-counter">Страница 1 из 1</span>
+        <button type="button" class="comic-reader-nav-btn" id="comic-next-btn">Вперёд →</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    "use strict";
+    const COMIC_ISSUES = {
+      "1": {
+        title: "Выпуск №1 - Охотница за смыслами",
+        pages: [
+          "images/comic-cover-1.jpg"
+        ]
+      }
+    };
+
+    const dialog = document.getElementById("comic-reader-dialog");
+    const titleEl = document.getElementById("comic-reader-title");
+    const imgEl = document.getElementById("comic-reader-img");
+    const counterEl = document.getElementById("comic-page-counter");
+    const prevBtn = document.getElementById("comic-prev-btn");
+    const nextBtn = document.getElementById("comic-next-btn");
+    const closeBtn = document.getElementById("comic-reader-close");
+
+    let activeIssue = null;
+    let activePageIndex = 0;
+
+    function renderReaderPage() {
+      if (!activeIssue) return;
+      const total = activeIssue.pages.length;
+      imgEl.src = activeIssue.pages[activePageIndex];
+      counterEl.textContent = `Страница ${activePageIndex + 1} из ${total}`;
+      prevBtn.disabled = activePageIndex <= 0;
+      nextBtn.disabled = activePageIndex >= total - 1;
+    }
+
+    function openIssue(issueId) {
+      const issue = COMIC_ISSUES[issueId];
+      if (!issue || !dialog) return;
+      activeIssue = issue;
+      activePageIndex = 0;
+      titleEl.textContent = issue.title;
+      renderReaderPage();
+      dialog.showModal();
+    }
+
+    document.querySelectorAll("[data-open-issue]").forEach((el) => {
+      el.addEventListener("click", () => openIssue(el.dataset.openIssue));
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openIssue(el.dataset.openIssue);
+        }
+      });
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      if (activeIssue && activePageIndex > 0) {
+        activePageIndex -= 1;
+        renderReaderPage();
+      }
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      if (activeIssue && activePageIndex < activeIssue.pages.length - 1) {
+        activePageIndex += 1;
+        renderReaderPage();
+      }
+    });
+
+    closeBtn?.addEventListener("click", () => dialog?.close());
+    dialog?.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  </script>
+</body>
+</html>
