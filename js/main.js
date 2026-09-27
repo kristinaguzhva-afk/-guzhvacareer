@@ -113,6 +113,8 @@ function computeTargetScrollY(target) {
 
 let tariffSpotlightStartTimer = null;
 let tariffSpotlightEndTimer = null;
+let spotlightActivatedAt = 0;
+let spotlightClickCoords = null;
 
 function clearTariffSpotlight() {
   if (tariffSpotlightStartTimer) {
@@ -123,16 +125,24 @@ function clearTariffSpotlight() {
     clearTimeout(tariffSpotlightEndTimer);
     tariffSpotlightEndTimer = null;
   }
+  document.body.classList.remove("is-tariff-cursor-guided");
   const priceGrid = $(".price-grid");
   priceGrid?.classList.remove("has-tariff-spotlight");
   $$(".price-card.is-tariff-spotlight").forEach((card) => {
     card.classList.remove("is-tariff-spotlight");
   });
+  $$(".tariff-virtual-cursor").forEach((el) => el.remove());
 }
 
-function triggerTariffSpotlight(cardEl) {
+function triggerTariffSpotlight(cardEl, clickEvent) {
   if (!cardEl || !cardEl.classList.contains("price-card")) return;
   clearTariffSpotlight();
+
+  spotlightActivatedAt = performance.now();
+  spotlightClickCoords =
+    clickEvent && typeof clickEvent.clientX === "number"
+      ? { x: clickEvent.clientX, y: clickEvent.clientY }
+      : null;
 
   const pricesSection = document.getElementById("prices");
   if (pricesSection) {
@@ -141,26 +151,65 @@ function triggerTariffSpotlight(cardEl) {
   }
 
   const priceGrid = cardEl.closest(".price-grid");
+  const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-  // Trigger pop-up + spotlight right as the scroll arrives at the tariffs section
+  if (hasFinePointer) {
+    document.body.classList.add("is-tariff-cursor-guided");
+  }
+
+  // Trigger pop-up + spotlight + guided cursor on the target tariff card
   tariffSpotlightStartTimer = setTimeout(() => {
     priceGrid?.classList.add("has-tariff-spotlight");
     cardEl.classList.add("is-tariff-spotlight");
 
-    // Smoothly lower the card back into place after ~2.7 seconds
+    // Place visual mouse pointer directly on the target tariff's action area
+    if (hasFinePointer) {
+      const footerEl = $(".price-footer", cardEl) || cardEl;
+      const cursorEl = document.createElement("span");
+      cursorEl.className = "tariff-virtual-cursor";
+      cursorEl.setAttribute("aria-hidden", "true");
+      cursorEl.innerHTML =
+        '<svg viewBox="0 0 28 28"><path d="M6 3l16 10.5-7.2 1.9 4.3 7.8-3.1 1.7-4.3-7.8L6 22V3z" fill="#ffffff" stroke="#121217" stroke-width="2" stroke-linejoin="round"/></svg>';
+      footerEl.appendChild(cursorEl);
+    }
+
+    const actionBtn = $(".price-footer .button", cardEl);
+    actionBtn?.focus({ preventScroll: true });
+
+    // Smoothly lower the card back into place after ~2.8 seconds
     tariffSpotlightEndTimer = setTimeout(() => {
       clearTariffSpotlight();
-    }, 2700);
-  }, 260);
+    }, 2800);
+  }, 240);
 }
 
-// Clear spotlight immediately if user interacts with another price card
-$$(".price-card").forEach((card) => {
-  card.addEventListener("pointerenter", () => {
-    if (!card.classList.contains("is-tariff-spotlight")) {
+// Restore native cursor only when user physically moves the mouse after scrolling
+window.addEventListener(
+  "mousemove",
+  (event) => {
+    if (!document.body.classList.contains("is-tariff-cursor-guided")) return;
+    if (performance.now() - spotlightActivatedAt < 650) return;
+
+    if (spotlightClickCoords) {
+      const dist = Math.hypot(
+        event.clientX - spotlightClickCoords.x,
+        event.clientY - spotlightClickCoords.y
+      );
+      if (dist < 14) return;
+    }
+
+    document.body.classList.remove("is-tariff-cursor-guided");
+    $$(".tariff-virtual-cursor").forEach((el) => el.remove());
+
+    const hoveredCard = event.target?.closest?.(".price-card");
+    if (hoveredCard && !hoveredCard.classList.contains("is-tariff-spotlight")) {
       clearTariffSpotlight();
     }
-  });
+  },
+  { passive: true }
+);
+
+$$(".price-card").forEach((card) => {
   card.addEventListener("click", () => {
     clearTariffSpotlight();
   });
@@ -171,7 +220,16 @@ $$(".service-card").forEach((serviceCard) => {
   serviceCard.addEventListener("click", (event) => {
     if (event.target.closest("a, button")) return;
     const arrowLink = $(".circle-link", serviceCard);
-    if (arrowLink) arrowLink.click();
+    if (arrowLink) {
+      arrowLink.dispatchEvent(
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+          clientX: event.clientX,
+          clientY: event.clientY,
+        })
+      );
+    }
   });
 });
 
@@ -201,7 +259,7 @@ $$('a[href^="#"]').forEach((anchor) => {
     $$(".reveal", targetEl).forEach((el) => el.classList.add("is-visible"));
 
     if (targetEl.classList.contains("price-card")) {
-      triggerTariffSpotlight(targetEl);
+      triggerTariffSpotlight(targetEl, event);
     } else {
       clearTariffSpotlight();
     }
