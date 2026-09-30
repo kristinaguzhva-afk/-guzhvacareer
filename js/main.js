@@ -850,6 +850,9 @@ if (quizForm) {
       });
       const result = await response.json().catch(() => ({ ok: false, error: "Некорректный ответ сервера" }));
       if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
+      if (typeof window.ym === "function") {
+        window.ym(113225990, "reachGoal", "lead_submit", { source: "quiz", tariff: payload.selectedService });
+      }
     } catch (error) {
       console.warn("Lead dispatch warning:", error);
     } finally {
@@ -1051,6 +1054,9 @@ if (orderDialog && orderForm) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
+        if (typeof window.ym === "function") {
+          window.ym(113225990, "reachGoal", "lead_submit", { source: "modal", tariff: payload.selectedService });
+        }
       } catch (err) {
         console.warn("Lead dispatch warning:", err);
       }
