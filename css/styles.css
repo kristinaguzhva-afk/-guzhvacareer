@@ -4107,11 +4107,23 @@ body.dialog-open { overflow: hidden; }
 /* Mobile */
 @media (max-width: 679.98px) {
   :root {
-    --section-space: 26px;
+    --header-height: 0px;
+    --section-space: 22px;
     --section-header-mb: 14px;
   }
+  /* Hide top header bar (logo & brand) on mobile as requested */
+  .site-header {
+    display: none !important;
+  }
+  /* Keep only floating burger button, shifted slightly upwards */
+  .menu-toggle {
+    top: 10px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+  }
   .header-actions .nav-cta { display: none; }
-  .hero { padding-top: calc(var(--header-height) + var(--section-space)); }
+  .hero { padding-top: 16px; }
   .hero-eyebrow-row { gap: 8px; margin-bottom: 12px; }
   .hero-badge-status { padding: 4px 10px; font-size: 0.72rem; }
   .hero-eyebrow-text { font-size: 0.76rem; }
@@ -5945,7 +5957,7 @@ body.dialog-open { overflow: hidden; }
 @media (max-width: 679.98px) {
   .floating-contact-widget {
     right: 16px;
-    bottom: 82px;
+    bottom: max(16px, env(safe-area-inset-bottom));
   }
   .floating-contact-btn {
     width: 50px;
@@ -6203,50 +6215,29 @@ body.dialog-open { overflow: hidden; }
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Sticky Mobile Bottom Bar */
+/* Sticky Mobile Bottom Bar - Removed as requested */
 .sticky-mobile-bar {
-  display: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 140;
-  padding: 12px 16px max(12px, env(safe-area-inset-bottom));
-  background: rgba(18, 18, 23, 0.94);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(245, 240, 232, 0.15);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(100%);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  display: none !important;
 }
 
 @media (max-width: 959.98px) {
   .sticky-mobile-bar {
-    display: block;
+    display: none !important;
   }
 }
 
 .sticky-mobile-bar.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
+  display: none !important;
 }
 
 .sticky-mobile-btn {
-  width: 100%;
-  min-height: 52px;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: 0 8px 20px rgba(217, 54, 106, 0.35);
+  display: none !important;
 }
 
-/* Adjust floating Telegram widget on mobile when sticky bar is present */
+/* Adjust floating Telegram widget on mobile */
 @media (max-width: 679.98px) {
   .floating-tg-widget.is-visible {
-    bottom: 84px;
+    bottom: max(16px, env(safe-area-inset-bottom));
     transition: bottom 0.3s ease, opacity 0.35s var(--ease), transform 0.35s var(--ease);
   }
 }
@@ -8014,7 +8005,7 @@ body.is-tariff-cursor-guided * {
   .mobile-scroll-top-btn {
     position: fixed;
     left: 16px;
-    bottom: 82px;
+    bottom: max(16px, env(safe-area-inset-bottom));
     z-index: 142;
     display: inline-flex;
     align-items: center;
@@ -8143,57 +8134,237 @@ body.is-tariff-cursor-guided * {
     border-radius: 18px;
   }
 
+  /* Compact Diagnostic Block (#diagnostic) on Smartphone */
+  .quiz-shell {
+    min-height: 0;
+    border-radius: 16px;
+  }
+
   .quiz-side {
-    padding: 12px 16px;
+    padding: 8px 12px;
     gap: 0;
   }
 
   .quiz-side .eyebrow {
-    font-size: 0.66rem;
-    margin-bottom: 2px;
+    font-size: 0.64rem;
+    margin-bottom: 0;
+    letter-spacing: 0.04em;
   }
 
   .quiz-side h2 {
-    margin-top: 2px;
-    font-size: 1.1rem;
-    line-height: 1.18;
+    margin-top: 1px;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    line-height: 1.15;
   }
 
-  .quiz-side > p:not(.eyebrow, .quiz-side-note) {
-    margin-top: 4px;
-    font-size: 0.8rem;
-    line-height: 1.32;
-  }
-
-  .quiz-side-route {
-    display: block !important;
-    width: min(100%, 165px);
-    height: 26px;
-    margin-top: 6px;
-    margin-bottom: 4px;
-  }
-
-  .confidentiality-trust-badge {
-    margin-top: 4px;
-    padding: 5px 10px;
-    gap: 6px;
-    font-size: 0.72rem;
-    line-height: 1.25;
-    border-radius: 10px;
+  /* Hide verbose explanation, arrow, and duplicate trust badge in quiz header on mobile to fit on one screen */
+  .quiz-side > p:not(.eyebrow, .quiz-side-note),
+  .quiz-side-route,
+  .quiz-side .confidentiality-trust-badge {
+    display: none !important;
   }
 
   .quiz {
-    padding: 14px 16px 18px;
+    padding: 10px 12px 14px;
+  }
+
+  .quiz-progress {
+    margin-bottom: 6px;
+  }
+
+  .quiz-progress-meta {
+    margin-bottom: 3px;
+    font-size: 0.65rem;
+  }
+
+  .quiz-progress-track {
+    height: 3px;
   }
 
   .quiz-step {
-    margin-top: 12px;
+    margin-top: 6px;
+  }
+
+  .quiz-step legend {
+    font-size: 0.98rem;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .step-hint {
+    margin-top: 2px;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    color: rgba(245, 240, 232, 0.65);
+  }
+
+  .option-grid {
+    margin-top: 8px;
+    grid-template-columns: 1fr;
+  }
+
+  /* Step 3 (Industries) 2-column grid on mobile */
+  .option-grid.option-grid-compact {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .option-grid.option-grid-compact .option-other {
+    grid-column: 1 / -1;
   }
 
   .quiz-option {
-    min-height: 46px;
-    padding: 10px 14px;
-    font-size: 0.86rem;
+    min-height: 38px;
+    border-right: 1px solid var(--line-light);
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .quiz-option span {
+    padding: 7px 10px 7px 32px;
+    font-size: 0.81rem;
+    line-height: 1.24;
+  }
+
+  .quiz-option span::before {
+    left: 9px;
+    width: 15px;
+    height: 15px;
+    border-width: 1.5px;
+  }
+
+  .quiz-option span::after {
+    left: 13px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .quiz-controls {
+    margin-top: 8px;
+    padding-top: 8px;
+    gap: 8px;
+  }
+
+  .quiz-next,
+  .quiz-submit {
+    min-height: 42px;
+    padding: 0 16px;
+    font-size: 0.88rem;
+  }
+
+  .quiz-back {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  /* Step 5 compact form sizing on smartphone */
+  .quiz-results-summary {
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+
+  .recommendation {
+    padding: 8px 12px;
+  }
+
+  .recommendation h3 {
+    font-size: 1.05rem;
+    margin-top: 2px;
+  }
+
+  .recommendation p {
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+
+  .quiz-bonus-card {
+    padding: 8px 12px;
+  }
+
+  .quiz-bonus-title {
+    font-size: 0.85rem;
+  }
+
+  .quiz-bonus-desc {
+    font-size: 0.76rem;
+    margin-top: 2px;
+  }
+
+  .contact-grid {
+    gap: 6px;
+  }
+
+  .contact-grid .form-field {
+    margin-bottom: 2px;
+  }
+
+  .contact-grid .form-field label {
+    font-size: 0.74rem;
+    margin-bottom: 3px;
+  }
+
+  .contact-grid .form-field input {
+    min-height: 40px;
+    padding: 6px 10px;
+    font-size: 0.84rem;
+  }
+
+  .messenger-selection-wrap {
+    margin-top: 4px;
+  }
+
+  .messenger-group-label {
+    font-size: 0.74rem;
+    margin-bottom: 4px;
+  }
+
+  .messenger-pills-row {
+    gap: 4px;
+  }
+
+  .messenger-pill-box {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+    min-height: 32px;
+  }
+
+  .messenger-handle-box {
+    margin-top: 4px;
+  }
+
+  .messenger-handle-box label {
+    font-size: 0.74rem;
+    margin-bottom: 3px;
+  }
+
+  .messenger-handle-box input {
+    min-height: 40px;
+    padding: 6px 10px;
+    font-size: 0.84rem;
+  }
+
+  .quiz-compact-bottom-row {
+    margin-top: 4px;
+  }
+
+  .file-dropzone.quiz-compact-dropzone {
+    min-height: 38px;
+    padding: 6px 10px;
+  }
+
+  .file-dropzone-label {
+    font-size: 0.76rem;
+  }
+
+  .quiz-comment-input {
+    min-height: 38px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .consent {
+    margin-top: 6px;
+    font-size: 0.72rem;
+    line-height: 1.25;
   }
 
   /* Compact FAQ (#faq) on Smartphone */
