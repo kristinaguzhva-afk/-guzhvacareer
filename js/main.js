@@ -1758,26 +1758,28 @@ function initMobileCarousels() {
 initMobileCarousels();
 
 /* ==========================================================================
-   Vacancy Alert Banner (Main Page)
-   Отображает плашку о новой вакансии в первые 3 дня после даты публикации.
-   Если прошло > 3 дней или активных вакансий нет — плашка скрыта.
+   Vacancy Highlight in Navigation
+   Подсвечивает пункт "Вакансии" фирменным зеленым лаймом в первые 3 дня после публикации.
+   Если прошло > 3 дней или активных вакансий нет — подсветка убирается.
    ========================================================================== */
 function initVacancyAlert() {
-  const banner = document.getElementById("vacancy-alert-banner");
-  const titleEl = document.getElementById("vacancy-alert-title");
-  if (!banner || !titleEl) return;
+  const desktopLink = document.getElementById("nav-vacancies-link");
+  const menuLink = document.getElementById("menu-vacancies-link");
+  const menuToggle = document.querySelector("[data-menu-toggle]");
 
   const vacancies = window.VACANCIES_DATA;
   if (!Array.isArray(vacancies) || vacancies.length === 0) {
-    banner.hidden = true;
+    desktopLink?.classList.remove("has-new-vacancy");
+    menuLink?.classList.remove("has-new-vacancy");
+    menuToggle?.classList.remove("has-new-vacancy");
     return;
   }
 
   const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
   const now = Date.now();
 
-  // Отбираем только активные вакансии, опубликованные не более 3 дней назад
-  const fresh = vacancies.filter((v) => {
+  // Проверяем, есть ли хотя бы одна активная вакансия, опубликованная не более 3 дней назад
+  const hasFresh = vacancies.some((v) => {
     if (!v.isActive || !v.publishedAt) return false;
     const pubTime = new Date(v.publishedAt + "T00:00:00").getTime();
     if (isNaN(pubTime)) return false;
@@ -1785,12 +1787,14 @@ function initVacancyAlert() {
     return age >= 0 && age <= THREE_DAYS_MS;
   });
 
-  if (fresh.length > 0) {
-    fresh.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-    titleEl.textContent = fresh[0].title;
-    banner.hidden = false;
+  if (hasFresh) {
+    desktopLink?.classList.add("has-new-vacancy");
+    menuLink?.classList.add("has-new-vacancy");
+    menuToggle?.classList.add("has-new-vacancy");
   } else {
-    banner.hidden = true;
+    desktopLink?.classList.remove("has-new-vacancy");
+    menuLink?.classList.remove("has-new-vacancy");
+    menuToggle?.classList.remove("has-new-vacancy");
   }
 }
 
