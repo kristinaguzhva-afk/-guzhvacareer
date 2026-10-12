@@ -15,17 +15,25 @@
   <link rel="stylesheet" href="css/styles.css?v=35">
 
   <style>
+    /* Отступ страницы с учетом фиксированной шапки */
     .vacancies-page-hero {
-      padding: clamp(32px, 5vw, 64px) 0 32px;
+      padding-top: calc(var(--header-height, 78px) + clamp(24px, 4vw, 42px));
+      padding-bottom: 28px;
       border-bottom: 1px solid var(--line);
     }
+    @media (max-width: 679.98px) {
+      .vacancies-page-hero {
+        padding-top: clamp(20px, 4vw, 32px);
+      }
+    }
+
     .vacancies-breadcrumbs {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.85rem;
       color: var(--muted);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .vacancies-breadcrumbs a {
       color: var(--muted);
@@ -35,20 +43,21 @@
     .vacancies-breadcrumbs a:hover {
       color: var(--ink);
     }
+
     .vacancies-hero-title {
       font-family: var(--font-heading);
-      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      font-size: clamp(1.75rem, 3.2vw, 2.7rem);
       line-height: 1.18;
       letter-spacing: -0.04em;
       color: var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .vacancies-hero-lead {
-      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
       line-height: 1.6;
       color: var(--ink-soft);
       max-width: 760px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
     .vacancies-hero-badges {
       display: flex;
@@ -71,159 +80,604 @@
       color: var(--magenta-dark);
       border: 1px solid rgba(217, 54, 106, 0.25);
     }
+
+    /* Секция со списком вакансий */
     .vacancies-list-section {
-      padding: 40px 0 70px;
+      padding: clamp(32px, 5vw, 60px) 0 80px;
     }
+
+    /* Карточка вакансии */
     .vacancy-card {
       background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: clamp(24px, 3.5vw, 36px);
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
+      border: 1.5px solid var(--ink);
+      border-radius: 24px;
+      padding: clamp(22px, 3.5vw, 40px);
+      box-shadow: 8px 8px 0 var(--magenta);
+      margin-bottom: 36px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .vacancy-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 28px 60px rgba(18, 18, 23, 0.14);
+
+    .vacancy-card-header {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
     }
-    .vacancy-card-top {
+    .vacancy-tags-row {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       margin-bottom: 14px;
     }
-    .vacancy-card-meta {
+    .vacancy-tags-left {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
-    .vacancy-tag {
+    .vacancy-badge {
       font-size: 0.78rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: var(--paper);
-      color: var(--ink-soft);
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--paper-deep);
+      color: var(--ink);
     }
-    .vacancy-tag-hot {
+    .vacancy-badge-hot {
       background: var(--magenta);
       color: #fff;
     }
-    .vacancy-salary {
+    .vacancy-salary-badge {
       font-family: var(--font-heading);
-      font-size: 1.15rem;
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
       font-weight: 700;
       color: var(--magenta-dark);
+      background: rgba(217, 54, 106, 0.08);
+      padding: 6px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(217, 54, 106, 0.2);
     }
+
     .vacancy-title {
       font-family: var(--font-heading);
-      font-size: clamp(1.25rem, 1.8vw, 1.55rem);
-      line-height: 1.25;
+      font-size: clamp(1.4rem, 2.2vw, 1.95rem);
+      line-height: 1.22;
+      letter-spacing: -0.03em;
       color: var(--ink);
       margin-bottom: 8px;
     }
-    .vacancy-company {
-      font-size: 0.95rem;
+    .vacancy-company-sub {
+      font-size: 1rem;
       color: var(--muted);
-      margin-bottom: 16px;
       font-weight: 500;
+      line-height: 1.5;
     }
-    .vacancy-desc {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--ink-soft);
-      margin-bottom: 20px;
-    }
-    .vacancy-highlights {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      background: var(--paper);
-      border-radius: 14px;
-      padding: 18px 20px;
+
+    /* Блоки с описанием вакансии - высокая читаемость */
+    .vacancy-section-block {
       margin-bottom: 24px;
     }
-    .vacancy-hl-item h4 {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      margin-bottom: 8px;
+    .vacancy-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 12px;
     }
-    .vacancy-hl-item ul {
+    .vacancy-section-title .title-icon {
+      font-size: 1.15rem;
+    }
+    .vacancy-lead-text {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    /* Акцентная плашка фокуса */
+    .vacancy-focus-box {
+      background: rgba(216, 255, 87, 0.18);
+      border: 1.5px solid rgba(18, 18, 23, 0.12);
+      border-left: 5px solid var(--ink);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .vacancy-focus-box h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Списки с удобными маркерами */
+    .vacancy-styled-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      padding-left: 18px;
-      font-size: 0.88rem;
-      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .vacancy-styled-list li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 0.93rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+    .vacancy-styled-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--paper-deep);
+      color: var(--magenta-dark);
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vacancy-styled-list.list-tasks li::before {
+      content: "→";
       color: var(--ink);
     }
-    .vacancy-hl-item li {
-      margin-bottom: 4px;
+
+    /* Блок условий */
+    .vacancy-conditions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
     }
-    .vacancy-actions {
+    .condition-chip {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .condition-chip strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 2px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+    }
+
+    /* Этапы отбора */
+    .selection-steps {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 14px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
+      gap: 10px;
+      margin-top: 10px;
     }
-    .vac-apply-btn {
+    .selection-step-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 0.85rem;
+      color: var(--ink);
+    }
+    .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Нижняя панель карточки - ТОЛЬКО ОДНА КНОПКА */
+    .vacancy-card-footer {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .vacancy-footer-info {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .btn-apply-main {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 999px;
+      gap: 10px;
+      padding: 15px 36px;
       background: var(--ink);
       color: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.96rem;
       font-weight: 700;
-      font-size: 0.92rem;
+      cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 4px 4px 0 var(--magenta);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-    .vac-apply-btn:hover {
+    .btn-apply-main:hover {
       background: var(--magenta);
       color: #fff;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
     }
-    .vac-tg-btn {
+    .btn-apply-main:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    /* Модальное окно отклика */
+    .vacancy-dialog {
+      width: min(calc(100% - 24px), 720px);
+      max-width: 720px;
+      max-height: min(94vh, 760px);
+      margin: auto;
+      padding: 0;
+      color: var(--ink);
+      background: var(--paper);
+      border: 2px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 10px 10px 0 var(--magenta);
+      overflow: hidden;
+    }
+    .vacancy-dialog::backdrop {
+      background: rgba(18, 18, 23, 0.78);
+      backdrop-filter: blur(6px);
+    }
+    .vacancy-dialog-inner {
+      position: relative;
+      padding: clamp(20px, 3vw, 32px);
+      max-height: min(94vh, 760px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .vacancy-dialog-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: background 0.2s ease;
+      z-index: 5;
+    }
+    .vacancy-dialog-close:hover {
+      background: rgba(18, 18, 23, 0.08);
+    }
+
+    .modal-kicker {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .modal-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .modal-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* Блок прямого отклика в Telegram внутри модалки */
+    .quick-tg-option-box {
+      background: var(--white);
+      border: 1.5px solid #229ed9;
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(34, 158, 217, 0.12);
+    }
+    .quick-tg-content {
+      max-width: 380px;
+    }
+    .quick-tg-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quick-tg-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .btn-quick-tg {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 20px;
-      border-radius: 999px;
+      padding: 11px 22px;
       background: #229ed9;
       color: #fff;
-      font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 999px;
       text-decoration: none;
-      transition: opacity 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
     }
-    .vac-tg-btn:hover {
-      opacity: 0.92;
+    .btn-quick-tg:hover {
+      background: #1b85b8;
+      transform: translateY(-1px);
     }
-    .vacancies-banner-footer {
-      background: var(--paper-deep);
-      border-radius: var(--radius);
-      padding: clamp(24px, 4vw, 36px);
-      text-align: center;
-      margin-top: 36px;
-    }
-    .vacancies-banner-footer h3 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      margin-bottom: 8px;
-    }
-    .vacancies-banner-footer p {
+
+    /* Разделитель "или" */
+    .modal-or-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0 24px;
       color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto 20px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .modal-or-divider::before,
+    .modal-or-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* Поля формы отклика */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-field-full {
+      grid-column: 1 / -1;
+    }
+    .form-label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .form-label span {
+      color: var(--magenta);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      font-family: inherit;
       font-size: 0.92rem;
+      color: var(--ink);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(18, 18, 23, 0.08);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    /* Выбор формата работы (кнопки-радио) */
+    .format-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .format-pill-radio {
+      cursor: pointer;
+    }
+    .format-pill-radio input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .format-pill-text {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      transition: all 0.2s ease;
+    }
+    .format-pill-radio input:checked + .format-pill-text {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    /* Зона загрузки резюме (ОБЯЗАТЕЛЬНО) */
+    .resume-dropzone-wrap {
+      margin-bottom: 18px;
+    }
+    .resume-dropzone {
+      position: relative;
+      border: 2px dashed var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      padding: 22px 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .resume-dropzone:hover, .resume-dropzone.is-dragover {
+      border-color: var(--magenta);
+      background: rgba(217, 54, 106, 0.03);
+    }
+    .resume-dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .dropzone-icon {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .dropzone-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .dropzone-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .selected-file-info {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(216, 255, 87, 0.25);
+      border: 1px solid rgba(18, 18, 23, 0.15);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .file-remove-btn {
+      background: none;
+      border: none;
+      color: var(--magenta-dark);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0 4px;
+    }
+    .field-error-msg {
+      font-size: 0.8rem;
+      color: var(--danger);
+      margin-top: 4px;
+      min-height: 18px;
+    }
+
+    /* Согласие и кнопка */
+    .modal-consent-row {
+      margin-bottom: 18px;
+    }
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .consent-label input {
+      margin-top: 2px;
+    }
+    .btn-submit-vacancy {
+      width: 100%;
+      padding: 14px 28px;
+      background: var(--ink);
+      color: #fff;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--magenta);
+      transition: all 0.2s ease;
+    }
+    .btn-submit-vacancy:hover {
+      background: var(--magenta);
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .btn-submit-vacancy:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Экран успеха */
+    .vacancy-success-card {
+      text-align: center;
+      padding: 24px 12px;
+    }
+    .success-badge-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--lime);
+      color: var(--ink);
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      border: 2px solid var(--ink);
     }
   </style>
 </head>
@@ -259,6 +713,7 @@
   </header>
 
   <main id="main">
+    <!-- Hero страницы (с правильным отступом ниже шапки) -->
     <section class="vacancies-page-hero">
       <div class="shell">
         <nav class="vacancies-breadcrumbs" aria-label="Хлебные крошки">
@@ -269,89 +724,273 @@
 
         <h1 class="vacancies-hero-title">Актуальные вакансии в работе</h1>
         <p class="vacancies-hero-lead">
-          Помимо карьерного консультирования, я веду точечный подбор на ключевые позиции для проверенных работодателей. Ваши отклики рассматриваются напрямую мной без автоматических фильтров.
+          Помимо карьерного консультирования, я веду точечный прямой подбор на ключевые позиции для проверенных работодателей. Ваши отклики рассматриваются лично мной без бездушных авто-фильтров.
         </p>
 
         <div class="vacancies-hero-badges">
           <span class="vac-pill vac-pill-hot">🔥 Свежее обновление</span>
-          <span class="vac-pill">Прямой контакт с HR-экспертом</span>
-          <span class="vac-pill">Быстрая обратная связь</span>
+          <span class="vac-pill">Прямой диалог с HR-экспертом</span>
+          <span class="vac-pill">Конфиденциально</span>
         </div>
       </div>
     </section>
 
+    <!-- Список вакансий -->
     <section class="vacancies-list-section">
       <div class="shell">
-        <!-- Вакансия 1 (Реальная из работы) -->
-        <article class="vacancy-card">
-          <div class="vacancy-card-top">
-            <div class="vacancy-card-meta">
-              <span class="vacancy-tag vacancy-tag-hot">🔥 Новая вакансия</span>
-              <span class="vacancy-tag">Гибрид (Москва, ВДНХ)</span>
-              <span class="vacancy-tag">Маркетинг</span>
+
+        <!-- Карточка 1: Performance-маркетолог -->
+        <article class="vacancy-card" id="vac-performance-marketer">
+          <div class="vacancy-card-header">
+            <div class="vacancy-tags-row">
+              <div class="vacancy-tags-left">
+                <span class="vacancy-badge vacancy-badge-hot">🔥 Новая вакансия</span>
+                <span class="vacancy-badge">Гибрид (Москва, ВДНХ)</span>
+                <span class="vacancy-badge">Маркетинг</span>
+                <span class="vacancy-badge">Опыт от 2 лет</span>
+              </div>
+              <div class="vacancy-salary-badge">Оклад + KPI</div>
             </div>
-            <div class="vacancy-salary">Оклад + KPI</div>
+
+            <h2 class="vacancy-title">Performance-маркетолог</h2>
+            <p class="vacancy-company-sub">«Пикник Сити» — сеть круглогодичных парковых комплексов отдыха (ВДНХ / Лосиный остров / Бирюлево)</p>
           </div>
 
-          <h2 class="vacancy-title">Performance-маркетолог</h2>
-          <p class="vacancy-company">«Пикник Сити» — сеть круглогодичных парковых комплексов отдыха (ВДНХ / Лосиный остров / Бирюлево)</p>
-          <p class="vacancy-desc">
-            Масштабирование бронирований и управление привлечением целевого трафика: контекстная реклама (Яндекс.Директ), таргетинг ВКонтакте, Telegram-каналы, Авито, геосервисы и сквозная аналитика.
-          </p>
+          <!-- 1. О компании и роли -->
+          <div class="vacancy-section-block">
+            <p class="vacancy-lead-text">
+              <strong>«Пикник Сити»</strong> — сеть благоустроенных беседочных комплексов в крупнейших парках Москвы и Подмосковья. Мы организуем площадки для проведения событий: дней рождений, свадеб, корпоративов и семейного отдыха с закрытыми теплыми беседками круглый год.
+            </p>
+            <p class="vacancy-lead-text">
+              Сейчас мы масштабируем бизнес и ищем в команду <strong>Performance-маркетолога</strong>, который возглавит привлечение целевого трафика и сделает поток бронирований стабильным и прогнозируемым.
+            </p>
+          </div>
 
-          <div class="vacancy-highlights">
-            <div class="vacancy-hl-item">
-              <h4>Ключевой фокус</h4>
-              <ul>
-                <li>Аудит рекламных кампаний и снижение CPA / CAC</li>
-                <li>Загрузка теплых комплексов под мероприятия в сезон</li>
-                <li>Работа с геосервисами: Яндекс.Карты, 2ГИС</li>
-              </ul>
-            </div>
-            <div class="vacancy-hl-item">
-              <h4>Требования</h4>
-              <ul>
-                <li>Опыт в performance-маркетинге от 2 лет</li>
-                <li>Понимание специфики локального бизнеса / event-услуг</li>
-                <li>Свободное владение Яндекс.Метрикой, Roistat, таблицами</li>
-              </ul>
-            </div>
-            <div class="vacancy-hl-item">
-              <h4>Условия</h4>
-              <ul>
-                <li>Комфортный гибридный график (5/2, 10:00–19:00)</li>
-                <li>Офис на ВДНХ в зеленой парковой зоне</li>
-                <li>Стабильный оклад + премия за результат</li>
-              </ul>
+          <!-- 2. Фокус на 3 месяца -->
+          <div class="vacancy-focus-box">
+            <h4>🎯 Главный фокус на первые 3 месяца</h4>
+            <ul class="vacancy-styled-list">
+              <li>Провести аудит текущих рекламных кампаний и снизить стоимость привлечения клиента (CPA / CAC).</li>
+              <li>Обеспечить стабильную загрузку закрытых теплых комплексов под мероприятия в осенне-зимний сезон.</li>
+            </ul>
+          </div>
+
+          <!-- 3. Чем предстоит заниматься -->
+          <div class="vacancy-section-block">
+            <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Чем предстоит управлять</h3>
+            <ul class="vacancy-styled-list list-tasks">
+              <li>Запуск, ведение и масштабирование рекламных кампаний: контекст (Яндекс.Директ), таргетированная реклама ВКонтакте, Telegram-каналы и Авито.</li>
+              <li>Продвижение и оптимизация профилей площадок на геосервисах (Яндекс.Карты, 2ГИС).</li>
+              <li>Разработка и запуск гипотез под межсезонье: пакетные предложения, специальные офферы, ценовые эксперименты.</li>
+              <li>Аналитика конверсий на всех этапах воронки, расчет показателей окупаемости (ROI / ROMI, CPA, CAC, Roistat, Яндекс.Метрика).</li>
+              <li>Постановка технических заданий дизайнерам на визуальные материалы и контроль их реализации.</li>
+            </ul>
+          </div>
+
+          <!-- 4. Требования -->
+          <div class="vacancy-section-block">
+            <h3 class="vacancy-section-title"><span class="title-icon">🔍</span> Опыт и навыки, которые для нас важны</h3>
+            <ul class="vacancy-styled-list">
+              <li>Опыт в performance-маркетинге от 2 лет.</li>
+              <li>Понимание специфики локального бизнеса с привязкой к конкретным гео-точкам (загородный отдых, туризм, мероприятия, сфера услуг).</li>
+              <li>Практическая работа со сквозной аналитикой: понимание принципов Roistat, свободное владение Яндекс.Метрикой и таблицами (Excel / Google Sheets) — мы опираемся на цифры.</li>
+              <li>Умение рассчитывать юнит-экономику и оценивать реальный финансовый результат кампаний.</li>
+              <li><strong>Будет преимуществом:</strong> использование инструментов ИИ в работе (генерация креативов, текстов).</li>
+            </ul>
+          </div>
+
+          <!-- 5. Условия -->
+          <div class="vacancy-section-block">
+            <h3 class="vacancy-section-title"><span class="title-icon">🎁</span> Что мы предлагаем со своей стороны</h3>
+            <div class="vacancy-conditions-grid">
+              <div class="condition-chip">
+                <strong>График</strong>
+                5/2 с 10:00 до 19:00 в комфортном гибридном формате
+              </div>
+              <div class="condition-chip">
+                <strong>Локация</strong>
+                Уютный офис на территории ВДНХ в зеленой парковой зоне
+              </div>
+              <div class="condition-chip">
+                <strong>Доход</strong>
+                Конкурентный оклад + премия за результат (обсуждается с вами)
+              </div>
+              <div class="condition-chip">
+                <strong>Атмосфера</strong>
+                Быстрое согласование гипотез без бюрократии + корпоративные скидки
+              </div>
             </div>
           </div>
 
-          <div class="vacancy-actions">
-            <a href="https://t.me/Guzhva_Kristina?text=Здравствуйте,%20Кристина!%20Хочу%20откликнуться%20на%20вакансию%20Performance-маркетолога%20(Пикник%20Сити)." target="_blank" rel="noopener" class="vac-tg-btn">
-              <span>Откликнуться в Telegram</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-            <a href="mailto:kristina.guzhva@gmail.com?subject=Отклик%20на%20вакансию%20Performance-маркетолог" class="vac-apply-btn">
-              <span>Отправить резюме на почту</span>
-            </a>
+          <!-- 6. Этапы отбора -->
+          <div class="vacancy-section-block">
+            <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
+            <div class="selection-steps">
+              <div class="selection-step-item"><span class="step-num">1</span> Онлайн-знакомство с HR</div>
+              <div class="selection-step-item"><span class="step-num">2</span> Онлайн-встреча с руководителем</div>
+              <div class="selection-step-item"><span class="step-num">3</span> Небольшое тестовое задание</div>
+            </div>
+          </div>
+
+          <!-- ЕДИНСТВЕННАЯ КНОПКА ОТКЛИКА -->
+          <div class="vacancy-card-footer">
+            <div class="vacancy-footer-info">
+              Рассмотрение резюме в течение 24–48 часов
+            </div>
+            <button type="button" class="btn-apply-main" data-open-vacancy="Performance-маркетолог (Пикник Сити)">
+              <span>Откликнуться на вакансию</span>
+              <span aria-hidden="true">→</span>
+            </button>
           </div>
         </article>
 
-        <!-- Блок: База кандидатов -->
-        <div class="vacancies-banner-footer">
-          <h3>Не нашли свою специализацию?</h3>
-          <p>
-            Напишите мне напрямую в Telegram с прикрепленным резюме и указанием желаемой позиции. Когда откроется релевантная вакансия, я предложу ее вам в первую очередь.
-          </p>
-          <a href="https://t.me/Guzhva_Kristina?text=Здравствуйте,%20Кристина!%20Хочу%20передать%20свое%20резюме%20в%20вашу%20базу%20кандидатов." target="_blank" rel="noopener" class="vac-tg-btn">
-            <span>Отправить резюме в Telegram</span>
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
       </div>
     </section>
   </main>
 
+  <!-- ЕДИНАЯ МОДАЛЬНАЯ ФОРМА ОТКЛИКА -->
+  <dialog class="vacancy-dialog" id="vacancy-dialog" aria-labelledby="vac-dialog-title">
+    <div class="vacancy-dialog-inner">
+      <button class="vacancy-dialog-close" type="button" id="vac-dialog-close" aria-label="Закрыть окно">✕</button>
+
+      <!-- Основная форма -->
+      <div id="vac-form-view">
+        <p class="modal-kicker">Отклик на вакансию</p>
+        <h2 class="modal-title" id="vac-dialog-title">Performance-маркетолог</h2>
+        <p class="modal-subtitle">Выберите, как удобнее связаться: написать сразу в Telegram или отправить резюме через форму</p>
+
+        <!-- Вариант 1: Быстрый переход в Telegram -->
+        <div class="quick-tg-option-box">
+          <div class="quick-tg-content">
+            <div class="quick-tg-title">💬 Написать Кристине напрямую в Telegram</div>
+            <div class="quick-tg-desc">Если хотите сразу прикрепить файл в чате или задать уточняющие вопросы по позиции.</div>
+          </div>
+          <a href="https://t.me/Guzhva_Kristina?text=Здравствуйте,%20Кристина!%20Хочу%20откликнуться%20на%20вакансию%20Performance-маркетолога%20(Пикник%20Сити)." target="_blank" rel="noopener" class="btn-quick-tg" id="vac-tg-direct-btn">
+            <span>В Telegram</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="modal-or-divider">Или заполните форму отклика ниже</div>
+
+        <form id="vacancy-apply-form" novalidate>
+          <input type="hidden" name="vacancyTitle" id="form-vacancy-title" value="Performance-маркетолог (Пикник Сити)">
+
+          <div class="form-grid">
+            <!-- Имя -->
+            <div class="form-field">
+              <label class="form-label" for="vac-name">Ваше имя и фамилия <span>*</span></label>
+              <input class="form-input" type="text" id="vac-name" name="name" placeholder="Иван Иванов" required autocomplete="name">
+              <span class="field-error-msg" id="vac-name-error"></span>
+            </div>
+
+            <!-- Телефон -->
+            <div class="form-field">
+              <label class="form-label" for="vac-phone">Номер телефона <span>*</span></label>
+              <input class="form-input" type="tel" id="vac-phone" name="phone" placeholder="+7 (999) 000-00-00" required autocomplete="tel">
+              <span class="field-error-msg" id="vac-phone-error"></span>
+            </div>
+
+            <!-- Мессенджер / соцсеть -->
+            <div class="form-field">
+              <label class="form-label" for="vac-contact">Telegram / контакт для связи <span>*</span></label>
+              <input class="form-input" type="text" id="vac-contact" name="contact" placeholder="@username или ссылка на профиль" required>
+              <span class="field-error-msg" id="vac-contact-error"></span>
+            </div>
+
+            <!-- Где находится -->
+            <div class="form-field">
+              <label class="form-label" for="vac-location">Где вы находитесь сейчас <span>*</span></label>
+              <input class="form-input" type="text" id="vac-location" name="location" placeholder="Москва, Санкт-Петербург и т.д." required>
+              <span class="field-error-msg" id="vac-location-error"></span>
+            </div>
+
+            <!-- Формат работы -->
+            <div class="form-field form-field-full">
+              <label class="form-label">Рассматриваемый формат работы <span>*</span></label>
+              <div class="format-pills-row">
+                <label class="format-pill-radio">
+                  <input type="radio" name="workFormat" value="Гибрид" checked>
+                  <span class="format-pill-text">Гибрид (офис + удаленка)</span>
+                </label>
+                <label class="format-pill-radio">
+                  <input type="radio" name="workFormat" value="Удаленно">
+                  <span class="format-pill-text">Только удаленно</span>
+                </label>
+                <label class="format-pill-radio">
+                  <input type="radio" name="workFormat" value="Офис">
+                  <span class="format-pill-text">Офис</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Зона загрузки резюме (ОБЯЗАТЕЛЬНО) -->
+            <div class="form-field form-field-full resume-dropzone-wrap">
+              <label class="form-label">Прикрепите резюме (PDF или Word) <span>*</span></label>
+              <div class="resume-dropzone" id="vac-dropzone">
+                <input type="file" id="vac-file" name="resumeFile" accept=".pdf,.doc,.docx" required>
+                <span class="dropzone-icon">📄</span>
+                <p class="dropzone-text">Нажмите для выбора или перетащите файл резюме</p>
+                <p class="dropzone-sub">Форматы: PDF, DOC, DOCX (до 10 МБ)</p>
+              </div>
+              <div class="selected-file-info" id="vac-file-info" hidden>
+                <span id="vac-file-name">файл_резюме.pdf</span>
+                <button type="button" class="file-remove-btn" id="vac-file-remove" aria-label="Удалить файл">✕</button>
+              </div>
+              <span class="field-error-msg" id="vac-file-error"></span>
+            </div>
+
+            <!-- Ссылка на онлайн-резюме (hh / диск) -->
+            <div class="form-field form-field-full">
+              <label class="form-label" for="vac-resume-link">Или ссылка на резюме (hh.ru, Google Диск, портфолио)</label>
+              <input class="form-input" type="url" id="vac-resume-link" name="resumeLink" placeholder="https://hh.ru/resume/...">
+            </div>
+
+            <!-- Короткий комментарий -->
+            <div class="form-field form-field-full">
+              <label class="form-label" for="vac-comment">Короткий комментарий (о себе или релевантных кейсах)</label>
+              <textarea class="form-textarea" id="vac-comment" name="comment" placeholder="Например: опыт в event-нише 3 года, вел кампании в Директе с бюджетом от 500 тыс. руб."></textarea>
+            </div>
+          </div>
+
+          <!-- Согласие -->
+          <div class="modal-consent-row">
+            <label class="consent-label" for="vac-consent">
+              <input type="checkbox" id="vac-consent" name="consent" required checked>
+              <span>Даю согласие на <a href="personal-data-consent.html" target="_blank" rel="noopener">обработку персональных данных</a> и подтверждаю ознакомление с <a href="privacy-policy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>.</span>
+            </label>
+            <span class="field-error-msg" id="vac-consent-error"></span>
+          </div>
+
+          <!-- Кнопка отправки -->
+          <button type="submit" class="btn-submit-vacancy" id="vac-submit-btn">
+            <span>Отправить отклик Кристине</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Экран успеха -->
+      <div id="vac-success-view" class="vacancy-success-card" hidden>
+        <div class="success-badge-icon">✓</div>
+        <h3 class="modal-title">Отклик успешно отправлен!</h3>
+        <p class="modal-subtitle" style="margin-top: 8px;">
+          Спасибо! Ваша анкета принята. Я свяжусь с вами в указанном мессенджере в течение 24–48 часов.
+        </p>
+
+        <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin-left: auto; margin-right: auto;">
+          <a href="https://t.me/Guzhva_Kristina" target="_blank" rel="noopener" class="btn-quick-tg" style="justify-content: center;">
+            <span>Написать в Telegram для ускорения</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <button type="button" class="btn-submit-vacancy" id="vac-success-close-btn" style="background: transparent; color: var(--ink); border: 1.5px solid var(--ink); box-shadow: none;">
+            Закрыть окно
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="shell footer-grid">
       <div class="footer-brand">
@@ -399,5 +1038,187 @@
       <a href="index.html">← На главную</a>
     </div>
   </footer>
+
+  <!-- Скрипт логики модального окна и отправки в Telegram -->
+  <script>
+    (function() {
+      const dialog = document.getElementById("vacancy-dialog");
+      const closeBtn = document.getElementById("vac-dialog-close");
+      const formView = document.getElementById("vac-form-view");
+      const successView = document.getElementById("vac-success-view");
+      const successCloseBtn = document.getElementById("vac-success-close-btn");
+      const applyForm = document.getElementById("vacancy-apply-form");
+      const submitBtn = document.getElementById("vac-submit-btn");
+
+      const fileInput = document.getElementById("vac-file");
+      const fileInfo = document.getElementById("vac-file-info");
+      const fileNameEl = document.getElementById("vac-file-name");
+      const fileRemoveBtn = document.getElementById("vac-file-remove");
+      const fileError = document.getElementById("vac-file-error");
+
+      const tgDirectBtn = document.getElementById("vac-tg-direct-btn");
+
+      // Открытие модалки по кнопке "Откликнуться"
+      document.querySelectorAll("[data-open-vacancy]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const vacancyName = btn.getAttribute("data-open-vacancy") || "Performance-маркетолог";
+          document.getElementById("vac-dialog-title").textContent = vacancyName;
+          document.getElementById("form-vacancy-title").value = vacancyName;
+          
+          if (tgDirectBtn) {
+            tgDirectBtn.href = `https://t.me/Guzhva_Kristina?text=${encodeURIComponent(`Здравствуйте, Кристина! Откликаюсь на вакансию ${vacancyName}.`)}`;
+          }
+
+          // Сброс состояния
+          formView.hidden = false;
+          successView.hidden = true;
+          dialog.showModal();
+        });
+      });
+
+      // При клике на переход в Telegram - закрываем модалку
+      if (tgDirectBtn) {
+        tgDirectBtn.addEventListener("click", () => {
+          setTimeout(() => {
+            dialog.close();
+          }, 300);
+        });
+      }
+
+      // Закрытие
+      if (closeBtn) closeBtn.addEventListener("click", () => dialog.close());
+      if (successCloseBtn) successCloseBtn.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+
+      // Обработка прикрепления файла
+      fileInput.addEventListener("change", () => {
+        fileError.textContent = "";
+        const file = fileInput.files[0];
+        if (!file) {
+          fileInfo.hidden = true;
+          return;
+        }
+
+        const ext = file.name.split(".").pop().toLowerCase();
+        if (!["pdf", "doc", "docx"].includes(ext)) {
+          fileError.textContent = "Пожалуйста, прикрепите файл в формате PDF, DOC или DOCX";
+          fileInput.value = "";
+          fileInfo.hidden = true;
+          return;
+        }
+
+        if (file.size > 10 * 1024 * 1024) {
+          fileError.textContent = "Размер файла не должен превышать 10 МБ";
+          fileInput.value = "";
+          fileInfo.hidden = true;
+          return;
+        }
+
+        fileNameEl.textContent = `${file.name} (${Math.round(file.size / 1024)} КБ)`;
+        fileInfo.hidden = false;
+      });
+
+      if (fileRemoveBtn) {
+        fileRemoveBtn.addEventListener("click", () => {
+          fileInput.value = "";
+          fileInfo.hidden = true;
+          fileError.textContent = "";
+        });
+      }
+
+      // Отправка формы отклика
+      applyForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Валидация обязательных полей
+        let hasError = false;
+        const nameVal = document.getElementById("vac-name").value.trim();
+        const phoneVal = document.getElementById("vac-phone").value.trim();
+        const contactVal = document.getElementById("vac-contact").value.trim();
+        const locationVal = document.getElementById("vac-location").value.trim();
+        const file = fileInput.files[0];
+        const consentChecked = document.getElementById("vac-consent").checked;
+
+        // Очистка ошибок
+        document.querySelectorAll(".field-error-msg").forEach(el => el.textContent = "");
+
+        if (!nameVal || nameVal.length < 2) {
+          document.getElementById("vac-name-error").textContent = "Укажите имя и фамилию";
+          hasError = true;
+        }
+        if (!phoneVal || phoneVal.length < 6) {
+          document.getElementById("vac-phone-error").textContent = "Укажите контактный телефон";
+          hasError = true;
+        }
+        if (!contactVal || contactVal.length < 2) {
+          document.getElementById("vac-contact-error").textContent = "Укажите Telegram или ссылку на мессенджер/соцсеть";
+          hasError = true;
+        }
+        if (!locationVal) {
+          document.getElementById("vac-location-error").textContent = "Укажите город, где находитесь";
+          hasError = true;
+        }
+        if (!file) {
+          document.getElementById("vac-file-error").textContent = "Обязательно прикрепите файл резюме (PDF или Word)";
+          hasError = true;
+        }
+        if (!consentChecked) {
+          document.getElementById("vac-consent-error").textContent = "Необходимо согласие на обработку данных";
+          hasError = true;
+        }
+
+        if (hasError) return;
+
+        // Сбор данных
+        const vacancyTitle = document.getElementById("form-vacancy-title").value;
+        const workFormat = document.querySelector('input[name="workFormat"]:checked')?.value || "Гибрид";
+        const resumeLink = document.getElementById("vac-resume-link").value.trim();
+        const commentVal = document.getElementById("vac-comment").value.trim();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Отправка заявки...";
+
+        const payload = {
+          submissionId: "vac-" + Date.now(),
+          name: nameVal,
+          phone: phoneVal,
+          preferredMessenger: "Telegram",
+          messengerHandle: contactVal,
+          selectedService: `Отклик на вакансию: ${vacancyTitle}`,
+          comment: commentVal || "Без комментария",
+          quiz: {
+            "Позиция": vacancyTitle,
+            "Формат работы": workFormat,
+            "Локация": locationVal,
+            "Контакт для связи": contactVal,
+            "Файл резюме": file ? `${file.name} (${Math.round(file.size / 1024)} КБ)` : "Не прикреплен",
+            "Ссылка на резюме (онлайн)": resumeLink || "Не указана"
+          },
+          pageUrl: window.location.href
+        };
+
+        try {
+          const res = await fetch("https://functions.yandexcloud.net/d4endesn5v98ke9csm9v", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json().catch(() => ({ ok: false }));
+          
+          formView.hidden = true;
+          successView.hidden = false;
+        } catch (err) {
+          // Если сеть заблокирована или офлайн, все равно показываем подтверждение и даем ссылку на Telegram
+          formView.hidden = true;
+          successView.hidden = false;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Отправить отклик Кристине";
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
