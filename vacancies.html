@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вакансии в работе — Кристина Гужва | Карьерный эксперт и рекрутер</title>
+  <meta name="description" content="Актуальные вакансии в работе у карьерного консультанта и хедхантера Кристины Гужвы. Прямой поиск специалистов для проверенных компаний.">
+  <meta name="theme-color" content="#121217">
+
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/styles.css?v=35">
+
+  <style>
+    .vacancies-page-hero {
+      padding: clamp(32px, 5vw, 64px) 0 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .vacancies-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .vacancies-breadcrumbs a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .vacancies-breadcrumbs a:hover {
+      color: var(--ink);
+    }
+    .vacancies-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .vacancies-hero-lead {
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      line-height: 1.6;
+      color: var(--ink-soft);
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+    .vacancies-hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .vac-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--paper-deep);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .vac-pill-hot {
+      background: rgba(217, 54, 106, 0.12);
+      color: var(--magenta-dark);
+      border: 1px solid rgba(217, 54, 106, 0.25);
+    }
+    .vacancies-list-section {
+      padding: 40px 0 70px;
+    }
+    .vacancy-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(24px, 3.5vw, 36px);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .vacancy-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 28px 60px rgba(18, 18, 23, 0.14);
+    }
+    .vacancy-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .vacancy-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .vacancy-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--paper);
+      color: var(--ink-soft);
+    }
+    .vacancy-tag-hot {
+      background: var(--magenta);
+      color: #fff;
+    }
+    .vacancy-salary {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--magenta-dark);
+    }
+    .vacancy-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .vacancy-company {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .vacancy-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+    }
+    .vacancy-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      background: var(--paper);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .vacancy-hl-item h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .vacancy-hl-item ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .vacancy-hl-item li {
+      margin-bottom: 4px;
+    }
+    .vacancy-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+    }
+    .vac-apply-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .vac-apply-btn:hover {
+      background: var(--magenta);
+      color: #fff;
+    }
+    .vac-tg-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: #229ed9;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .vac-tg-btn:hover {
+      opacity: 0.92;
+    }
+    .vacancies-banner-footer {
+      background: var(--paper-deep);
+      border-radius: var(--radius);
+      padding: clamp(24px, 4vw, 36px);
+      text-align: center;
+      margin-top: 36px;
+    }
+    .vacancies-banner-footer h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+    .vacancies-banner-footer p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-size: 0.92rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <!-- Header -->
+  <header class="site-header" data-header>
+    <div class="shell header-inner">
+      <a class="brand" href="index.html" aria-label="Кристина Гужва - на главную">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="6 7 34 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 14 C14 8, 8 9, 8 16 C8 25, 20 32, 22 34" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M18 22 C22 28, 29 25, 33 19 C35 15, 36 12, 38 9" stroke="var(--magenta)" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M32 9 H38 V15" stroke="var(--magenta)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="21" cy="18" r="2.0" fill="var(--ink)"/>
+          </svg>
+        </span>
+        <span>Кристина<br>Гужва</span>
+      </a>
+
+      <div class="header-actions">
+        <nav class="site-nav" aria-label="Основная навигация">
+          <a href="index.html#about">Обо мне</a>
+          <a href="index.html#services">Услуги</a>
+          <a href="index.html#prices">Тарифы</a>
+          <a href="vacancies.html" style="color: var(--magenta); font-weight: 700;">Вакансии</a>
+        </nav>
+
+        <a class="nav-cta" href="index.html">← На главную</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="vacancies-page-hero">
+      <div class="shell">
+        <nav class="vacancies-breadcrumbs" aria-label="Хлебные крошки">
+          <a href="index.html">Главная</a>
+          <span aria-hidden="true">/</span>
+          <span>Вакансии в работе</span>
+        </nav>
+
+        <h1 class="vacancies-hero-title">Актуальные вакансии в работе</h1>
+        <p class="vacancies-hero-lead">
+          Помимо карьерного консультирования, я веду точечный подбор на ключевые позиции для проверенных работодателей. Ваши отклики рассматриваются напрямую мной без автоматических фильтров.
+        </p>
+
+        <div class="vacancies-hero-badges">
+          <span class="vac-pill vac-pill-hot">🔥 Свежее обновление</span>
+          <span class="vac-pill">Прямой контакт с HR-экспертом</span>
+          <span class="vac-pill">Быстрая обратная связь</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="vacancies-list-section">
+      <div class="shell">
+        <!-- Вакансия 1 (Реальная из работы) -->
+        <article class="vacancy-card">
+          <div class="vacancy-card-top">
+            <div class="vacancy-card-meta">
+              <span class="vacancy-tag vacancy-tag-hot">🔥 Новая вакансия</span>
+              <span class="vacancy-tag">Гибрид (Москва, ВДНХ)</span>
+              <span class="vacancy-tag">Маркетинг</span>
+            </div>
+            <div class="vacancy-salary">Оклад + KPI</div>
+          </div>
+
+          <h2 class="vacancy-title">Performance-маркетолог</h2>
+          <p class="vacancy-company">«Пикник Сити» — сеть круглогодичных парковых комплексов отдыха (ВДНХ / Лосиный остров / Бирюлево)</p>
+          <p class="vacancy-desc">
+            Масштабирование бронирований и управление привлечением целевого трафика: контекстная реклама (Яндекс.Директ), таргетинг ВКонтакте, Telegram-каналы, Авито, геосервисы и сквозная аналитика.
+          </p>
+
+          <div class="vacancy-highlights">
+            <div class="vacancy-hl-item">
+              <h4>Ключевой фокус</h4>
+              <ul>
+                <li>Аудит рекламных кампаний и снижение CPA / CAC</li>
+                <li>Загрузка теплых комплексов под мероприятия в сезон</li>
+                <li>Работа с геосервисами: Яндекс.Карты, 2ГИС</li>
+              </ul>
+            </div>
+            <div class="vacancy-hl-item">
+              <h4>Требования</h4>
+              <ul>
+                <li>Опыт в performance-маркетинге от 2 лет</li>
+                <li>Понимание специфики локального бизнеса / event-услуг</li>
+                <li>Свободное владение Яндекс.Метрикой, Roistat, таблицами</li>
+              </ul>
+            </div>
+            <div class="vacancy-hl-item">
+              <h4>Условия</h4>
+              <ul>
+                <li>Комфортный гибридный график (5/2, 10:00–19:00)</li>
+                <li>Офис на ВДНХ в зеленой парковой зоне</li>
+                <li>Стабильный оклад + премия за результат</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="vacancy-actions">
+            <a href="https://t.me/Guzhva_Kristina?text=Здравствуйте,%20Кристина!%20Хочу%20откликнуться%20на%20вакансию%20Performance-маркетолога%20(Пикник%20Сити)." target="_blank" rel="noopener" class="vac-tg-btn">
+              <span>Откликнуться в Telegram</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a href="mailto:kristina.guzhva@gmail.com?subject=Отклик%20на%20вакансию%20Performance-маркетолог" class="vac-apply-btn">
+              <span>Отправить резюме на почту</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Блок: База кандидатов -->
+        <div class="vacancies-banner-footer">
+          <h3>Не нашли свою специализацию?</h3>
+          <p>
+            Напишите мне напрямую в Telegram с прикрепленным резюме и указанием желаемой позиции. Когда откроется релевантная вакансия, я предложу ее вам в первую очередь.
+          </p>
+          <a href="https://t.me/Guzhva_Kristina?text=Здравствуйте,%20Кристина!%20Хочу%20передать%20свое%20резюме%20в%20вашу%20базу%20кандидатов." target="_blank" rel="noopener" class="vac-tg-btn">
+            <span>Отправить резюме в Telegram</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="6 7 34 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 14 C14 8, 8 9, 8 16 C8 25, 20 32, 22 34" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+              <path d="M18 22 C22 28, 29 25, 33 19 C35 15, 36 12, 38 9" stroke="var(--magenta)" stroke-width="2.8" stroke-linecap="round"/>
+              <path d="M32 9 H38 V15" stroke="var(--magenta)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="21" cy="18" r="2.0" fill="var(--lime)"/>
+            </svg>
+          </span>
+          <span>Кристина<br>Гужва</span>
+        </a>
+        <p>Карьерный консультант и рекрутер</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Навигация в подвале">
+        <a href="index.html#about">Обо мне</a>
+        <a href="index.html#services">Услуги</a>
+        <a href="index.html#prices">Тарифы</a>
+        <a href="index.html#reviews">Отзывы</a>
+        <a href="vacancies.html">Вакансии</a>
+      </nav>
+
+      <div class="footer-contacts">
+        <p class="footer-label">Контакты</p>
+        <div class="footer-messengers-row">
+          <a href="https://t.me/Guzhva_Kristina" target="_blank" rel="noopener" class="footer-messenger-btn footer-telegram-btn">
+            <span>Telegram</span>
+          </a>
+        </div>
+        <a href="mailto:kristina.guzhva@gmail.com" class="footer-phone-link">kristina.guzhva@gmail.com</a>
+      </div>
+
+      <div class="footer-legal">
+        <p class="footer-label">Документы</p>
+        <a href="privacy-policy.html" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        <a href="personal-data-consent.html" target="_blank" rel="noopener">Согласие на обработку персональных данных</a>
+      </div>
+    </div>
+
+    <div class="shell footer-bottom">
+      <p>© 2026 Кристина Гужва</p>
+      <a href="index.html">← На главную</a>
+    </div>
+  </footer>
+</body>
+</html>
