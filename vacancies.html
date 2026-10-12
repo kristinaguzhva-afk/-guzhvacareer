@@ -153,7 +153,7 @@
       line-height: 1.5;
     }
 
-    /* Блоки с описанием вакансии - высокая читаемость */
+    /* Блоки с описанием вакансии */
     .vacancy-section-block {
       margin-bottom: 24px;
     }
@@ -334,9 +334,9 @@
 
     /* Модальное окно отклика */
     .vacancy-dialog {
-      width: min(calc(100% - 24px), 720px);
-      max-width: 720px;
-      max-height: min(94vh, 760px);
+      width: min(calc(100% - 24px), 640px);
+      max-width: 640px;
+      max-height: min(94vh, 740px);
       margin: auto;
       padding: 0;
       color: var(--ink);
@@ -353,7 +353,7 @@
     .vacancy-dialog-inner {
       position: relative;
       padding: clamp(20px, 3vw, 32px);
-      max-height: min(94vh, 760px);
+      max-height: min(94vh, 740px);
       overflow-y: auto;
       scrollbar-width: thin;
       background: var(--paper);
@@ -397,99 +397,32 @@
       margin-bottom: 6px;
     }
     .modal-subtitle {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    /* Блок прямого отклика в Telegram внутри модалки */
-    .quick-tg-option-box {
-      background: var(--white);
-      border: 1.5px solid #229ed9;
-      border-radius: 16px;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 14px rgba(34, 158, 217, 0.12);
-    }
-    .quick-tg-content {
-      max-width: 380px;
-    }
-    .quick-tg-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 2px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .quick-tg-desc {
-      font-size: 0.84rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-    .btn-quick-tg {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 22px;
-      background: #229ed9;
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease;
-      flex-shrink: 0;
-    }
-    .btn-quick-tg:hover {
-      background: #1b85b8;
-      transform: translateY(-1px);
-    }
-
-    /* Разделитель "или" */
-    .modal-or-divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 20px 0 24px;
-      color: var(--muted);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .modal-or-divider::before,
-    .modal-or-divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--line);
+      margin-bottom: 22px;
     }
 
     /* Поля формы отклика */
     .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-    @media (max-width: 600px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 18px;
     }
     .form-field {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    .form-field-full {
-      grid-column: 1 / -1;
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 540px) {
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
     }
     .form-label {
       font-size: 0.84rem;
@@ -499,7 +432,7 @@
     .form-label span {
       color: var(--magenta);
     }
-    .form-input, .form-select, .form-textarea {
+    .form-input {
       width: 100%;
       padding: 11px 14px;
       background: var(--white);
@@ -510,33 +443,32 @@
       color: var(--ink);
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
+    .form-input:focus {
       outline: none;
       border-color: var(--ink);
       box-shadow: 0 0 0 3px rgba(18, 18, 23, 0.08);
     }
-    .form-textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
 
-    /* Выбор формата работы (кнопки-радио) */
-    .format-pills-row {
+    /* Выбор мессенджера (кнопки-радио) */
+    .messenger-pills-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin-bottom: 4px;
     }
-    .format-pill-radio {
+    .messenger-pill-radio {
       cursor: pointer;
     }
-    .format-pill-radio input {
+    .messenger-pill-radio input {
       position: absolute;
       opacity: 0;
       pointer-events: none;
     }
-    .format-pill-text {
-      display: inline-block;
-      padding: 8px 16px;
+    .messenger-pill-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
       background: var(--white);
       border: 1.5px solid var(--line);
       border-radius: 999px;
@@ -545,22 +477,19 @@
       color: var(--ink-soft);
       transition: all 0.2s ease;
     }
-    .format-pill-radio input:checked + .format-pill-text {
+    .messenger-pill-radio input:checked + .messenger-pill-text {
       background: var(--ink);
       color: #fff;
       border-color: var(--ink);
     }
 
-    /* Зона загрузки резюме (ОБЯЗАТЕЛЬНО) */
-    .resume-dropzone-wrap {
-      margin-bottom: 18px;
-    }
+    /* Зона загрузки резюме */
     .resume-dropzone {
       position: relative;
       border: 2px dashed var(--line);
       border-radius: 14px;
       background: var(--white);
-      padding: 22px 18px;
+      padding: 20px 16px;
       text-align: center;
       cursor: pointer;
       transition: border-color 0.2s ease, background-color 0.2s ease;
@@ -578,22 +507,22 @@
       height: 100%;
     }
     .dropzone-icon {
-      font-size: 1.8rem;
-      margin-bottom: 6px;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
       display: block;
     }
     .dropzone-text {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--ink);
       margin-bottom: 2px;
     }
     .dropzone-sub {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
     }
     .selected-file-info {
-      margin-top: 10px;
+      margin-top: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -667,12 +596,12 @@
       padding: 24px 12px;
     }
     .success-badge-icon {
-      width: 64px;
-      height: 64px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: var(--lime);
       color: var(--ink);
-      font-size: 2rem;
+      font-size: 1.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -713,7 +642,7 @@
   </header>
 
   <main id="main">
-    <!-- Hero страницы (с правильным отступом ниже шапки) -->
+    <!-- Hero страницы -->
     <section class="vacancies-page-hero">
       <div class="shell">
         <nav class="vacancies-breadcrumbs" aria-label="Хлебные крошки">
@@ -724,12 +653,12 @@
 
         <h1 class="vacancies-hero-title">Актуальные вакансии в работе</h1>
         <p class="vacancies-hero-lead">
-          Помимо карьерного консультирования, я веду точечный прямой подбор на ключевые позиции для проверенных работодателей. Ваши отклики рассматриваются лично мной без бездушных авто-фильтров.
+          Прямой подбор специалистов на ключевые позиции для проверенных работодателей. Ваши отклики рассматриваются напрямую без шаблонных авто-фильтров.
         </p>
 
         <div class="vacancies-hero-badges">
           <span class="vac-pill vac-pill-hot">🔥 Свежее обновление</span>
-          <span class="vac-pill">Прямой диалог с HR-экспертом</span>
+          <span class="vac-pill">Прямой отбор</span>
           <span class="vac-pill">Конфиденциально</span>
         </div>
       </div>
@@ -826,7 +755,7 @@
           <div class="vacancy-section-block">
             <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
             <div class="selection-steps">
-              <div class="selection-step-item"><span class="step-num">1</span> Онлайн-знакомство с HR</div>
+              <div class="selection-step-item"><span class="step-num">1</span> Онлайн-скрининг резюме</div>
               <div class="selection-step-item"><span class="step-num">2</span> Онлайн-встреча с руководителем</div>
               <div class="selection-step-item"><span class="step-num">3</span> Небольшое тестовое задание</div>
             </div>
@@ -848,7 +777,7 @@
     </section>
   </main>
 
-  <!-- ЕДИНАЯ МОДАЛЬНАЯ ФОРМА ОТКЛИКА -->
+  <!-- СТАНДАРТНАЯ ФОРМА ОТКЛИКА -->
   <dialog class="vacancy-dialog" id="vacancy-dialog" aria-labelledby="vac-dialog-title">
     <div class="vacancy-dialog-inner">
       <button class="vacancy-dialog-close" type="button" id="vac-dialog-close" aria-label="Закрыть окно">✕</button>
@@ -857,81 +786,60 @@
       <div id="vac-form-view">
         <p class="modal-kicker">Отклик на вакансию</p>
         <h2 class="modal-title" id="vac-dialog-title">Performance-маркетолог</h2>
-        <p class="modal-subtitle">Выберите, как удобнее связаться: написать сразу в Telegram или отправить резюме через форму</p>
-
-        <!-- Вариант 1: Быстрый переход в Telegram -->
-        <div class="quick-tg-option-box">
-          <div class="quick-tg-content">
-            <div class="quick-tg-title">💬 Написать Кристине напрямую в Telegram</div>
-            <div class="quick-tg-desc">Если хотите сразу прикрепить файл в чате или задать уточняющие вопросы по позиции.</div>
-          </div>
-          <a href="https://t.me/Guzhva_Kristina?text=Здравствуйте,%20Кристина!%20Хочу%20откликнуться%20на%20вакансию%20Performance-маркетолога%20(Пикник%20Сити)." target="_blank" rel="noopener" class="btn-quick-tg" id="vac-tg-direct-btn">
-            <span>В Telegram</span>
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-
-        <div class="modal-or-divider">Или заполните форму отклика ниже</div>
+        <p class="modal-subtitle">Заполните форму, чтобы отправить резюме на рассмотрение</p>
 
         <form id="vacancy-apply-form" novalidate>
           <input type="hidden" name="vacancyTitle" id="form-vacancy-title" value="Performance-маркетолог (Пикник Сити)">
 
           <div class="form-grid">
-            <!-- Имя -->
-            <div class="form-field">
-              <label class="form-label" for="vac-name">Ваше имя и фамилия <span>*</span></label>
-              <input class="form-input" type="text" id="vac-name" name="name" placeholder="Иван Иванов" required autocomplete="name">
-              <span class="field-error-msg" id="vac-name-error"></span>
-            </div>
+            <!-- 1. Имя и фамилия + 2. Телефон -->
+            <div class="form-row-2">
+              <div class="form-field">
+                <label class="form-label" for="vac-name">Имя и фамилия <span>*</span></label>
+                <input class="form-input" type="text" id="vac-name" name="name" placeholder="Иван Иванов" required autocomplete="name">
+                <span class="field-error-msg" id="vac-name-error"></span>
+              </div>
 
-            <!-- Телефон -->
-            <div class="form-field">
-              <label class="form-label" for="vac-phone">Номер телефона <span>*</span></label>
-              <input class="form-input" type="tel" id="vac-phone" name="phone" placeholder="+7 (999) 000-00-00" required autocomplete="tel">
-              <span class="field-error-msg" id="vac-phone-error"></span>
-            </div>
-
-            <!-- Мессенджер / соцсеть -->
-            <div class="form-field">
-              <label class="form-label" for="vac-contact">Telegram / контакт для связи <span>*</span></label>
-              <input class="form-input" type="text" id="vac-contact" name="contact" placeholder="@username или ссылка на профиль" required>
-              <span class="field-error-msg" id="vac-contact-error"></span>
-            </div>
-
-            <!-- Где находится -->
-            <div class="form-field">
-              <label class="form-label" for="vac-location">Где вы находитесь сейчас <span>*</span></label>
-              <input class="form-input" type="text" id="vac-location" name="location" placeholder="Москва, Санкт-Петербург и т.д." required>
-              <span class="field-error-msg" id="vac-location-error"></span>
-            </div>
-
-            <!-- Формат работы -->
-            <div class="form-field form-field-full">
-              <label class="form-label">Рассматриваемый формат работы <span>*</span></label>
-              <div class="format-pills-row">
-                <label class="format-pill-radio">
-                  <input type="radio" name="workFormat" value="Гибрид" checked>
-                  <span class="format-pill-text">Гибрид (офис + удаленка)</span>
-                </label>
-                <label class="format-pill-radio">
-                  <input type="radio" name="workFormat" value="Удаленно">
-                  <span class="format-pill-text">Только удаленно</span>
-                </label>
-                <label class="format-pill-radio">
-                  <input type="radio" name="workFormat" value="Офис">
-                  <span class="format-pill-text">Офис</span>
-                </label>
+              <div class="form-field">
+                <label class="form-label" for="vac-phone">Номер телефона <span>*</span></label>
+                <input class="form-input" type="tel" id="vac-phone" name="phone" placeholder="+7 (999) 000-00-00" required autocomplete="tel">
+                <span class="field-error-msg" id="vac-phone-error"></span>
               </div>
             </div>
 
-            <!-- Зона загрузки резюме (ОБЯЗАТЕЛЬНО) -->
-            <div class="form-field form-field-full resume-dropzone-wrap">
-              <label class="form-label">Прикрепите резюме (PDF или Word) <span>*</span></label>
+            <!-- 3. Выбор мессенджера для связи -->
+            <div class="form-field">
+              <label class="form-label">В каком мессенджере удобнее связаться? <span>*</span></label>
+              <div class="messenger-pills-row">
+                <label class="messenger-pill-radio">
+                  <input type="radio" name="preferredMessenger" value="Telegram" checked>
+                  <span class="messenger-pill-text">Telegram</span>
+                </label>
+                <label class="messenger-pill-radio">
+                  <input type="radio" name="preferredMessenger" value="WhatsApp">
+                  <span class="messenger-pill-text">WhatsApp</span>
+                </label>
+                <label class="messenger-pill-radio">
+                  <input type="radio" name="preferredMessenger" value="MAX">
+                  <span class="messenger-pill-text">MAX</span>
+                </label>
+                <label class="messenger-pill-radio">
+                  <input type="radio" name="preferredMessenger" value="Звонок">
+                  <span class="messenger-pill-text">Звонок</span>
+                </label>
+              </div>
+              <input class="form-input" type="text" id="vac-messenger-handle" name="messengerHandle" placeholder="Логин в Telegram (@username) или номер" required style="margin-top: 6px;">
+              <span class="field-error-msg" id="vac-messenger-error"></span>
+            </div>
+
+            <!-- 4. Загрузка документа с резюме (PDF или Word) -->
+            <div class="form-field">
+              <label class="form-label">Прикрепить резюме (документ в формате PDF или Word)</label>
               <div class="resume-dropzone" id="vac-dropzone">
-                <input type="file" id="vac-file" name="resumeFile" accept=".pdf,.doc,.docx" required>
+                <input type="file" id="vac-file" name="resumeFile" accept=".pdf,.doc,.docx">
                 <span class="dropzone-icon">📄</span>
-                <p class="dropzone-text">Нажмите для выбора или перетащите файл резюме</p>
-                <p class="dropzone-sub">Форматы: PDF, DOC, DOCX (до 10 МБ)</p>
+                <p class="dropzone-text">Нажмите для выбора или перетащите файл</p>
+                <p class="dropzone-sub">Форматы: PDF, Word (.docx, .doc) до 10 МБ</p>
               </div>
               <div class="selected-file-info" id="vac-file-info" hidden>
                 <span id="vac-file-name">файл_резюме.pdf</span>
@@ -940,20 +848,15 @@
               <span class="field-error-msg" id="vac-file-error"></span>
             </div>
 
-            <!-- Ссылка на онлайн-резюме (hh / диск) -->
-            <div class="form-field form-field-full">
-              <label class="form-label" for="vac-resume-link">Или ссылка на резюме (hh.ru, Google Диск, портфолио)</label>
-              <input class="form-input" type="url" id="vac-resume-link" name="resumeLink" placeholder="https://hh.ru/resume/...">
-            </div>
-
-            <!-- Короткий комментарий -->
-            <div class="form-field form-field-full">
-              <label class="form-label" for="vac-comment">Короткий комментарий (о себе или релевантных кейсах)</label>
-              <textarea class="form-textarea" id="vac-comment" name="comment" placeholder="Например: опыт в event-нише 3 года, вел кампании в Директе с бюджетом от 500 тыс. руб."></textarea>
+            <!-- 5. Ссылка на резюме в HeadHunter -->
+            <div class="form-field">
+              <label class="form-label" for="vac-hh-link">Ссылка на резюме в HeadHunter (hh.ru)</label>
+              <input class="form-input" type="url" id="vac-hh-link" name="hhLink" placeholder="https://hh.ru/resume/...">
+              <span class="field-error-msg" id="vac-hh-error"></span>
             </div>
           </div>
 
-          <!-- Согласие -->
+          <!-- 6. Согласие на обработку персональных данных -->
           <div class="modal-consent-row">
             <label class="consent-label" for="vac-consent">
               <input type="checkbox" id="vac-consent" name="consent" required checked>
@@ -962,9 +865,9 @@
             <span class="field-error-msg" id="vac-consent-error"></span>
           </div>
 
-          <!-- Кнопка отправки -->
+          <!-- Кнопка отправки отклика -->
           <button type="submit" class="btn-submit-vacancy" id="vac-submit-btn">
-            <span>Отправить отклик Кристине</span>
+            <span>Отправить отклик</span>
           </button>
         </form>
       </div>
@@ -974,16 +877,12 @@
         <div class="success-badge-icon">✓</div>
         <h3 class="modal-title">Отклик успешно отправлен!</h3>
         <p class="modal-subtitle" style="margin-top: 8px;">
-          Спасибо! Ваша анкета принята. Я свяжусь с вами в указанном мессенджере в течение 24–48 часов.
+          Ваша анкета принята. Мы свяжемся с вами в указанном мессенджере в течение 24–48 часов.
         </p>
 
-        <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin-left: auto; margin-right: auto;">
-          <a href="https://t.me/Guzhva_Kristina" target="_blank" rel="noopener" class="btn-quick-tg" style="justify-content: center;">
-            <span>Написать в Telegram для ускорения</span>
-            <span aria-hidden="true">↗</span>
-          </a>
-          <button type="button" class="btn-submit-vacancy" id="vac-success-close-btn" style="background: transparent; color: var(--ink); border: 1.5px solid var(--ink); box-shadow: none;">
-            Закрыть окно
+        <div style="margin-top: 24px; max-width: 240px; margin-left: auto; margin-right: auto;">
+          <button type="button" class="btn-submit-vacancy" id="vac-success-close-btn" style="background: var(--ink); color: #fff;">
+            Понятно
           </button>
         </div>
       </div>
@@ -1056,7 +955,22 @@
       const fileRemoveBtn = document.getElementById("vac-file-remove");
       const fileError = document.getElementById("vac-file-error");
 
-      const tgDirectBtn = document.getElementById("vac-tg-direct-btn");
+      const messengerRadios = document.querySelectorAll('input[name="preferredMessenger"]');
+      const messengerInput = document.getElementById("vac-messenger-handle");
+
+      // Подсказки для выбранного мессенджера
+      const messengerPlaceholders = {
+        Telegram: "Логин в Telegram (@username)",
+        WhatsApp: "Номер в WhatsApp (+7 ...)",
+        MAX: "Ссылка на профиль в MAX",
+        "Звонок": "Удобное время для звонка (например, с 12:00 до 18:00)"
+      };
+
+      messengerRadios.forEach(radio => {
+        radio.addEventListener("change", () => {
+          messengerInput.placeholder = messengerPlaceholders[radio.value] || "Контакт для связи";
+        });
+      });
 
       // Открытие модалки по кнопке "Откликнуться"
       document.querySelectorAll("[data-open-vacancy]").forEach(btn => {
@@ -1064,10 +978,6 @@
           const vacancyName = btn.getAttribute("data-open-vacancy") || "Performance-маркетолог";
           document.getElementById("vac-dialog-title").textContent = vacancyName;
           document.getElementById("form-vacancy-title").value = vacancyName;
-          
-          if (tgDirectBtn) {
-            tgDirectBtn.href = `https://t.me/Guzhva_Kristina?text=${encodeURIComponent(`Здравствуйте, Кристина! Откликаюсь на вакансию ${vacancyName}.`)}`;
-          }
 
           // Сброс состояния
           formView.hidden = false;
@@ -1075,15 +985,6 @@
           dialog.showModal();
         });
       });
-
-      // При клике на переход в Telegram - закрываем модалку
-      if (tgDirectBtn) {
-        tgDirectBtn.addEventListener("click", () => {
-          setTimeout(() => {
-            dialog.close();
-          }, 300);
-        });
-      }
 
       // Закрытие
       if (closeBtn) closeBtn.addEventListener("click", () => dialog.close());
@@ -1136,9 +1037,10 @@
         let hasError = false;
         const nameVal = document.getElementById("vac-name").value.trim();
         const phoneVal = document.getElementById("vac-phone").value.trim();
-        const contactVal = document.getElementById("vac-contact").value.trim();
-        const locationVal = document.getElementById("vac-location").value.trim();
+        const messengerType = document.querySelector('input[name="preferredMessenger"]:checked')?.value || "Telegram";
+        const messengerHandle = messengerInput.value.trim();
         const file = fileInput.files[0];
+        const hhLinkVal = document.getElementById("vac-hh-link").value.trim();
         const consentChecked = document.getElementById("vac-consent").checked;
 
         // Очистка ошибок
@@ -1149,19 +1051,15 @@
           hasError = true;
         }
         if (!phoneVal || phoneVal.length < 6) {
-          document.getElementById("vac-phone-error").textContent = "Укажите контактный телефон";
+          document.getElementById("vac-phone-error").textContent = "Укажите номер телефона";
           hasError = true;
         }
-        if (!contactVal || contactVal.length < 2) {
-          document.getElementById("vac-contact-error").textContent = "Укажите Telegram или ссылку на мессенджер/соцсеть";
+        if (!messengerHandle && messengerType !== "Звонок") {
+          document.getElementById("vac-messenger-error").textContent = "Укажите контакт для связи";
           hasError = true;
         }
-        if (!locationVal) {
-          document.getElementById("vac-location-error").textContent = "Укажите город, где находитесь";
-          hasError = true;
-        }
-        if (!file) {
-          document.getElementById("vac-file-error").textContent = "Обязательно прикрепите файл резюме (PDF или Word)";
+        if (!file && !hhLinkVal) {
+          document.getElementById("vac-file-error").textContent = "Прикрепите файл резюме (PDF/Word) или укажите ссылку на HeadHunter";
           hasError = true;
         }
         if (!consentChecked) {
@@ -1173,9 +1071,6 @@
 
         // Сбор данных
         const vacancyTitle = document.getElementById("form-vacancy-title").value;
-        const workFormat = document.querySelector('input[name="workFormat"]:checked')?.value || "Гибрид";
-        const resumeLink = document.getElementById("vac-resume-link").value.trim();
-        const commentVal = document.getElementById("vac-comment").value.trim();
 
         submitBtn.disabled = true;
         submitBtn.textContent = "Отправка заявки...";
@@ -1184,17 +1079,17 @@
           submissionId: "vac-" + Date.now(),
           name: nameVal,
           phone: phoneVal,
-          preferredMessenger: "Telegram",
-          messengerHandle: contactVal,
+          preferredMessenger: messengerType,
+          messengerHandle: messengerHandle || phoneVal,
           selectedService: `Отклик на вакансию: ${vacancyTitle}`,
-          comment: commentVal || "Без комментария",
+          comment: hhLinkVal ? `Ссылка на резюме: ${hhLinkVal}` : "",
           quiz: {
             "Позиция": vacancyTitle,
-            "Формат работы": workFormat,
-            "Локация": locationVal,
-            "Контакт для связи": contactVal,
+            "Имя и фамилия": nameVal,
+            "Телефон": phoneVal,
+            "Мессенджер для связи": `${messengerType}: ${messengerHandle || phoneVal}`,
             "Файл резюме": file ? `${file.name} (${Math.round(file.size / 1024)} КБ)` : "Не прикреплен",
-            "Ссылка на резюме (онлайн)": resumeLink || "Не указана"
+            "Ссылка на резюме HeadHunter": hhLinkVal || "Не указана"
           },
           pageUrl: window.location.href
         };
@@ -1210,12 +1105,11 @@
           formView.hidden = true;
           successView.hidden = false;
         } catch (err) {
-          // Если сеть заблокирована или офлайн, все равно показываем подтверждение и даем ссылку на Telegram
           formView.hidden = true;
           successView.hidden = false;
         } finally {
           submitBtn.disabled = false;
-          submitBtn.textContent = "Отправить отклик Кристине";
+          submitBtn.textContent = "Отправить отклик";
         }
       });
     })();
