@@ -1757,5 +1757,44 @@ function initMobileCarousels() {
 
 initMobileCarousels();
 
+/* ==========================================================================
+   Vacancy Alert Banner (Main Page)
+   Отображает плашку о новой вакансии в первые 3 дня после даты публикации.
+   Если прошло > 3 дней или активных вакансий нет — плашка скрыта.
+   ========================================================================== */
+function initVacancyAlert() {
+  const banner = document.getElementById("vacancy-alert-banner");
+  const titleEl = document.getElementById("vacancy-alert-title");
+  if (!banner || !titleEl) return;
+
+  const vacancies = window.VACANCIES_DATA;
+  if (!Array.isArray(vacancies) || vacancies.length === 0) {
+    banner.hidden = true;
+    return;
+  }
+
+  const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
+  const now = Date.now();
+
+  // Отбираем только активные вакансии, опубликованные не более 3 дней назад
+  const fresh = vacancies.filter((v) => {
+    if (!v.isActive || !v.publishedAt) return false;
+    const pubTime = new Date(v.publishedAt + "T00:00:00").getTime();
+    if (isNaN(pubTime)) return false;
+    const age = now - pubTime;
+    return age >= 0 && age <= THREE_DAYS_MS;
+  });
+
+  if (fresh.length > 0) {
+    fresh.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    titleEl.textContent = fresh[0].title;
+    banner.hidden = false;
+  } else {
+    banner.hidden = true;
+  }
+}
+
+initVacancyAlert();
+
 
 
