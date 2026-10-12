@@ -31,7 +31,7 @@
 
   <link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=34">
+  <link rel="stylesheet" href="css/styles.css?v=36">
 
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
@@ -343,6 +343,20 @@
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <!-- Плашка новой вакансии (автоматически отображается первые 3 дня после публикации) -->
+      <div class="shell hero-vacancy-alert-wrap" id="vacancy-alert-banner" hidden>
+        <a href="vacancies.html" class="hero-vacancy-alert">
+          <div class="vacancy-alert-content">
+            <span class="vacancy-alert-tag">🔥 Новая вакансия</span>
+            <span class="vacancy-alert-text">В работе открыта позиция: <strong id="vacancy-alert-title">Performance-маркетолог</strong></span>
+          </div>
+          <span class="vacancy-alert-link">
+            <span>Смотреть и откликнуться</span>
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      </div>
+
       <div class="hero-grid shell">
         <div class="hero-copy">
           <div class="hero-eyebrow-row">
@@ -1882,6 +1896,7 @@
   </aside>
 
   <noscript><div class="noscript-note">Для работы функций сайта нужен JavaScript.</div></noscript>
-  <script src="js/main.js?v=22" defer></script>
+  <script src="js/vacancies-data.js?v=2" defer></script>
+  <script src="js/main.js?v=36" defer></script>
 </body>
 </html>
