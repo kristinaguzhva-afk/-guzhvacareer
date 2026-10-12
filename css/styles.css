@@ -4017,7 +4017,7 @@ body.dialog-open { overflow: hidden; }
 /* Tablet & Responsive Navigation */
 @media (max-width: 1080px) {
   .site-nav { display: none; }
-  .header-actions { margin-right: 0; }
+  .header-actions { margin-right: 56px; }
 }
 
 @media (max-width: 1040px) {
@@ -8442,6 +8442,7 @@ body.is-tariff-cursor-guided * {
   align-items: center;
   gap: 6px;
   line-height: 1.2;
+  white-space: nowrap;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 .site-nav > a.nav-vacancies-link.has-new-vacancy::after {
@@ -8496,12 +8497,12 @@ body.is-tariff-cursor-guided * {
   text-transform: uppercase;
 }
 
-/* Burger button indicator on mobile */
+/* Burger button indicator on mobile & tablet */
 .menu-toggle.has-new-vacancy::after {
   content: "";
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 3px;
+  right: 3px;
   width: 8px;
   height: 8px;
   background: var(--lime);
