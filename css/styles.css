@@ -8427,100 +8427,88 @@ body.is-tariff-cursor-guided * {
   }
 }
 
-/* Плашка новой вакансии на главной странице (отображается первые 3 дня) */
-.hero-vacancy-alert-wrap {
-  margin-bottom: 22px;
-}
-.hero-vacancy-alert {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  background: #ffffff;
-  border: 2px solid #121217;
-  border-radius: 999px;
-  padding: 8px 18px 8px 10px;
-  box-shadow: 4px 4px 0 var(--magenta);
-  text-decoration: none;
-  color: #121217;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-.hero-vacancy-alert:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 6px 6px 0 var(--ink);
-  background: #fffdfa;
-}
-.vacancy-alert-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.vacancy-alert-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--magenta);
-  color: #ffffff;
-  font-size: 0.76rem;
+/* ==========================================================================
+   Vacancy Highlight in Navigation (Active when a new vacancy is published <= 3 days)
+   ========================================================================== */
+.site-nav > a.nav-vacancies-link.has-new-vacancy {
+  background: var(--lime);
+  color: var(--ink);
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 5px 12px;
+  padding: 5px 14px;
   border-radius: 999px;
-  white-space: nowrap;
-}
-.vacancy-alert-text {
-  font-size: 0.88rem;
-  color: #121217;
-}
-.vacancy-alert-text strong {
-  font-weight: 800;
-  color: #121217;
-}
-.vacancy-alert-link {
+  border: 1.5px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.84rem;
-  font-weight: 800;
-  color: var(--magenta-dark);
-  white-space: nowrap;
+  line-height: 1.2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
-.vacancy-alert-link span:last-child {
-  transition: transform 0.2s ease;
+.site-nav > a.nav-vacancies-link.has-new-vacancy::after {
+  display: none !important;
 }
-.hero-vacancy-alert:hover .vacancy-alert-link span:last-child {
-  transform: translateX(3px);
+.site-nav > a.nav-vacancies-link.has-new-vacancy:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+  background: #e2ff70;
+}
+.site-nav > a.nav-vacancies-link.has-new-vacancy::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink);
+  animation: pulse-vacancy-dot 2s infinite ease-in-out;
 }
 
-@media (max-width: 679.98px) {
-  .hero-vacancy-alert-wrap {
-    margin-bottom: 16px;
+@keyframes pulse-vacancy-dot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.95;
   }
-  .hero-vacancy-alert {
-    border-radius: 14px;
-    padding: 10px 12px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    box-shadow: 3px 3px 0 var(--magenta);
+  50% {
+    transform: scale(1.4);
+    opacity: 0.4;
   }
-  .vacancy-alert-content {
-    gap: 6px;
-  }
-  .vacancy-alert-tag {
-    font-size: 0.72rem;
-    padding: 4px 10px;
-  }
-  .vacancy-alert-text {
-    font-size: 0.82rem;
-    line-height: 1.35;
-  }
-  .vacancy-alert-link {
-    font-size: 0.8rem;
-    align-self: flex-end;
-  }
+}
+
+/* Burger menu link highlight */
+.menu-drawer-link.has-new-vacancy .menu-link-text {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.menu-drawer-link.has-new-vacancy .menu-link-text::after {
+  content: "NEW";
+  display: inline-block;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 3px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  box-shadow: 1px 1px 0 var(--ink);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Burger button indicator on mobile */
+.menu-toggle.has-new-vacancy::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  background: var(--lime);
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: pulse-vacancy-dot 2s infinite ease-in-out;
 }
 
 
