@@ -12,7 +12,7 @@
 
   <link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=38">
+  <link rel="stylesheet" href="css/styles.css?v=39">
 
   <style>
     *, *::before, *::after {
@@ -50,9 +50,19 @@
       .vacancy-conditions-grid {
         grid-template-columns: 1fr;
       }
+      .vacancy-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
       .btn-apply-main {
         width: 100%;
         padding: 13px 20px;
+        font-size: 0.94rem;
+      }
+      .btn-apply-hh {
+        width: 100%;
+        padding: 12px 20px;
         font-size: 0.94rem;
       }
       .form-input {
@@ -299,14 +309,16 @@
       padding-top: 20px;
       border-top: 1px solid var(--line);
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      gap: 12px;
     }
     .btn-apply-main {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 14px 34px;
+      gap: 8px;
+      padding: 13px 28px;
       background: var(--ink);
       color: var(--white);
       border: 2px solid var(--ink);
@@ -328,6 +340,65 @@
     .btn-apply-main:active {
       transform: translate(2px, 2px);
       box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    /* Кнопка hh.ru */
+    .btn-apply-hh {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #ffffff;
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.94rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 4px 4px 0 var(--ink);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-apply-hh:hover {
+      background: #fff5f5;
+      border-color: #d6001c;
+      color: #d6001c;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+    .btn-apply-hh:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .hh-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #d6001c;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .btn-apply-hh:hover .hh-logo-badge {
+      transform: scale(1.08);
+    }
+    .hh-arrow {
+      font-size: 1rem;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+    .btn-apply-hh:hover .hh-arrow {
+      transform: translate(2px, -2px);
     }
 
     /* МОДАЛЬНОЕ ОКНО - КОМПАКТНОЕ И ВЫСОКОКОНТРАСТНОЕ */
@@ -790,12 +861,17 @@
             </div>
           </div>
 
-          <!-- КНОПКА ОТКЛИКА -->
+          <!-- КНОПКИ ОТКЛИКА -->
           <div class="vacancy-card-footer">
             <button type="button" class="btn-apply-main" data-open-vacancy="Performance-маркетолог (Пикник Сити)">
-              <span>Откликнуться на вакансию</span>
+              <span>Откликнуться</span>
               <span aria-hidden="true">→</span>
             </button>
+            <a href="https://hh.ru/vacancy/138457120?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Performance-маркетолог на hh.ru">
+              <span class="hh-logo-badge" aria-hidden="true">hh</span>
+              <span>hh.ru</span>
+              <span class="hh-arrow" aria-hidden="true">↗</span>
+            </a>
           </div>
         </article>
 
