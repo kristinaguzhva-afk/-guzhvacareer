@@ -47,6 +47,17 @@
         width: 100%;
         text-align: center;
       }
+      .vacancy-title-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .vacancy-toggle-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
       .vacancy-conditions-grid {
         grid-template-columns: 1fr;
       }
@@ -106,17 +117,32 @@
       background: var(--white);
       border: 1.5px solid var(--ink);
       border-radius: 24px;
-      padding: clamp(20px, 3vw, 36px);
-      box-shadow: 8px 8px 0 var(--magenta);
-      margin-bottom: 30px;
+      padding: clamp(18px, 2.8vw, 30px);
+      box-shadow: 7px 7px 0 var(--magenta);
+      margin-bottom: 20px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .vacancy-card:hover {
+      box-shadow: 9px 9px 0 var(--ink);
+      transform: translateY(-2px);
     }
 
     .vacancy-card-header {
-      margin-bottom: 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .vacancy-card-header:focus-visible {
+      outline: 2px solid var(--magenta);
+      outline-offset: 4px;
+      border-radius: 12px;
+    }
+    .vacancy-card.is-open .vacancy-card-header {
       padding-bottom: 18px;
       border-bottom: 1px solid var(--line);
     }
+
     .vacancy-tags-row {
       display: flex;
       flex-wrap: wrap;
@@ -153,6 +179,16 @@
       border: 1px solid rgba(217, 54, 106, 0.2);
     }
 
+    .vacancy-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .vacancy-title-group {
+      flex: 1;
+      min-width: 0;
+    }
     .vacancy-title {
       font-family: var(--font-heading);
       font-size: clamp(1.35rem, 2.1vw, 1.85rem);
@@ -166,6 +202,66 @@
       color: var(--muted);
       font-weight: 500;
       line-height: 1.5;
+      margin: 0;
+    }
+
+    .vacancy-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--paper-deep);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 2.5px 2.5px 0 var(--magenta);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .vacancy-toggle-btn:hover,
+    .vacancy-card-header:hover .vacancy-toggle-btn {
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: 3.5px 3.5px 0 var(--magenta);
+      transform: translate(-1px, -1px);
+    }
+    .vacancy-toggle-btn .toggle-icon {
+      font-size: 0.95rem;
+      line-height: 1;
+      transition: transform 0.25s ease;
+    }
+    .vacancy-card.is-open .vacancy-toggle-btn .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .vacancy-card.is-open .vacancy-toggle-btn {
+      background: var(--magenta);
+      color: #ffffff;
+      border-color: var(--ink);
+      box-shadow: 2.5px 2.5px 0 var(--ink);
+    }
+
+    /* Тело вакансии */
+    .vacancy-card-body {
+      margin-top: 22px;
+      animation: vacFadeIn 0.25s ease-out;
+    }
+    .vacancy-card-body[hidden] {
+      display: none !important;
+    }
+    @keyframes vacFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Блоки с описанием вакансии */
@@ -769,8 +865,8 @@
       <div class="shell">
 
         <!-- Карточка 1: Руководитель проектов (АСГАРД-Сервис) -->
-        <article class="vacancy-card" id="vac-project-manager-asgard">
-          <div class="vacancy-card-header">
+        <article class="vacancy-card is-collapsed" id="vac-project-manager-asgard">
+          <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-project-manager-asgard" aria-label="Раскрыть информацию о вакансии Руководитель проектов">
             <div class="vacancy-tags-row">
               <div class="vacancy-tags-left">
                 <span class="vacancy-badge vacancy-badge-hot">🔥 Новая вакансия</span>
@@ -781,117 +877,126 @@
               <div class="vacancy-salary-badge">от 200 000 ₽ на руки</div>
             </div>
 
-            <h2 class="vacancy-title">Руководитель проектов</h2>
-            <p class="vacancy-company-sub">ООО «АСГАРД-Сервис» — производство и поставка промышленного оборудования, технологический сервис, ремонт и монтаж в энергетике и нефтегазовом секторе</p>
-          </div>
-
-          <!-- 1. О компании и роли -->
-          <div class="vacancy-section-block">
-            <p class="vacancy-lead-text">
-              <strong>ООО «АСГАРД-Сервис»</strong> — инженерно-производственная компания, реализующая комплексные производственные и инженерно-технические задачи для предприятий энергетики, нефтепереработки, нефтехимии и нефтетранспортной отрасли как на стационарных промышленных объектах, так и на удалённых производственных площадках.
-            </p>
-            <p class="vacancy-lead-text">
-              Мы расширяем команду и приглашаем к совместному развитию <strong>Руководителя проекта</strong> для полного ведения объектов по очистке и техническому обслуживанию технологического оборудования.
-            </p>
-          </div>
-
-          <!-- 2. Фокус позиции -->
-          <div class="vacancy-focus-box">
-            <h4>🎯 Главный фокус позиции</h4>
-            <ul class="vacancy-styled-list">
-              <li>Полное ведение объекта «под ключ» от момента формирования договора до сдачи и подписания актов выполненных работ (очистка технологического оборудования на объектах нефтегазового сектора).</li>
-              <li>Сквозная организация: расчет материалов, закупки, комплектование бригад, оперативное руководство на площадке и контроль соблюдения стандартов безопасности.</li>
-            </ul>
-          </div>
-
-          <!-- 3. Чем предстоит заниматься -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Чем предстоит управлять</h3>
-            <ul class="vacancy-styled-list list-tasks">
-              <li>Осуществлять ведение объекта «под ключ» с момента формирования договора до подписания актов выполненных работ (очистка технологического оборудования на предприятиях нефтегазового сектора).</li>
-              <li>Вести переговоры с заказчиком на этапе подписания договора, согласования технологии выполнения работ, смет и сроков.</li>
-              <li>Организовывать сборы на объект: рассчитывать материалы, закупки, контролировать комплектование бригад, вести полное документальное сопровождение.</li>
-              <li>Искать и привлекать субподрядчиков по необходимости, взаимодействовать с заказчиком на всех этапах.</li>
-              <li>Владеть всей информацией по объекту, прорабатывать и минимизировать потенциальные проектные риски.</li>
-              <li>Выезжать на объект в составе бригады, контролировать работу на месте, взаимодействовать с персоналом заказчика, осуществлять документальное и регламентное сопровождение.</li>
-            </ul>
-          </div>
-
-          <!-- 4. Требования -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🔍</span> Опыт и навыки, которые для нас важны</h3>
-            <ul class="vacancy-styled-list">
-              <li>Высшее техническое образование (химическое или технологическое как преимущество).</li>
-              <li>Релевантный опыт ведения объектов промышленного назначения (инженерия, сервис, монтаж) от 2-х лет.</li>
-              <li>Опыт работы с объектами и предприятиями нефтегазового сектора крайне желателен.</li>
-              <li>Знание промышленного оборудования (теплообменники, запорно-регулирующая арматура, технологические узлы).</li>
-              <li>Опыт работы с технической и договорной документацией, сметами и актами.</li>
-              <li>Умение выстраивать контакт с заказчиками разного уровня, оперативно ориентироваться в меняющихся условиях и находить нестандартные инженерные решения.</li>
-              <li>Высокая мобильность и готовность к командировкам (около 40% рабочего времени).</li>
-            </ul>
-          </div>
-
-          <!-- 5. Условия -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🎁</span> Что мы предлагаем со своей стороны</h3>
-            <div class="vacancy-conditions-grid">
-              <div class="condition-chip">
-                <strong>Доход</strong>
-                Фиксированный оклад + % от реализованных проектов (от 200 000 ₽ на руки)
+            <div class="vacancy-title-row">
+              <div class="vacancy-title-group">
+                <h2 class="vacancy-title">Руководитель проектов</h2>
+                <p class="vacancy-company-sub">ООО «АСГАРД-Сервис» — производство и поставка промышленного оборудования, технологический сервис, ремонт и монтаж в энергетике и нефтегазовом секторе</p>
               </div>
-              <div class="condition-chip">
-                <strong>Оформление</strong>
-                Официальное трудоустройство по ТК РФ с первого рабочего дня
-              </div>
-              <div class="condition-chip">
-                <strong>График</strong>
-                5/2 с 9:00 до 18:00
-              </div>
-              <div class="condition-chip">
-                <strong>Офис</strong>
-                Уютный офис в Москве рядом со станцией метро «Электрозаводская»
-              </div>
-              <div class="condition-chip">
-                <strong>Командировки</strong>
-                ~40% времени (с полной оплатой расходов и суточных)
-              </div>
-              <div class="condition-chip">
-                <strong>Перспективы</strong>
-                Реальный профессиональный и карьерный рост в растущей компании
-              </div>
+              <button type="button" class="vacancy-toggle-btn" aria-hidden="true" tabindex="-1">
+                <span class="toggle-text">Подробнее о вакансии</span>
+                <span class="toggle-icon" aria-hidden="true">▾</span>
+              </button>
             </div>
           </div>
 
-          <!-- 6. Этапы отбора -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
-            <div class="selection-steps">
-              <div class="selection-step-item"><span class="step-num">1</span> Онлайн-знакомство с HR-консультантом Кристиной Гужвой</div>
-              <div class="selection-step-item"><span class="step-num">2</span> Встреча с техническим руководством ООО «АСГАРД-Сервис»</div>
-              <div class="selection-step-item"><span class="step-num">3</span> Финальный оффер</div>
+          <div class="vacancy-card-body" id="vac-body-project-manager-asgard" hidden>
+            <!-- 1. О компании и роли -->
+            <div class="vacancy-section-block">
+              <p class="vacancy-lead-text">
+                <strong>ООО «АСГАРД-Сервис»</strong> — инженерно-производственная компания, реализующая комплексные производственные и инженерно-технические задачи для предприятий энергетики, нефтепереработки, нефтехимии и нефтетранспортной отрасли как на стационарных промышленных объектах, так и на удалённых производственных площадках.
+              </p>
+              <p class="vacancy-lead-text">
+                Мы расширяем команду и приглашаем к совместному развитию <strong>Руководителя проекта</strong> для полного ведения объектов по очистке и техническому обслуживанию технологического оборудования.
+              </p>
             </div>
-          </div>
 
-          <!-- КНОПКИ ОТКЛИКА -->
-          <div class="vacancy-card-footer">
-            <button type="button" class="btn-apply-main" data-open-vacancy="Руководитель проектов (АСГАРД-Сервис)">
-              <span>Откликнуться</span>
-              <span aria-hidden="true">→</span>
-            </button>
-            <a href="https://volgograd.hh.ru/vacancy/136577589?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Руководитель проектов на hh.ru">
-              <span class="hh-logo-badge" aria-hidden="true">hh</span>
-              <span>hh.ru</span>
-              <span class="hh-arrow" aria-hidden="true">↗</span>
-            </a>
+            <!-- 2. Фокус позиции -->
+            <div class="vacancy-focus-box">
+              <h4>🎯 Главный фокус позиции</h4>
+              <ul class="vacancy-styled-list">
+                <li>Полное ведение объекта «под ключ» от момента формирования договора до сдачи и подписания актов выполненных работ (очистка технологического оборудования на объектах нефтегазового сектора).</li>
+                <li>Сквозная организация: расчет материалов, закупки, комплектование бригад, оперативное руководство на площадке и контроль соблюдения стандартов безопасности.</li>
+              </ul>
+            </div>
+
+            <!-- 3. Чем предстоит заниматься -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Чем предстоит управлять</h3>
+              <ul class="vacancy-styled-list list-tasks">
+                <li>Осуществлять ведение объекта «под ключ» с момента формирования договора до подписания актов выполненных работ (очистка технологического оборудования на предприятиях нефтегазового сектора).</li>
+                <li>Вести переговоры с заказчиком на этапе подписания договора, согласования технологии выполнения работ, смет и сроков.</li>
+                <li>Организовывать сборы на объект: рассчитывать материалы, закупки, контролировать комплектование бригад, вести полное документальное сопровождение.</li>
+                <li>Искать и привлекать субподрядчиков по необходимости, взаимодействовать с заказчиком на всех этапах.</li>
+                <li>Владеть всей информацией по объекту, прорабатывать и минимизировать потенциальные проектные риски.</li>
+                <li>Выезжать на объект в составе бригады, контролировать работу на месте, взаимодействовать с персоналом заказчика, осуществлять документальное и регламентное сопровождение.</li>
+              </ul>
+            </div>
+
+            <!-- 4. Требования -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🔍</span> Опыт и навыки, которые для нас важны</h3>
+              <ul class="vacancy-styled-list">
+                <li>Высшее техническое образование (химическое или технологическое как преимущество).</li>
+                <li>Релевантный опыт ведения объектов промышленного назначения (инженерия, сервис, монтаж) от 2-х лет.</li>
+                <li>Опыт работы с объектами и предприятиями нефтегазового сектора крайне желателен.</li>
+                <li>Знание промышленного оборудования (теплообменники, запорно-регулирующая арматура, технологические узлы).</li>
+                <li>Опыт работы с технической и договорной документацией, сметами и актами.</li>
+                <li>Умение выстраивать контакт с заказчиками разного уровня, оперативно ориентироваться в меняющихся условиях и находить нестандартные инженерные решения.</li>
+                <li>Высокая мобильность и готовность к командировкам (около 40% рабочего времени).</li>
+              </ul>
+            </div>
+
+            <!-- 5. Условия -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🎁</span> Что мы предлагаем со своей стороны</h3>
+              <div class="vacancy-conditions-grid">
+                <div class="condition-chip">
+                  <strong>Доход</strong>
+                  Фиксированный оклад + % от реализованных проектов (от 200 000 ₽ на руки)
+                </div>
+                <div class="condition-chip">
+                  <strong>Оформление</strong>
+                  Официальное трудоустройство по ТК РФ с первого рабочего дня
+                </div>
+                <div class="condition-chip">
+                  <strong>График</strong>
+                  5/2 с 9:00 до 18:00
+                </div>
+                <div class="condition-chip">
+                  <strong>Офис</strong>
+                  Уютный офис в Москве рядом со станцией метро «Электрозаводская»
+                </div>
+                <div class="condition-chip">
+                  <strong>Командировки</strong>
+                  ~40% времени (с полной оплатой расходов и суточных)
+                </div>
+                <div class="condition-chip">
+                  <strong>Перспективы</strong>
+                  Реальный профессиональный и карьерный рост в растущей компании
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Этапы отбора -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
+              <div class="selection-steps">
+                <div class="selection-step-item"><span class="step-num">1</span> Онлайн-знакомство с HR-консультантом Кристиной Гужвой</div>
+                <div class="selection-step-item"><span class="step-num">2</span> Встреча с техническим руководством ООО «АСГАРД-Сервис»</div>
+                <div class="selection-step-item"><span class="step-num">3</span> Финальный оффер</div>
+              </div>
+            </div>
+
+            <!-- КНОПКИ ОТКЛИКА -->
+            <div class="vacancy-card-footer">
+              <button type="button" class="btn-apply-main" data-open-vacancy="Руководитель проектов (АСГАРД-Сервис)">
+                <span>Откликнуться</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <a href="https://volgograd.hh.ru/vacancy/136577589?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Руководитель проектов на hh.ru">
+                <span class="hh-logo-badge" aria-hidden="true">hh</span>
+                <span>hh.ru</span>
+                <span class="hh-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
         </article>
 
         <!-- Карточка 2: Performance-маркетолог -->
-        <article class="vacancy-card" id="vac-performance-marketer">
-          <div class="vacancy-card-header">
+        <article class="vacancy-card is-collapsed" id="vac-performance-marketer">
+          <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-performance-marketer" aria-label="Раскрыть информацию о вакансии Performance-маркетолог">
             <div class="vacancy-tags-row">
               <div class="vacancy-tags-left">
-                <span class="vacancy-badge vacancy-badge-hot">🔥 Новая вакансия</span>
                 <span class="vacancy-badge">Гибрид (Москва, ВДНХ)</span>
                 <span class="vacancy-badge">Маркетинг</span>
                 <span class="vacancy-badge">Опыт от 2 лет</span>
@@ -899,97 +1004,107 @@
               <div class="vacancy-salary-badge">Оклад + KPI</div>
             </div>
 
-            <h2 class="vacancy-title">Performance-маркетолог</h2>
-            <p class="vacancy-company-sub">«Пикник Сити» — сеть круглогодичных парковых комплексов отдыха (ВДНХ / Лосиный остров / Бирюлево)</p>
-          </div>
-
-          <!-- 1. О компании и роли -->
-          <div class="vacancy-section-block">
-            <p class="vacancy-lead-text">
-              <strong>«Пикник Сити»</strong> — сеть благоустроенных беседочных комплексов в крупнейших парках Москвы и Подмосковья. Мы организуем площадки для проведения событий: дней рождений, свадеб, корпоративов и семейного отдыха с закрытыми теплыми беседками круглый год.
-            </p>
-            <p class="vacancy-lead-text">
-              Сейчас мы масштабируем бизнес и ищем в команду <strong>Performance-маркетолога</strong>, который возглавит привлечение целевого трафика и сделает поток бронирований стабильным и прогнозируемым.
-            </p>
-          </div>
-
-          <!-- 2. Фокус на 3 месяца -->
-          <div class="vacancy-focus-box">
-            <h4>🎯 Главный фокус на первые 3 месяца</h4>
-            <ul class="vacancy-styled-list">
-              <li>Провести аудит текущих рекламных кампаний и снизить стоимость привлечения клиента (CPA / CAC).</li>
-              <li>Обеспечить стабильную загрузку закрытых теплых комплексов под мероприятия в осенне-зимний сезон.</li>
-            </ul>
-          </div>
-
-          <!-- 3. Чем предстоит заниматься -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Чем предстоит управлять</h3>
-            <ul class="vacancy-styled-list list-tasks">
-              <li>Запуск, ведение и масштабирование рекламных кампаний: контекст (Яндекс.Директ), таргетированная реклама ВКонтакте, Telegram-каналы и Авито.</li>
-              <li>Продвижение и оптимизация профилей площадок на геосервисах (Яндекс.Карты, 2ГИС).</li>
-              <li>Разработка и запуск гипотез под межсезонье: пакетные предложения, специальные офферы, ценовые эксперименты.</li>
-              <li>Аналитика конверсий на всех этапах воронки, расчет показателей окупаемости (ROI / ROMI, CPA, CAC, Roistat, Яндекс.Метрика).</li>
-              <li>Постановка технических заданий дизайнерам на визуальные материалы и контроль их реализации.</li>
-            </ul>
-          </div>
-
-          <!-- 4. Требования -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🔍</span> Опыт и навыки, которые для нас важны</h3>
-            <ul class="vacancy-styled-list">
-              <li>Опыт в performance-маркетинге от 2 лет.</li>
-              <li>Понимание специфики локального бизнеса с привязкой к конкретным гео-точкам (загородный отдых, туризм, мероприятия, сфера услуг).</li>
-              <li>Практическая работа со сквозной аналитикой: понимание принципов Roistat, свободное владение Яндекс.Метрикой и таблицами (Excel / Google Sheets) — мы опираемся на цифры.</li>
-              <li>Умение рассчитывать юнит-экономику и оценивать реальный финансовый результат кампаний.</li>
-              <li><strong>Будет преимуществом:</strong> использование инструментов ИИ в работе (генерация креативов, текстов).</li>
-            </ul>
-          </div>
-
-          <!-- 5. Условия -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🎁</span> Что мы предлагаем со своей стороны</h3>
-            <div class="vacancy-conditions-grid">
-              <div class="condition-chip">
-                <strong>График</strong>
-                5/2 с 10:00 до 19:00 в комфортном гибридном формате
+            <div class="vacancy-title-row">
+              <div class="vacancy-title-group">
+                <h2 class="vacancy-title">Performance-маркетолог</h2>
+                <p class="vacancy-company-sub">«Пикник Сити» — сеть круглогодичных парковых комплексов отдыха (ВДНХ / Лосиный остров / Бирюлево)</p>
               </div>
-              <div class="condition-chip">
-                <strong>Локация</strong>
-                Уютный офис на территории ВДНХ в зеленой парковой зоне
-              </div>
-              <div class="condition-chip">
-                <strong>Доход</strong>
-                Конкурентный оклад + премия за результат (обсуждается с вами)
-              </div>
-              <div class="condition-chip">
-                <strong>Атмосфера</strong>
-                Быстрое согласование гипотез без бюрократии + корпоративные скидки
-              </div>
+              <button type="button" class="vacancy-toggle-btn" aria-hidden="true" tabindex="-1">
+                <span class="toggle-text">Подробнее о вакансии</span>
+                <span class="toggle-icon" aria-hidden="true">▾</span>
+              </button>
             </div>
           </div>
 
-          <!-- 6. Этапы отбора -->
-          <div class="vacancy-section-block">
-            <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
-            <div class="selection-steps">
-              <div class="selection-step-item"><span class="step-num">1</span> Онлайн-скрининг резюме</div>
-              <div class="selection-step-item"><span class="step-num">2</span> Онлайн-встреча с руководителем</div>
-              <div class="selection-step-item"><span class="step-num">3</span> Небольшое тестовое задание</div>
+          <div class="vacancy-card-body" id="vac-body-performance-marketer" hidden>
+            <!-- 1. О компании и роли -->
+            <div class="vacancy-section-block">
+              <p class="vacancy-lead-text">
+                <strong>«Пикник Сити»</strong> — сеть благоустроенных беседочных комплексов в крупнейших парках Москвы и Подмосковья. Мы организуем площадки для проведения событий: дней рождений, свадеб, корпоративов и семейного отдыха с закрытыми теплыми беседками круглый год.
+              </p>
+              <p class="vacancy-lead-text">
+                Сейчас мы масштабируем бизнес и ищем в команду <strong>Performance-маркетолога</strong>, который возглавит привлечение целевого трафика и сделает поток бронирований стабильным и прогнозируемым.
+              </p>
             </div>
-          </div>
 
-          <!-- КНОПКИ ОТКЛИКА -->
-          <div class="vacancy-card-footer">
-            <button type="button" class="btn-apply-main" data-open-vacancy="Performance-маркетолог (Пикник Сити)">
-              <span>Откликнуться</span>
-              <span aria-hidden="true">→</span>
-            </button>
-            <a href="https://hh.ru/vacancy/138457120?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Performance-маркетолог на hh.ru">
-              <span class="hh-logo-badge" aria-hidden="true">hh</span>
-              <span>hh.ru</span>
-              <span class="hh-arrow" aria-hidden="true">↗</span>
-            </a>
+            <!-- 2. Фокус на 3 месяца -->
+            <div class="vacancy-focus-box">
+              <h4>🎯 Главный фокус на первые 3 месяца</h4>
+              <ul class="vacancy-styled-list">
+                <li>Провести аудит текущих рекламных кампаний и снизить стоимость привлечения клиента (CPA / CAC).</li>
+                <li>Обеспечить стабильную загрузку закрытых теплых комплексов под мероприятия в осенне-зимний сезон.</li>
+              </ul>
+            </div>
+
+            <!-- 3. Чем предстоит заниматься -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Чем предстоит управлять</h3>
+              <ul class="vacancy-styled-list list-tasks">
+                <li>Запуск, ведение и масштабирование рекламных кампаний: контекст (Яндекс.Директ), таргетированная реклама ВКонтакте, Telegram-каналы и Авито.</li>
+                <li>Продвижение и оптимизация профилей площадок на геосервисах (Яндекс.Карты, 2ГИС).</li>
+                <li>Разработка и запуск гипотез под межсезонье: пакетные предложения, специальные офферы, ценовые эксперименты.</li>
+                <li>Аналитика конверсий на всех этапах воронки, расчет показателей окупаемости (ROI / ROMI, CPA, CAC, Roistat, Яндекс.Метрика).</li>
+                <li>Постановка технических заданий дизайнерам на визуальные материалы и контроль их реализации.</li>
+              </ul>
+            </div>
+
+            <!-- 4. Требования -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🔍</span> Опыт и навыки, которые для нас важны</h3>
+              <ul class="vacancy-styled-list">
+                <li>Опыт в performance-маркетинге от 2 лет.</li>
+                <li>Понимание специфики локального бизнеса с привязкой к конкретным гео-точкам (загородный отдых, туризм, мероприятия, сфера услуг).</li>
+                <li>Практическая работа со сквозной аналитикой: понимание принципов Roistat, свободное владение Яндекс.Метрикой и таблицами (Excel / Google Sheets) — мы опираемся на цифры.</li>
+                <li>Умение рассчитывать юнит-экономику и оценивать реальный финансовый результат кампаний.</li>
+                <li><strong>Будет преимуществом:</strong> использование инструментов ИИ в работе (генерация креативов, текстов).</li>
+              </ul>
+            </div>
+
+            <!-- 5. Условия -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🎁</span> Что мы предлагаем со своей стороны</h3>
+              <div class="vacancy-conditions-grid">
+                <div class="condition-chip">
+                  <strong>График</strong>
+                  5/2 с 10:00 до 19:00 в комфортном гибридном формате
+                </div>
+                <div class="condition-chip">
+                  <strong>Локация</strong>
+                  Уютный офис на территории ВДНХ в зеленой парковой зоне
+                </div>
+                <div class="condition-chip">
+                  <strong>Доход</strong>
+                  Конкурентный оклад + премия за результат (обсуждается с вами)
+                </div>
+                <div class="condition-chip">
+                  <strong>Атмосфера</strong>
+                  Быстрое согласование гипотез без бюрократии + корпоративные скидки
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Этапы отбора -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
+              <div class="selection-steps">
+                <div class="selection-step-item"><span class="step-num">1</span> Онлайн-скрининг резюме</div>
+                <div class="selection-step-item"><span class="step-num">2</span> Онлайн-встреча с руководителем</div>
+                <div class="selection-step-item"><span class="step-num">3</span> Небольшое тестовое задание</div>
+              </div>
+            </div>
+
+            <!-- КНОПКИ ОТКЛИКА -->
+            <div class="vacancy-card-footer">
+              <button type="button" class="btn-apply-main" data-open-vacancy="Performance-маркетолог (Пикник Сити)">
+                <span>Откликнуться</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <a href="https://hh.ru/vacancy/138457120?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Performance-маркетолог на hh.ru">
+                <span class="hh-logo-badge" aria-hidden="true">hh</span>
+                <span>hh.ru</span>
+                <span class="hh-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
         </article>
 
@@ -1193,6 +1308,75 @@
           messengerInput.placeholder = messengerPlaceholders[radio.value] || "Контакт для связи";
         });
       });
+
+      // Логика сворачивания / раскрытия вакансий (аккордеон)
+      document.querySelectorAll(".vacancy-card").forEach(card => {
+        const header = card.querySelector(".vacancy-card-header");
+        const body = card.querySelector(".vacancy-card-body");
+        const toggleBtn = card.querySelector(".vacancy-toggle-btn");
+        const toggleText = card.querySelector(".toggle-text");
+
+        if (!header || !body) return;
+
+        function setCardState(open) {
+          if (open) {
+            card.classList.add("is-open");
+            card.classList.remove("is-collapsed");
+            body.hidden = false;
+            header.setAttribute("aria-expanded", "true");
+            if (toggleText) toggleText.textContent = "Свернуть";
+          } else {
+            card.classList.remove("is-open");
+            card.classList.add("is-collapsed");
+            body.hidden = true;
+            header.setAttribute("aria-expanded", "false");
+            if (toggleText) toggleText.textContent = "Подробнее о вакансии";
+          }
+        }
+
+        // Клик по шапке карточки
+        header.addEventListener("click", (e) => {
+          if (e.target.closest("a, button:not(.vacancy-toggle-btn)")) return;
+          const willOpen = !card.classList.contains("is-open");
+          setCardState(willOpen);
+        });
+
+        // Клавиатурная навигация (Enter / Space)
+        header.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const willOpen = !card.classList.contains("is-open");
+            setCardState(willOpen);
+          }
+        });
+
+        // Клик по кнопке "Подробнее о вакансии"
+        if (toggleBtn) {
+          toggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const willOpen = !card.classList.contains("is-open");
+            setCardState(willOpen);
+          });
+        }
+      });
+
+      // Авто-раскрытие по хэшу в URL (например: #vac-performance-marketer)
+      if (window.location.hash) {
+        const targetCard = document.querySelector(window.location.hash);
+        if (targetCard && targetCard.classList.contains("vacancy-card")) {
+          const header = targetCard.querySelector(".vacancy-card-header");
+          const body = targetCard.querySelector(".vacancy-card-body");
+          const toggleText = targetCard.querySelector(".toggle-text");
+          if (body) {
+            targetCard.classList.add("is-open");
+            targetCard.classList.remove("is-collapsed");
+            body.hidden = false;
+            if (header) header.setAttribute("aria-expanded", "true");
+            if (toggleText) toggleText.textContent = "Свернуть";
+            setTimeout(() => targetCard.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+          }
+        }
+      }
 
       // Открытие модалки по кнопке "Откликнуться"
       document.querySelectorAll("[data-open-vacancy]").forEach(btn => {
