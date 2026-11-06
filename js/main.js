@@ -6,34 +6,33 @@ if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
-// Check for target anchor from query parameters, hash, or window.__initialTargetId
+// Check navigation type: reload must always start from the top
+const _navEntry = performance.getEntriesByType?.("navigation")?.[0];
+const _isReload = _navEntry && _navEntry.type === "reload";
+
+// Check for EXPLICIT target request only (not on reload)
 const initialTargetId = (() => {
+  if (_isReload) return null;
   try {
     const params = new URLSearchParams(window.location.search);
     const qTarget = params.get("open") || params.get("nav");
     if (qTarget) return qTarget.replace(/^#/, "");
   } catch (_) {}
-  if (window.location.hash && window.location.hash.length > 1) {
-    return window.location.hash.replace(/^#/, "");
-  }
   if (window.__initialTargetId) {
     return window.__initialTargetId.replace(/^#/, "");
-  }
-  if (window.__initialHash && window.__initialHash.length > 1) {
-    return window.__initialHash.replace(/^#/, "");
   }
   return null;
 })();
 
-const hasValidTarget = Boolean(initialTargetId && initialTargetId !== "top");
+const hasExplicitTarget = Boolean(initialTargetId && initialTargetId !== "top");
 
-if (!hasValidTarget) {
+if (!hasExplicitTarget) {
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 }
 
 window.addEventListener("pageshow", () => {
-  // Only force top scroll if there is NO target anchor
-  if (!hasValidTarget) {
+  // Always scroll to top on pageshow UNLESS there's an explicit target request
+  if (!hasExplicitTarget) {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }
 });
@@ -332,7 +331,7 @@ function scrollToTargetId(targetId, isInstant = false) {
   return true;
 }
 
-if (hasValidTarget) {
+if (hasExplicitTarget) {
   // Pass 1: Instant position jump as soon as DOM is ready
   scrollToTargetId(initialTargetId, true);
 
@@ -357,8 +356,31 @@ if (hasValidTarget) {
       if (Math.abs(window.scrollY - targetY) > 6) {
         window.scrollTo({ top: targetY, behavior: "smooth" });
       }
-    }, 100);
+
+      // Clean the URL so subsequent reloads or visits ALWAYS start from the first page!
+      try {
+        if (window.location.search || window.location.hash) {
+          history.replaceState(null, "", window.location.pathname);
+        }
+      } catch (_) {}
+    }, 120);
   }, { once: true });
+
+  // Clean URL after 2.5s fallback
+  setTimeout(() => {
+    try {
+      if (window.location.search || window.location.hash) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+    } catch (_) {}
+  }, 2500);
+} else {
+  // Normal direct visit: make sure any stale search/hash is cleared and page stays at top
+  try {
+    if (window.location.search && (window.location.search.includes("open=") || window.location.search.includes("nav="))) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+  } catch (_) {}
 }
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
