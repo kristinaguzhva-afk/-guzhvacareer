@@ -184,15 +184,14 @@
 
     /* Отступ страницы с учетом фиксированной шапки */
     .vacancies-page-hero {
-      padding-top: calc(var(--header-height, 78px) + 20px);
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--line);
+      padding-top: calc(var(--header-height, 78px) + 12px);
+      padding-bottom: 8px;
     }
     @media (max-width: 679.98px) {
       .vacancies-page-hero {
-        padding-top: 20px;
-        padding-bottom: 14px;
-      }
+      padding-top: calc(var(--header-height, 78px) + 12px);
+      padding-bottom: 8px;
+    }
       .vacancy-card {
         padding: 18px 16px;
         border-radius: 18px;
@@ -1278,6 +1277,25 @@
       display: none !important;
     }
 
+  
+    .clients-showcase-top-clean {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .filter-hint-icon {
+      font-size: 1.1rem;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .client-card-btn {
+      cursor: pointer;
+    }
+    .vacancies-container {
+      margin-top: 20px;
+    }
+
   </style>
 </head>
 <body>
@@ -1321,8 +1339,7 @@
           <span>Вакансии в работе</span>
         </nav>
 
-        <h1 class="vacancies-hero-title">Актуальные вакансии в работе</h1>
-      </div>
+        </div>
     </section>
 
     <!-- Список вакансий -->
@@ -1331,16 +1348,10 @@
 
       <!-- БЛОК КОМПАНИЙ-КЛИЕНТОВ (РАБОТОДАТЕЛЕЙ) -->
       <div class="clients-showcase-box reveal" id="clients-section">
-        <div class="clients-showcase-top">
-          <div class="clients-showcase-titles">
-            <div class="clients-badge">
-              <span class="clients-badge-dot"></span>
-              <span>Компании-клиенты & Партнёры</span>
-            </div>
-            <h2 class="clients-main-title">Для кого я подбираю специалистов</h2>
-            <p class="clients-desc">
-              Как независимый HR-эксперт и хедхантер, я работаю напрямую с собственниками и руководителями компаний. Нажмите на логотип компании ниже, чтобы открыть её актуальные вакансии или передать резюме напрямую.
-            </p>
+        <div class="clients-showcase-top-clean">
+          <div class="clients-badge">
+            <span class="clients-badge-dot"></span>
+            <span>Компании-работодатели</span>
           </div>
         </div>
 
@@ -1348,7 +1359,7 @@
         <div class="clients-cards-grid" role="tablist" aria-label="Компании-работодатели">
           
           <!-- 1. DD Interior -->
-          <button type="button" class="client-card-btn is-active" data-client="dd-interior" role="tab" aria-selected="true" aria-controls="vacancies-container">
+          <button type="button" class="client-card-btn" data-client="dd-interior" role="tab" aria-selected="false" aria-controls="vacancies-container">
             <div class="client-card-logo-area">
               <img src="assets/images/clients/dd-interior.webp" alt="DD Interior" width="160" height="60" loading="eager">
             </div>
@@ -1403,7 +1414,7 @@
         <!-- Нижняя панель быстрого переключения -->
         <div class="clients-filter-bar">
           <div class="filter-active-label" id="filter-active-label">
-            Показаны вакансии: <strong>DD Interior</strong>
+            <span class="filter-hint-icon">👆</span> Нажмите на компанию, чтобы посмотреть её открытые вакансии
           </div>
           <button type="button" class="btn-reset-filter" id="btn-show-all">
             <span>Показать все вакансии (3)</span>
@@ -1414,7 +1425,7 @@
 <div class="vacancies-container" id="vacancies-container">
 
         <!-- 1. ВАКАНСИЯ: СТОЛЯР (DD INTERIOR) -->
-        <article class="vacancy-card is-open" id="vac-joiner-dd-interior" data-company="dd-interior">
+        <article class="vacancy-card is-filtered-out" id="vac-joiner-dd-interior" data-company="dd-interior">
           <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="true" aria-controls="vac-body-joiner-dd-interior">
             
             <div class="vacancy-tags-row">
@@ -1447,7 +1458,7 @@
             </div>
           </div>
 
-          <div class="vacancy-card-body" id="vac-body-joiner-dd-interior">
+          <div class="vacancy-card-body" id="vac-body-joiner-dd-interior" hidden>
             <!-- 1. О компании и роли -->
             <div class="vacancy-section-block">
               <p class="vacancy-lead-text">
@@ -2254,19 +2265,21 @@
         });
 
         if (showAllBtn) {
-          showAllBtn.classList.toggle('is-active', !clientId);
+          showAllBtn.classList.toggle('is-active', clientId === 'all');
         }
 
-        if (clientId) {
+        if (clientId && clientId !== 'all') {
           const cName = companyNames[clientId] || clientId;
           if (filterLabel) {
-            filterLabel.innerHTML = `Показаны вакансии: <strong>${cName}</strong>`;
+            filterLabel.innerHTML = `Открытые вакансии компании: <strong>${cName}</strong>`;
           }
 
-          // Фильтруем карточки вакансий
+          // Показываем только вакансии выбранной компании
+          let foundCount = 0;
           vacancyCards.forEach(card => {
             const matches = card.getAttribute('data-company') === clientId;
             if (matches) {
+              foundCount++;
               card.classList.remove('is-filtered-out');
               // Авто-раскрываем выбранную вакансию
               card.classList.add('is-open');
@@ -2280,18 +2293,26 @@
           });
 
           if (smoothScroll) {
-            const firstMatch = document.querySelector(`.vacancy-card[data-company="${clientId}"]`);
-            if (firstMatch) {
-              firstMatch.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const container = document.getElementById('vacancies-container');
+            if (container) {
+              container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
           }
-        } else {
-          // Показать все
+        } else if (clientId === 'all') {
+          // Показать все 3 вакансии
           if (filterLabel) {
             filterLabel.innerHTML = 'Показаны <strong>все актуальные вакансии (3)</strong>';
           }
           vacancyCards.forEach(card => {
             card.classList.remove('is-filtered-out');
+          });
+        } else {
+          // Исходное состояние: ни одна компания не выбрана, вакансии скрыты
+          if (filterLabel) {
+            filterLabel.innerHTML = '<span class="filter-hint-icon">👆</span> Нажмите на компанию, чтобы посмотреть её открытые вакансии';
+          }
+          vacancyCards.forEach(card => {
+            card.classList.add('is-filtered-out');
           });
         }
       }
@@ -2299,7 +2320,7 @@
       clientCards.forEach(btn => {
         btn.addEventListener('click', () => {
           const clientId = btn.getAttribute('data-client');
-          // Если уже активна — показать все, иначе выбрать её
+          // Если уже активна — свернуть (вернуть в исходное), иначе открыть её
           if (btn.classList.contains('is-active')) {
             setFilter(null);
           } else {
@@ -2310,17 +2331,25 @@
 
       if (showAllBtn) {
         showAllBtn.addEventListener('click', () => {
-          setFilter(null);
+          if (showAllBtn.classList.contains('is-active')) {
+            setFilter(null);
+          } else {
+            setFilter('all');
+          }
         });
       }
 
-      // Поддержка хеша в URL (например vacancies.html#dd-interior)
+      // Если в URL есть хеш (например vacancies.html#dd-interior)
       const hash = window.location.hash.replace('#', '');
       if (['dd-interior', 'asgard-service', 'picnic-city'].includes(hash)) {
         setFilter(hash, false);
+      } else {
+        // По умолчанию: скрыты, видны только карточки компаний
+        setFilter(null, false);
       }
     })();
 
 </script>
+  <script src="js/snowflake-trail.js?v=3" defer></script>
 </body>
 </html>
