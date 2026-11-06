@@ -8517,3 +8517,25 @@ body.is-tariff-cursor-guided * {
 
 
 
+
+/* Diagnostic spotlight pulse when targeted from external link/comics */
+@keyframes diagnosticSpotlightPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(200, 243, 62, 0);
+  }
+  25% {
+    box-shadow: 0 0 0 4px var(--lime), 0 24px 60px rgba(200, 243, 62, 0.32);
+    transform: translateY(-2px);
+  }
+  60% {
+    box-shadow: 0 0 0 2px var(--lime), 0 16px 40px rgba(200, 243, 62, 0.2);
+    transform: translateY(0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(200, 243, 62, 0);
+  }
+}
+
+.diagnostic-spotlight .quiz-shell {
+  animation: diagnosticSpotlightPulse 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
