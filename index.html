@@ -178,11 +178,22 @@
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
-    if (window.location.hash) {
-      window.__initialHash = window.location.hash;
-      history.replaceState(null, "", window.location.pathname + window.location.search);
-    }
-    window.scrollTo(0, 0);
+    (function() {
+      var target = null;
+      try {
+        var params = new URLSearchParams(window.location.search);
+        target = params.get("open") || params.get("nav");
+      } catch (_) {}
+      if (!target && window.location.hash) {
+        target = window.location.hash.replace(/^#/, "");
+      }
+      if (target && target !== "top") {
+        window.__initialTargetId = target;
+        // Do NOT scroll to 0,0 when an anchor target is specified
+      } else {
+        window.scrollTo(0, 0);
+      }
+    })();
   </script>
 </head>
 <body>
@@ -1892,6 +1903,6 @@
 
   <noscript><div class="noscript-note">Для работы функций сайта нужен JavaScript.</div></noscript>
   <script src="js/vacancies-data.js?v=2" defer></script>
-  <script src="js/main.js?v=37" defer></script>
+  <script src="js/main.js?v=38" defer></script>
 </body>
 </html>
