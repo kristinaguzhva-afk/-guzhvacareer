@@ -8539,3 +8539,165 @@ body.is-tariff-cursor-guided * {
 .diagnostic-spotlight .quiz-shell {
   animation: diagnosticSpotlightPulse 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+
+/* ==========================================================================
+   СЕКЦИЯ КОМПАНИЙ И ВАКАНСИЙ НА ГЛАВНОЙ (INDEX.HTML)
+   ========================================================================== */
+.vacancies-preview-section {
+  padding: clamp(48px, 6vw, 84px) 0;
+  background: var(--paper-deep);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.vacancies-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.5vw, 24px);
+  margin-top: clamp(24px, 3.5vw, 36px);
+}
+@media (max-width: 900px) {
+  .vacancies-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.company-preview-card {
+  background: #ffffff;
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+.company-preview-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 7px 7px 0 var(--magenta);
+  border-color: var(--ink);
+}
+
+.company-preview-logo-box {
+  height: 74px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  overflow: hidden;
+}
+.company-preview-logo-box.logo-dark-theme {
+  background: #0d0e12;
+  border-color: #0d0e12;
+}
+.company-preview-logo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+.company-preview-card:hover .company-preview-logo-box img {
+  transform: scale(1.04);
+}
+
+.company-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.company-preview-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.company-preview-industry {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.company-preview-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 0;
+  border-top: 1px dashed var(--line);
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.82rem;
+}
+.company-preview-loc {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.company-preview-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: #065f46;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+.company-preview-badge .badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.company-preview-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--magenta-dark);
+  padding-top: 2px;
+  transition: color 0.2s ease;
+}
+.company-preview-card:hover .company-preview-action {
+  color: var(--magenta);
+}
+
+.vacancies-preview-cta-row {
+  margin-top: clamp(28px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+.btn-vacancies-all {
+  padding: 14px 34px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.vacancies-preview-hint {
+  font-size: 0.88rem;
+  color: var(--muted);
+  max-width: 540px;
+  margin: 0;
+  line-height: 1.5;
+}
+.vacancies-preview-hint a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

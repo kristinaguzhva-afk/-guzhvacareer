@@ -66,6 +66,43 @@
       },
       {
         "@type": "JobPosting",
+        "title": "Столяр на производство корпусной мебели",
+        "description": "Работа в теплом современном цеху в Балашихе: раскрой плитных материалов (МДФ, ЛДСП, шпон), сборка деталей корпусной мебели по чертежам, подготовка к покраске. Без выездов на монтаж к заказчикам.",
+        "identifier": {
+          "@type": "PropertyValue",
+          "name": "DD Interior",
+          "value": "dd-joiner-2026"
+        },
+        "datePosted": "2026-11-06",
+        "validThrough": "2027-02-01",
+        "employmentType": "FULL_TIME",
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "DD Interior",
+          "sameAs": "https://guzhvacareer.ru/vacancies.html"
+        },
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Балашиха",
+            "streetAddress": "мкр-н Гагарина, 13",
+            "addressCountry": "RU"
+          }
+        },
+        "baseSalary": {
+          "@type": "MonetaryAmount",
+          "currency": "RUB",
+          "value": {
+            "@type": "QuantitativeValue",
+            "minValue": 130000,
+            "maxValue": 180000,
+            "unitText": "MONTH"
+          }
+        }
+      },
+      {
+        "@type": "JobPosting",
         "title": "Руководитель проектов",
         "description": "Управление проектами в сфере промышленного строительства и инжиниринга. Контроль сроков, бюджетов, взаимодействие с заказчиками и координация проектных команд.",
         "identifier": {
@@ -85,7 +122,7 @@
           "@type": "Place",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Волгоград",
+            "addressLocality": "Москва",
             "addressCountry": "RU"
           }
         },
@@ -94,8 +131,8 @@
           "currency": "RUB",
           "value": {
             "@type": "QuantitativeValue",
-            "minValue": 100000,
-            "maxValue": 150000,
+            "minValue": 200000,
+            "maxValue": 250000,
             "unitText": "MONTH"
           }
         }
@@ -939,6 +976,308 @@
       margin: 0 auto 12px;
       border: 2px solid #121217;
     }
+  
+    /* ==========================================================================
+       БЛОК КОМПАНИЙ-КЛИЕНТОВ (ШОУКЕЙС РАБОТОДАТЕЛЕЙ)
+       ========================================================================== */
+    .clients-showcase-box {
+      background: var(--white);
+      border: 1.5px solid var(--ink);
+      border-radius: 24px;
+      padding: clamp(20px, 3.2vw, 32px);
+      box-shadow: 6px 6px 0 var(--ink);
+      margin-bottom: clamp(24px, 3.5vw, 36px);
+      position: relative;
+    }
+    .clients-showcase-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clients-showcase-titles {
+      max-width: 680px;
+    }
+    .clients-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      background: rgba(216, 255, 87, 0.25);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .clients-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+      animation: pulseLiveDot 2s infinite;
+    }
+    @keyframes pulseLiveDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+    .clients-main-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+    .clients-desc {
+      font-size: 0.94rem;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Сетка карточек компаний */
+    .clients-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .clients-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .client-card-btn {
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 3px 3px 0 var(--ink);
+      position: relative;
+      outline: none;
+      width: 100%;
+    }
+    .client-card-btn:hover {
+      background: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 6px 6px 0 var(--magenta);
+    }
+    .client-card-btn:focus-visible {
+      outline: 2px solid var(--magenta);
+      outline-offset: 3px;
+    }
+    .client-card-btn.is-active {
+      background: #ffffff;
+      border-color: var(--ink);
+      border-width: 2px;
+      box-shadow: 6px 6px 0 var(--magenta);
+      transform: translateY(-2px);
+    }
+    .client-card-btn.is-active::after {
+      content: "✓ Выбрана";
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      background: var(--magenta);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1.5px solid var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .client-card-logo-area {
+      height: 72px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      overflow: hidden;
+    }
+    .client-card-logo-area.logo-dark-theme {
+      background: #0d0e12;
+      border-color: #0d0e12;
+    }
+    .client-card-logo-area img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.25s ease;
+    }
+    .client-card-btn:hover .client-card-logo-area img {
+      transform: scale(1.04);
+    }
+
+    .client-card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .client-card-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .client-card-name {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+    }
+    .client-card-industry {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .client-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+      font-size: 0.78rem;
+    }
+    .client-card-location {
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+    .client-card-vac-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #065f46;
+      font-weight: 700;
+      font-size: 0.74rem;
+    }
+    .client-card-vac-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    /* Нижняя панель фильтра */
+    .clients-filter-bar {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--paper-deep);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 16px;
+    }
+    .btn-reset-filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #ffffff;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--ink);
+      transition: all 0.2s ease;
+    }
+    .btn-reset-filter:hover {
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: 3px 3px 0 var(--magenta);
+    }
+    .btn-reset-filter.is-active {
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: 3px 3px 0 var(--magenta);
+    }
+    .filter-active-label {
+      font-size: 0.86rem;
+      color: var(--ink);
+    }
+    .filter-active-label strong {
+      color: var(--magenta-dark);
+      font-weight: 700;
+    }
+
+    /* Логотип в шапке карточки вакансии */
+    .vacancy-company-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 12px 4px 6px;
+      background: var(--paper-deep);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .mini-logo-box {
+      width: 38px;
+      height: 28px;
+      background: #ffffff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      border: 1px solid rgba(18, 18, 23, 0.08);
+      overflow: hidden;
+    }
+    .mini-logo-box.dark-bg {
+      background: #0d0e12;
+    }
+    .mini-logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .company-badge-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Анимация переключения вакансий */
+    .vacancy-card {
+      transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.2s ease;
+    }
+    .vacancy-card.is-filtered-out {
+      display: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -990,6 +1329,232 @@
     <section class="vacancies-list-section">
       <div class="shell">
 
+      <!-- БЛОК КОМПАНИЙ-КЛИЕНТОВ (РАБОТОДАТЕЛЕЙ) -->
+      <div class="clients-showcase-box reveal" id="clients-section">
+        <div class="clients-showcase-top">
+          <div class="clients-showcase-titles">
+            <div class="clients-badge">
+              <span class="clients-badge-dot"></span>
+              <span>Компании-клиенты & Партнёры</span>
+            </div>
+            <h2 class="clients-main-title">Для кого я подбираю специалистов</h2>
+            <p class="clients-desc">
+              Как независимый HR-эксперт и хедхантер, я работаю напрямую с собственниками и руководителями компаний. Нажмите на логотип компании ниже, чтобы открыть её актуальные вакансии или передать резюме напрямую.
+            </p>
+          </div>
+        </div>
+
+        <!-- Карточки компаний-клиентов -->
+        <div class="clients-cards-grid" role="tablist" aria-label="Компании-работодатели">
+          
+          <!-- 1. DD Interior -->
+          <button type="button" class="client-card-btn is-active" data-client="dd-interior" role="tab" aria-selected="true" aria-controls="vacancies-container">
+            <div class="client-card-logo-area">
+              <img src="assets/images/clients/dd-interior.webp" alt="DD Interior" width="160" height="60" loading="eager">
+            </div>
+            <div class="client-card-meta">
+              <div class="client-card-name-row">
+                <h3 class="client-card-name">DD Interior</h3>
+              </div>
+              <p class="client-card-industry">Премиальная мебель & интерьеры</p>
+            </div>
+            <div class="client-card-footer">
+              <span class="client-card-location">📍 Балашиха (МО)</span>
+              <span class="client-card-vac-pill"><span class="pill-dot"></span> 1 вакансия</span>
+            </div>
+          </button>
+
+          <!-- 2. ООО «АСГАРД-Сервис» -->
+          <button type="button" class="client-card-btn" data-client="asgard-service" role="tab" aria-selected="false" aria-controls="vacancies-container">
+            <div class="client-card-logo-area">
+              <img src="assets/images/clients/asgard-service.webp" alt="ООО «АСГАРД-Сервис»" width="160" height="60" loading="eager">
+            </div>
+            <div class="client-card-meta">
+              <div class="client-card-name-row">
+                <h3 class="client-card-name">ООО «АСГАРД-Сервис»</h3>
+              </div>
+              <p class="client-card-industry">Промышленный инжиниринг & ТЭК</p>
+            </div>
+            <div class="client-card-footer">
+              <span class="client-card-location">📍 Москва / Командировки</span>
+              <span class="client-card-vac-pill"><span class="pill-dot"></span> 1 вакансия</span>
+            </div>
+          </button>
+
+          <!-- 3. ООО «Пикник Сити» -->
+          <button type="button" class="client-card-btn" data-client="picnic-city" role="tab" aria-selected="false" aria-controls="vacancies-container">
+            <div class="client-card-logo-area logo-dark-theme">
+              <img src="assets/images/clients/picnic-city.webp" alt="ООО «Пикник Сити»" width="160" height="60" loading="eager">
+            </div>
+            <div class="client-card-meta">
+              <div class="client-card-name-row">
+                <h3 class="client-card-name">ООО «Пикник Сити»</h3>
+              </div>
+              <p class="client-card-industry">Загородный отдых & туризм</p>
+            </div>
+            <div class="client-card-footer">
+              <span class="client-card-location">📍 Москва</span>
+              <span class="client-card-vac-pill"><span class="pill-dot"></span> 1 вакансия</span>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- Нижняя панель быстрого переключения -->
+        <div class="clients-filter-bar">
+          <div class="filter-active-label" id="filter-active-label">
+            Показаны вакансии: <strong>DD Interior</strong>
+          </div>
+          <button type="button" class="btn-reset-filter" id="btn-show-all">
+            <span>Показать все вакансии (3)</span>
+          </button>
+        </div>
+      </div>
+
+<div class="vacancies-container" id="vacancies-container">
+
+        <!-- 1. ВАКАНСИЯ: СТОЛЯР (DD INTERIOR) -->
+        <article class="vacancy-card is-open" id="vac-joiner-dd-interior" data-company="dd-interior">
+          <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="true" aria-controls="vac-body-joiner-dd-interior">
+            
+            <div class="vacancy-tags-row">
+              <div class="vacancy-tags-left">
+                <span class="vacancy-badge vacancy-badge-hot">🔥 Новая вакансия!</span>
+                <span class="vacancy-badge">📍 Балашиха (МО)</span>
+                <span class="vacancy-badge">🛠 Цех / Без выездов</span>
+                <span class="vacancy-badge">⏱ 5/2 (9:00 – 19:00)</span>
+                <span class="vacancy-badge">⚡ ЧПУ + бонус</span>
+              </div>
+              <div class="vacancy-salary-badge">от 130 000 ₽ на руки</div>
+            </div>
+
+            <div class="vacancy-company-logo-badge">
+              <div class="mini-logo-box">
+                <img src="assets/images/clients/dd-interior.webp" alt="DD Interior" width="34" height="24">
+              </div>
+              <span class="company-badge-name">DD Interior — мебель и интерьеры премиум-класса</span>
+            </div>
+
+            <div class="vacancy-title-row">
+              <div class="vacancy-title-group">
+                <h2 class="vacancy-title">Столяр на производство корпусной мебели</h2>
+                <p class="vacancy-company-sub">Собственное производство в Балашихе (мкр-н Гагарина, 13) • Тёплый цех • Работа по чертежам без выездов на монтаж к заказчикам</p>
+              </div>
+              <button type="button" class="vacancy-toggle-btn" aria-hidden="true" tabindex="-1">
+                <span class="toggle-text">Подробнее о вакансии</span>
+                <span class="toggle-icon" aria-hidden="true">▾</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="vacancy-card-body" id="vac-body-joiner-dd-interior">
+            <!-- 1. О компании и роли -->
+            <div class="vacancy-section-block">
+              <p class="vacancy-lead-text">
+                <strong>DD Interior</strong> — динамично развивающаяся компания по проектированию и изготовлению авторской корпусной мебели, стеновых панелей и премиальных элементов интерьера по индивидуальным дизайн-проектам.
+              </p>
+              <p class="vacancy-lead-text">
+                Мы открываем набор и приглашаем в команду опытного <strong>столяра / мастера мебельного производства</strong>. Работа организована строго в цеху в Балашихе (без выездов и командировок на монтажи). Производственный цех светлый, тёплый, оснащён современными станками, эффективной аспирацией (вытяжкой) и полным комплектом профессионального электроинструмента.
+              </p>
+            </div>
+
+            <!-- 2. Фокус позиции -->
+            <div class="vacancy-focus-box">
+              <h4>🎯 Главный фокус позиции</h4>
+              <ul class="vacancy-styled-list">
+                <li>Качественный раскрой плитных материалов (МДФ, ЛДСП, массив/шпон) по картам раскроя и точная сборка корпусной мебели по чертежам.</li>
+                <li>Подготовка деталей и элементов к покраске (калибровка, шлифовка, фрезеровка) и контроль безупречной геометрии изделий.</li>
+              </ul>
+            </div>
+
+            <!-- 3. Чем предстоит заниматься -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Обязанности мастера</h3>
+              <ul class="vacancy-styled-list list-tasks">
+                <li>Раскрой плитных материалов (МДФ, ЛДСП, массив, шпон) на форматно-раскроечном оборудовании по картам раскроя.</li>
+                <li>Изготовление и контрольная сборка деталей корпусной мебели по конструкторским чертежам.</li>
+                <li>Подготовка деталей и элементов мебели к покраске (шлифовка, подгонка стыков, обработка кромок).</li>
+                <li>Контроль геометрии, качества присадки фурнитуры и аккуратная упаковка готовых изделий перед отгрузкой.</li>
+                <li>Работа на станке с ЧПУ (при наличии опыта и навыков — оплачивается отдельно и дополнительно сверх оклада).</li>
+              </ul>
+            </div>
+
+            <!-- 4. Требования -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🎯</span> Требования к кандидату</h3>
+              <ul class="vacancy-styled-list">
+                <li>Опыт работы столяром / мебельщиком на корпусном производстве от 3 лет.</li>
+                <li>Уверенное чтение конструкторских мебельных чертежей и спецификаций.</li>
+                <li>Навыки работы с плитными материалами, деревообрабатывающими станками и ручным электроинструментом.</li>
+                <li>Аккуратность, ответственность, внимание к миллиметрам и бережное отношение к качеству.</li>
+                <li>Владение станками с ЧПУ приветствуется и гарантирует дополнительную оплату.</li>
+              </ul>
+            </div>
+
+            <!-- 5. Условия и бонусы -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">💼</span> Условия работы</h3>
+              <div class="vacancy-conditions-grid">
+                <div class="condition-chip">
+                  <strong>Доход</strong>
+                  Реальный гарантированный минимум от 130 000 ₽ на руки. Стабильные выплаты 2 раза в месяц
+                </div>
+                <div class="condition-chip">
+                  <strong>Бонус за ЧПУ</strong>
+                  Работа на станке с ЧПУ оплачивается дополнительно сверх базовой зарплаты
+                </div>
+                <div class="condition-chip">
+                  <strong>Локация цеха</strong>
+                  Московская обл., Балашиха, мкр-н Гагарина, 13 (тёплый цех, удобная транспортная доступность)
+                </div>
+                <div class="condition-chip">
+                  <strong>Формат</strong>
+                  Работа исключительно в цеху! Никаких выездов к заказчикам и установок на объектах
+                </div>
+                <div class="condition-chip">
+                  <strong>График работы</strong>
+                  5/2, с 09:00 до 19:00. Возможны другие варианты по индивидуальной договорённости
+                </div>
+                <div class="condition-chip">
+                  <strong>Оснащение и быт</strong>
+                  Предоставляется весь необходимый электроинструмент, спецодежда, тёплая раздевалка и аспирация
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Этапы отбора -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
+              <div class="selection-steps">
+                <div class="selection-step-item"><span class="step-num">1</span> Телефонный звонок / знакомство с HR (Кристина Гужва)</div>
+                <div class="selection-step-item"><span class="step-num">2</span> Встреча на производстве и просмотр цеха</div>
+                <div class="selection-step-item"><span class="step-num">3</span> Оффер и быстрый выход на работу</div>
+              </div>
+            </div>
+
+            <!-- КНОПКИ ОТКЛИКА -->
+            <div class="vacancy-card-footer">
+              <button type="button" class="btn-apply-main" data-open-vacancy="Столяр на производство корпусной мебели (DD Interior)">
+                <span>Откликнуться на вакансию</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <a href="https://t.me/guzhvakristina?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%9A%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D0%BE%D0%B4%D1%80%D0%BE%D0%B1%D0%BD%D0%B5%D0%B5%20%D0%BE%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D0%B8%20%D0%A1%D1%82%D0%BE%D0%BB%D1%8F%D1%80%D0%B0%20%D0%B2%20DD%20Interior" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Написать Кристине в Telegram">
+                <span style="font-size: 1.1rem; line-height: 1;">✈️</span>
+                <span>Написать в Telegram</span>
+                <span class="hh-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="https://wa.me/79053303666?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%9A%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%82%D0%BA%D0%BB%D0%B8%D0%BA%D0%BD%D1%83%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D1%8E%20%D1%81%D1%82%D0%BE%D0%BB%D1%8F%D1%80%D0%B0%20(DD%20Interior)" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Написать в WhatsApp">
+                <span style="font-size: 1.1rem; line-height: 1;">💬</span>
+                <span>WhatsApp</span>
+                <span class="hh-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+
+
+
         <!-- Карточка 1: Руководитель проектов (АСГАРД-Сервис) -->
         <article class="vacancy-card is-collapsed" id="vac-project-manager-asgard">
           <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-project-manager-asgard" aria-label="Раскрыть информацию о вакансии Руководитель проектов">
@@ -1001,6 +1566,14 @@
                 <span class="vacancy-badge">Опыт от 2–3 лет</span>
               </div>
               <div class="vacancy-salary-badge">от 200 000 ₽ на руки</div>
+            </div>
+
+            
+            <div class="vacancy-company-logo-badge">
+              <div class="mini-logo-box">
+                <img src="assets/images/clients/asgard-service.webp" alt="АСГАРД-Сервис" width="34" height="24">
+              </div>
+              <span class="company-badge-name">ООО «АСГАРД-Сервис» — промышленный инжиниринг и сервис в ТЭК</span>
             </div>
 
             <div class="vacancy-title-row">
@@ -1130,6 +1703,14 @@
               <div class="vacancy-salary-badge">Оклад + KPI</div>
             </div>
 
+            
+            <div class="vacancy-company-logo-badge">
+              <div class="mini-logo-box dark-bg">
+                <img src="assets/images/clients/picnic-city.webp" alt="Пикник Сити" width="34" height="24">
+              </div>
+              <span class="company-badge-name">ООО «Пикник Сити» — сеть загородных парков и отдыха</span>
+            </div>
+
             <div class="vacancy-title-row">
               <div class="vacancy-title-group">
                 <h2 class="vacancy-title">Performance-маркетолог</h2>
@@ -1235,6 +1816,8 @@
         </article>
 
       </div>
+    </div><!-- /vacancies-container -->
+    </div>
     </section>
   </main>
 
@@ -1645,6 +2228,99 @@
         }
       });
     })();
-  </script>
+  
+
+    // ==========================================================================
+    // ЛОГИКА ФИЛЬТРАЦИИ ПО КОМПАНИЯМ-КЛИЕНТАМ И АВТО-РАСКРЫТИЯ
+    // ==========================================================================
+    (function initClientFilter() {
+      const clientCards = document.querySelectorAll('.client-card-btn');
+      const vacancyCards = document.querySelectorAll('.vacancy-card');
+      const filterLabel = document.getElementById('filter-active-label');
+      const showAllBtn = document.getElementById('btn-show-all');
+
+      const companyNames = {
+        'dd-interior': 'DD Interior',
+        'asgard-service': 'ООО «АСГАРД-Сервис»',
+        'picnic-city': 'ООО «Пикник Сити»'
+      };
+
+      function setFilter(clientId, smoothScroll = true) {
+        // Обновляем состояние карточек компаний
+        clientCards.forEach(btn => {
+          const isTarget = btn.getAttribute('data-client') === clientId;
+          btn.classList.toggle('is-active', isTarget);
+          btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+        });
+
+        if (showAllBtn) {
+          showAllBtn.classList.toggle('is-active', !clientId);
+        }
+
+        if (clientId) {
+          const cName = companyNames[clientId] || clientId;
+          if (filterLabel) {
+            filterLabel.innerHTML = `Показаны вакансии: <strong>${cName}</strong>`;
+          }
+
+          // Фильтруем карточки вакансий
+          vacancyCards.forEach(card => {
+            const matches = card.getAttribute('data-company') === clientId;
+            if (matches) {
+              card.classList.remove('is-filtered-out');
+              // Авто-раскрываем выбранную вакансию
+              card.classList.add('is-open');
+              const body = card.querySelector('.vacancy-card-body');
+              const header = card.querySelector('.vacancy-card-header');
+              if (body) body.hidden = false;
+              if (header) header.setAttribute('aria-expanded', 'true');
+            } else {
+              card.classList.add('is-filtered-out');
+            }
+          });
+
+          if (smoothScroll) {
+            const firstMatch = document.querySelector(`.vacancy-card[data-company="${clientId}"]`);
+            if (firstMatch) {
+              firstMatch.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }
+        } else {
+          // Показать все
+          if (filterLabel) {
+            filterLabel.innerHTML = 'Показаны <strong>все актуальные вакансии (3)</strong>';
+          }
+          vacancyCards.forEach(card => {
+            card.classList.remove('is-filtered-out');
+          });
+        }
+      }
+
+      clientCards.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const clientId = btn.getAttribute('data-client');
+          // Если уже активна — показать все, иначе выбрать её
+          if (btn.classList.contains('is-active')) {
+            setFilter(null);
+          } else {
+            setFilter(clientId);
+          }
+        });
+      });
+
+      if (showAllBtn) {
+        showAllBtn.addEventListener('click', () => {
+          setFilter(null);
+        });
+      }
+
+      // Поддержка хеша в URL (например vacancies.html#dd-interior)
+      const hash = window.location.hash.replace('#', '');
+      if (['dd-interior', 'asgard-service', 'picnic-city'].includes(hash)) {
+        setFilter(hash, false);
+      }
+    })();
+
+</script>
 </body>
 </html>
