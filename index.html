@@ -179,17 +179,29 @@
       history.scrollRestoration = "manual";
     }
     (function() {
+      var navEntry = (window.performance && window.performance.getEntriesByType) ? window.performance.getEntriesByType("navigation")[0] : null;
+      var isReload = navEntry && navEntry.type === "reload";
+
       var target = null;
       try {
         var params = new URLSearchParams(window.location.search);
         target = params.get("open") || params.get("nav");
       } catch (_) {}
-      if (!target && window.location.hash) {
-        target = window.location.hash.replace(/^#/, "");
+
+      // On reload or normal visit: ALWAYS open from the very first page (top)
+      if (isReload) {
+        window.scrollTo(0, 0);
+        try {
+          if (window.location.search || window.location.hash) {
+            history.replaceState(null, "", window.location.pathname);
+          }
+        } catch (_) {}
+        return;
       }
+
+      // Explicit target request (e.g. clicked "Пройти диагностику" from comics)
       if (target && target !== "top") {
         window.__initialTargetId = target;
-        // Do NOT scroll to 0,0 when an anchor target is specified
       } else {
         window.scrollTo(0, 0);
       }
@@ -1903,6 +1915,6 @@
 
   <noscript><div class="noscript-note">Для работы функций сайта нужен JavaScript.</div></noscript>
   <script src="js/vacancies-data.js?v=2" defer></script>
-  <script src="js/main.js?v=38" defer></script>
+  <script src="js/main.js?v=39" defer></script>
 </body>
 </html>
