@@ -5,13 +5,37 @@ document.documentElement.classList.add("js");
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
-if (window.location.hash) {
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+
+// Check for target anchor from query parameters, hash, or window.__initialTargetId
+const initialTargetId = (() => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const qTarget = params.get("open") || params.get("nav");
+    if (qTarget) return qTarget.replace(/^#/, "");
+  } catch (_) {}
+  if (window.location.hash && window.location.hash.length > 1) {
+    return window.location.hash.replace(/^#/, "");
+  }
+  if (window.__initialTargetId) {
+    return window.__initialTargetId.replace(/^#/, "");
+  }
+  if (window.__initialHash && window.__initialHash.length > 1) {
+    return window.__initialHash.replace(/^#/, "");
+  }
+  return null;
+})();
+
+const hasValidTarget = Boolean(initialTargetId && initialTargetId !== "top");
+
+if (!hasValidTarget) {
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 }
-window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
 window.addEventListener("pageshow", () => {
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  // Only force top scroll if there is NO target anchor
+  if (!hasValidTarget) {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }
 });
 
 const SITE_CONFIG = Object.freeze({
@@ -277,19 +301,64 @@ $$('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-if (window.__initialHash && window.__initialHash.length > 1) {
-  const navEntry = performance.getEntriesByType?.("navigation")?.[0];
-  const isReload = navEntry && navEntry.type === "reload";
-  const initialId = window.__initialHash.slice(1);
-  const initialTarget = !isReload && initialId !== "top" ? document.getElementById(initialId) : null;
-  if (initialTarget) {
-    setTimeout(() => {
-      initialTarget.classList.add("is-visible");
-      $$(".reveal", initialTarget).forEach((el) => el.classList.add("is-visible"));
-      const destY = computeTargetScrollY(initialTarget);
-      window.scrollTo({ top: destY, behavior: "smooth" });
-    }, 120);
+function scrollToTargetId(targetId, isInstant = false) {
+  const targetEl = document.getElementById(targetId);
+  if (!targetEl) return false;
+
+  header?.classList.remove("is-hidden");
+
+  // Reveal target element and all reveal elements inside it immediately
+  targetEl.classList.add("is-visible");
+  $$(".reveal", targetEl).forEach((el) => el.classList.add("is-visible"));
+
+  if (targetEl.classList.contains("price-card")) {
+    triggerTariffSpotlight(targetEl);
+  } else {
+    clearTariffSpotlight();
   }
+
+  const destY = computeTargetScrollY(targetEl);
+  window.scrollTo({ top: destY, behavior: isInstant ? "instant" : "smooth" });
+
+  if (targetId === "diagnostic") {
+    targetEl.classList.add("diagnostic-spotlight");
+    const firstInteractive = targetEl.querySelector("input[type='radio'], input, button, [tabindex='0']");
+    if (firstInteractive) {
+      try { firstInteractive.focus({ preventScroll: true }); } catch (_) {}
+    }
+    setTimeout(() => targetEl.classList.remove("diagnostic-spotlight"), 3600);
+  }
+
+  return true;
+}
+
+if (hasValidTarget) {
+  // Pass 1: Instant position jump as soon as DOM is ready
+  scrollToTargetId(initialTargetId, true);
+
+  // Pass 2: Progressive realignments to compensate for layout shifts (fonts, images, media)
+  [120, 320, 650, 1200].forEach((delay) => {
+    setTimeout(() => {
+      const el = document.getElementById(initialTargetId);
+      if (!el) return;
+      const targetY = computeTargetScrollY(el);
+      if (Math.abs(window.scrollY - targetY) > 6) {
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+      }
+    }, delay);
+  });
+
+  // Pass 3: Window load event once all resources are settled
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const el = document.getElementById(initialTargetId);
+      if (!el) return;
+      const targetY = computeTargetScrollY(el);
+      if (Math.abs(window.scrollY - targetY) > 6) {
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+      }
+    }, 100);
+  }, { once: true });
 }
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
