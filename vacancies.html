@@ -1566,8 +1566,8 @@
 
 
 
-        <!-- Карточка 1: Руководитель проектов (АСГАРД-Сервис) -->
-        <article class="vacancy-card is-collapsed" id="vac-project-manager-asgard">
+        <!-- 2. ВАКАНСИЯ: РУКОВОДИТЕЛЬ ПРОЕКТОВ (АСГАРД-Сервис) -->
+        <article class="vacancy-card is-filtered-out" id="vac-project-manager-asgard" data-company="asgard-service">
           <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-project-manager-asgard" aria-label="Раскрыть информацию о вакансии Руководитель проектов">
             <div class="vacancy-tags-row">
               <div class="vacancy-tags-left">
@@ -1702,8 +1702,8 @@
           </div>
         </article>
 
-        <!-- Карточка 2: Performance-маркетолог -->
-        <article class="vacancy-card is-collapsed" id="vac-performance-marketer">
+        <!-- 3. ВАКАНСИЯ: PERFORMANCE-МАРКЕТОЛОГ (ПИКНИК СИТИ) -->
+        <article class="vacancy-card is-filtered-out" id="vac-performance-marketer" data-company="picnic-city">
           <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-performance-marketer" aria-label="Раскрыть информацию о вакансии Performance-маркетолог">
             <div class="vacancy-tags-row">
               <div class="vacancy-tags-left">
@@ -2276,27 +2276,37 @@
 
           // Показываем только вакансии выбранной компании
           let foundCount = 0;
+          let firstFoundCard = null;
           vacancyCards.forEach(card => {
             const matches = card.getAttribute('data-company') === clientId;
             if (matches) {
               foundCount++;
+              if (!firstFoundCard) firstFoundCard = card;
               card.classList.remove('is-filtered-out');
               // Авто-раскрываем выбранную вакансию
               card.classList.add('is-open');
+              card.classList.remove('is-collapsed');
               const body = card.querySelector('.vacancy-card-body');
               const header = card.querySelector('.vacancy-card-header');
+              const toggleText = card.querySelector('.toggle-text');
               if (body) body.hidden = false;
               if (header) header.setAttribute('aria-expanded', 'true');
+              if (toggleText) toggleText.textContent = 'Свернуть';
             } else {
               card.classList.add('is-filtered-out');
+              card.classList.remove('is-open');
+              card.classList.add('is-collapsed');
+              const body = card.querySelector('.vacancy-card-body');
+              const header = card.querySelector('.vacancy-card-header');
+              const toggleText = card.querySelector('.toggle-text');
+              if (body) body.hidden = true;
+              if (header) header.setAttribute('aria-expanded', 'false');
+              if (toggleText) toggleText.textContent = 'Подробнее о вакансии';
             }
           });
 
-          if (smoothScroll) {
-            const container = document.getElementById('vacancies-container');
-            if (container) {
-              container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+          if (smoothScroll && firstFoundCard) {
+            firstFoundCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
         } else if (clientId === 'all') {
           // Показать все 3 вакансии
@@ -2305,7 +2315,21 @@
           }
           vacancyCards.forEach(card => {
             card.classList.remove('is-filtered-out');
+            card.classList.add('is-open');
+            card.classList.remove('is-collapsed');
+            const body = card.querySelector('.vacancy-card-body');
+            const header = card.querySelector('.vacancy-card-header');
+            const toggleText = card.querySelector('.toggle-text');
+            if (body) body.hidden = false;
+            if (header) header.setAttribute('aria-expanded', 'true');
+            if (toggleText) toggleText.textContent = 'Свернуть';
           });
+          if (smoothScroll) {
+            const container = document.getElementById('vacancies-container');
+            if (container) {
+              container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
         } else {
           // Исходное состояние: ни одна компания не выбрана, вакансии скрыты
           if (filterLabel) {
@@ -2313,6 +2337,14 @@
           }
           vacancyCards.forEach(card => {
             card.classList.add('is-filtered-out');
+            card.classList.remove('is-open');
+            card.classList.add('is-collapsed');
+            const body = card.querySelector('.vacancy-card-body');
+            const header = card.querySelector('.vacancy-card-header');
+            const toggleText = card.querySelector('.toggle-text');
+            if (body) body.hidden = true;
+            if (header) header.setAttribute('aria-expanded', 'false');
+            if (toggleText) toggleText.textContent = 'Подробнее о вакансии';
           });
         }
       }
