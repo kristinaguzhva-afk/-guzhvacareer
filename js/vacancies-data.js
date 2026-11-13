@@ -4,6 +4,19 @@
 
 const CLIENTS_DATA = [
   {
+    id: "mit",
+    name: "ООО «МИТ»",
+    fullName: "ООО «МИТ» (Мосты и Трубы)",
+    industry: "Мостостроение & транспортная инфраструктура",
+    location: "Москва",
+    logo: "assets/images/clients/mit.webp",
+    logoPng: "assets/images/clients/mit.png",
+    activeCount: 1,
+    statusText: "1 открытая вакансия",
+    description: "Специализированная строительно-инжиниринговая компания: комплексное проектирование, сопровождение строительства и возведение искусственных сооружений (мосты, путепроводы, трубы).",
+    activeVacancies: ["cost-engineer-mit"]
+  },
+  {
     id: "dd-interior",
     name: "DD Interior",
     fullName: "DD Interior — мебель и интерьеры премиум-класса",

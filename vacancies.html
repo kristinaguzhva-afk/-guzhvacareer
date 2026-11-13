@@ -1046,8 +1046,14 @@
     /* Сетка карточек компаний */
     .clients-cards-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
+    }
+    @media (max-width: 1100px) {
+      .clients-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
     }
     @media (max-width: 900px) {
       .clients-cards-grid {
@@ -1409,6 +1415,23 @@
             </div>
           </button>
 
+          <!-- 4. ООО «МИТ» -->
+          <button type="button" class="client-card-btn" data-client="mit" role="tab" aria-selected="false" aria-controls="vacancies-container">
+            <div class="client-card-logo-area">
+              <img src="assets/images/clients/mit.webp" alt="ООО «МИТ»" width="160" height="60" loading="eager">
+            </div>
+            <div class="client-card-meta">
+              <div class="client-card-name-row">
+                <h3 class="client-card-name">ООО «МИТ»</h3>
+              </div>
+              <p class="client-card-industry">Мостовое & инфраструктурное строительство</p>
+            </div>
+            <div class="client-card-footer">
+              <span class="client-card-location">📍 Москва</span>
+              <span class="client-card-vac-pill"><span class="pill-dot"></span> 1 вакансия</span>
+            </div>
+          </button>
+
         </div>
 
         <!-- Нижняя панель быстрого переключения -->
@@ -1417,7 +1440,7 @@
             <span class="filter-hint-icon">👆</span> Нажмите на компанию, чтобы посмотреть её открытые вакансии
           </div>
           <button type="button" class="btn-reset-filter" id="btn-show-all">
-            <span>Показать все вакансии (3)</span>
+            <span>Показать все вакансии (4)</span>
           </button>
         </div>
       </div>
@@ -1825,6 +1848,68 @@
             </div>
           </div>
         </article>
+
+        <!-- 4. ВАКАНСИЯ: ИНЖЕНЕР-СМЕТЧИК (ООО «МИТ») -->
+        <article class="vacancy-card is-filtered-out" id="vac-cost-engineer-mit" data-company="mit">
+          <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-cost-engineer-mit" aria-label="Раскрыть информацию о вакансии Инженер-сметчик">
+            <div class="vacancy-tags-row">
+              <div class="vacancy-tags-left">
+                <span class="vacancy-badge vacancy-badge-hot">⚡ Новая позиция</span>
+                <span class="vacancy-badge">📍 Москва</span>
+                <span class="vacancy-badge">Мостостроение & инжиниринг</span>
+                <span class="vacancy-badge">Опыт в сметном деле</span>
+              </div>
+              <div class="vacancy-salary-badge">По договоренности</div>
+            </div>
+
+            <div class="vacancy-company-logo-badge">
+              <div class="mini-logo-box">
+                <img src="assets/images/clients/mit.webp" alt="ООО «МИТ»" width="34" height="24">
+              </div>
+              <span class="company-badge-name">ООО «МИТ» («Мосты и Трубы») — комплексное проектирование и строительство</span>
+            </div>
+
+            <div class="vacancy-title-row">
+              <div class="vacancy-title-group">
+                <h2 class="vacancy-title">Инженер-сметчик</h2>
+                <p class="vacancy-company-sub">ООО «МИТ» — строительство мостов, путепроводов и искусственных сооружений транспортной инфраструктуры</p>
+              </div>
+              <button type="button" class="vacancy-toggle-btn" aria-hidden="true" tabindex="-1">
+                <span class="toggle-text">Подробнее о вакансии</span>
+                <span class="toggle-icon" aria-hidden="true">▾</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="vacancy-card-body" id="vac-body-cost-engineer-mit" hidden>
+            <!-- 1. О компании и роли -->
+            <div class="vacancy-section-block">
+              <p class="vacancy-lead-text">
+                <strong>ООО «МИТ» («Мосты и Трубы»)</strong> — специализированная строительно-инжиниринговая компания, реализующая проекты по строительству, реконструкции и капитальному ремонту мостовых переходов, путепроводов и водопропускных сооружений на автомобильных и железных дорогах.
+              </p>
+              <p class="vacancy-lead-text">
+                Сейчас компания открывает набор на позицию <strong>Инженера-сметчика</strong>. Подробное описание обязанностей и критериев отбора сейчас публикуется и появится здесь в ближайшее время.
+              </p>
+            </div>
+
+            <!-- 2. Фокус позиции -->
+            <div class="vacancy-focus-box">
+              <h4>🎯 О позиции и предварительном отборе</h4>
+              <p style="margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink);">
+                Вы можете отправить резюме уже сейчас, чтобы первыми пройти первичное интервью с независимым HR-экспертом Кристиной Гужвой и получить прямой доступ к руководству компании.
+              </p>
+            </div>
+
+            <!-- КНОПКИ ОТКЛИКА -->
+            <div class="vacancy-card-footer">
+              <button type="button" class="btn-apply-main" data-open-vacancy="Инженер-сметчик (ООО «МИТ»)">
+                <span>Откликнуться на вакансию</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
 
       </div>
     </div><!-- /vacancies-container -->
@@ -2253,7 +2338,8 @@
       const companyNames = {
         'dd-interior': 'DD Interior',
         'asgard-service': 'ООО «АСГАРД-Сервис»',
-        'picnic-city': 'ООО «Пикник Сити»'
+        'picnic-city': 'ООО «Пикник Сити»',
+        'mit': 'ООО «МИТ»'
       };
 
       function setFilter(clientId, smoothScroll = true) {
@@ -2373,7 +2459,7 @@
 
       // Если в URL есть хеш (например vacancies.html#dd-interior)
       const hash = window.location.hash.replace('#', '');
-      if (['dd-interior', 'asgard-service', 'picnic-city'].includes(hash)) {
+      if (['dd-interior', 'asgard-service', 'picnic-city', 'mit'].includes(hash)) {
         setFilter(hash, false);
       } else {
         // По умолчанию: скрыты, видны только карточки компаний
