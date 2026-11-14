@@ -1504,11 +1504,13 @@ const shutterCards = document.querySelectorAll("[data-shutter-card]");
 
 function closeFaqCard(card) {
   card.classList.remove("is-open");
+  card.setAttribute("aria-expanded", "false");
   card.style.height = "";
 }
 
 function openFaqCard(card) {
   card.classList.add("is-open");
+  card.setAttribute("aria-expanded", "true");
   const answerLayer = card.querySelector(".faq-answer-layer");
   if (answerLayer) {
     const targetHeight = answerLayer.scrollHeight + 4;
