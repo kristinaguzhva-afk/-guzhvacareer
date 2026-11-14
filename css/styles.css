@@ -3530,7 +3530,8 @@ body.dialog-open { overflow: hidden; }
   }
 }
 
-.faq-shutter-card {
+.faq-shutter-card,
+.js .faq-shutter-card.reveal {
   position: relative;
   height: var(--faq-closed-h, 80px);
   border-radius: 16px;
@@ -3538,7 +3539,11 @@ body.dialog-open { overflow: hidden; }
   border: 2px solid var(--ink);
   overflow: hidden;
   box-shadow: none;
-  transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+  transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s var(--ease),
+              border-color 0.35s var(--ease),
+              opacity 0.75s var(--ease),
+              transform 0.75s var(--ease);
   cursor: pointer;
   user-select: none;
   box-sizing: border-box;
