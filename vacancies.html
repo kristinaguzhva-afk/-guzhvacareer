@@ -66,27 +66,27 @@
       },
       {
         "@type": "JobPosting",
-        "title": "Столяр на производство корпусной мебели",
-        "description": "Работа в теплом современном цеху в Балашихе: раскрой плитных материалов (МДФ, ЛДСП, шпон), сборка деталей корпусной мебели по чертежам, подготовка к покраске. Без выездов на монтаж к заказчикам.",
+        "title": "Специалист по складскому учёту и техническому обслуживанию оборудования",
+        "description": "Складской учёт ТМЦ, приёмка, хранение, выдача инструмента и техническое обслуживание промышленного оборудования (насосы, АВД, компрессоры, сварочное оборудование) на базе компании в г. Королёв.",
         "identifier": {
           "@type": "PropertyValue",
-          "name": "DD Interior",
-          "value": "dd-joiner-2026"
+          "name": "ООО АСГАРД-Сервис",
+          "value": "139616213"
         },
-        "datePosted": "2026-11-06",
-        "validThrough": "2027-02-01",
+        "datePosted": "2026-11-18",
+        "validThrough": "2027-03-01",
         "employmentType": "FULL_TIME",
         "hiringOrganization": {
           "@type": "Organization",
-          "name": "DD Interior",
+          "name": "ООО АСГАРД-Сервис",
           "sameAs": "https://guzhvacareer.ru/vacancies.html"
         },
         "jobLocation": {
           "@type": "Place",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Балашиха",
-            "streetAddress": "мкр-н Гагарина, 13",
+            "addressLocality": "Королёв",
+            "streetAddress": "г. Королёв, Московская область",
             "addressCountry": "RU"
           }
         },
@@ -96,7 +96,6 @@
           "value": {
             "@type": "QuantitativeValue",
             "minValue": 130000,
-            "maxValue": 180000,
             "unitText": "MONTH"
           }
         }
@@ -1189,6 +1188,34 @@
       border-radius: 50%;
       background: #10b981;
     }
+    .client-card-vac-pill.is-closed {
+      background: rgba(148, 163, 184, 0.18);
+      color: #64748b;
+    }
+    .client-card-vac-pill.is-closed .pill-dot {
+      background: #94a3b8;
+    }
+    .vacancy-empty-card {
+      background: #ffffff;
+      border: 2px dashed var(--line);
+      border-radius: 20px;
+      padding: 32px 28px;
+      margin-bottom: 20px;
+    }
+    .vacancy-empty-inner h3 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 14px 0 8px 0;
+    }
+    .vacancy-empty-inner p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 680px;
+      margin: 0 0 20px 0;
+    }
 
     /* Нижняя панель фильтра */
     .clients-filter-bar {
@@ -1377,7 +1404,7 @@
             </div>
             <div class="client-card-footer">
               <span class="client-card-location">📍 Балашиха (МО)</span>
-              <span class="client-card-vac-pill"><span class="pill-dot"></span> 1 вакансия</span>
+              <span class="client-card-vac-pill is-closed"><span class="pill-dot"></span> Набор закрыт</span>
             </div>
           </button>
 
@@ -1393,8 +1420,8 @@
               <p class="client-card-industry">Промышленный инжиниринг & ТЭК</p>
             </div>
             <div class="client-card-footer">
-              <span class="client-card-location">📍 Москва / Командировки</span>
-              <span class="client-card-vac-pill"><span class="pill-dot"></span> 1 вакансия</span>
+              <span class="client-card-location">📍 Москва & Королёв</span>
+              <span class="client-card-vac-pill"><span class="pill-dot"></span> 2 вакансии</span>
             </div>
           </button>
 
@@ -1447,137 +1474,23 @@
 
 <div class="vacancies-container" id="vacancies-container">
 
-        <!-- 1. ВАКАНСИЯ: СТОЛЯР (DD INTERIOR) -->
-        <article class="vacancy-card is-filtered-out" id="vac-joiner-dd-interior" data-company="dd-interior">
-          <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="true" aria-controls="vac-body-joiner-dd-interior">
-            
-            <div class="vacancy-tags-row">
-              <div class="vacancy-tags-left">
-                <span class="vacancy-badge vacancy-badge-hot">🔥 Новая вакансия!</span>
-                <span class="vacancy-badge">📍 Балашиха (МО)</span>
-                <span class="vacancy-badge">🛠 Цех / Без выездов</span>
-                <span class="vacancy-badge">⏱ 5/2 (9:00 – 19:00)</span>
-                <span class="vacancy-badge">⚡ ЧПУ + бонус</span>
-              </div>
-              <div class="vacancy-salary-badge">от 130 000 ₽ на руки</div>
-            </div>
-
+        <!-- 1. DD INTERIOR (ВАКАНСИИ ЗАКРЫТЫ / КАДРОВЫЙ РЕЗЕРВ) -->
+        <article class="vacancy-card vacancy-empty-card is-filtered-out" id="vac-empty-dd-interior" data-company="dd-interior">
+          <div class="vacancy-empty-inner">
             <div class="vacancy-company-logo-badge">
               <div class="mini-logo-box">
                 <img src="assets/images/clients/dd-interior.webp" alt="DD Interior" width="34" height="24">
               </div>
               <span class="company-badge-name">DD Interior — мебель и интерьеры премиум-класса</span>
             </div>
-
-            <div class="vacancy-title-row">
-              <div class="vacancy-title-group">
-                <h2 class="vacancy-title">Столяр на производство корпусной мебели</h2>
-                <p class="vacancy-company-sub">Собственное производство в Балашихе (мкр-н Гагарина, 13) • Тёплый цех • Работа по чертежам без выездов на монтаж к заказчикам</p>
-              </div>
-              <button type="button" class="vacancy-toggle-btn" aria-hidden="true" tabindex="-1">
-                <span class="toggle-text">Подробнее о вакансии</span>
-                <span class="toggle-icon" aria-hidden="true">▾</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="vacancy-card-body" id="vac-body-joiner-dd-interior" hidden>
-            <!-- 1. О компании и роли -->
-            <div class="vacancy-section-block">
-              <p class="vacancy-lead-text">
-                <strong>DD Interior</strong> — динамично развивающаяся компания по проектированию и изготовлению авторской корпусной мебели, стеновых панелей и премиальных элементов интерьера по индивидуальным дизайн-проектам.
-              </p>
-              <p class="vacancy-lead-text">
-                Мы открываем набор и приглашаем в команду опытного <strong>столяра / мастера мебельного производства</strong>. Работа организована строго в цеху в Балашихе (без выездов и командировок на монтажи). Производственный цех светлый, тёплый, оснащён современными станками, эффективной аспирацией (вытяжкой) и полным комплектом профессионального электроинструмента.
-              </p>
-            </div>
-
-            <!-- 2. Фокус позиции -->
-            <div class="vacancy-focus-box">
-              <h4>🎯 Главный фокус позиции</h4>
-              <ul class="vacancy-styled-list">
-                <li>Качественный раскрой плитных материалов (МДФ, ЛДСП, массив/шпон) по картам раскроя и точная сборка корпусной мебели по чертежам.</li>
-                <li>Подготовка деталей и элементов к покраске (калибровка, шлифовка, фрезеровка) и контроль безупречной геометрии изделий.</li>
-              </ul>
-            </div>
-
-            <!-- 3. Чем предстоит заниматься -->
-            <div class="vacancy-section-block">
-              <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Обязанности мастера</h3>
-              <ul class="vacancy-styled-list list-tasks">
-                <li>Раскрой плитных материалов (МДФ, ЛДСП, массив, шпон) на форматно-раскроечном оборудовании по картам раскроя.</li>
-                <li>Изготовление и контрольная сборка деталей корпусной мебели по конструкторским чертежам.</li>
-                <li>Подготовка деталей и элементов мебели к покраске (шлифовка, подгонка стыков, обработка кромок).</li>
-                <li>Контроль геометрии, качества присадки фурнитуры и аккуратная упаковка готовых изделий перед отгрузкой.</li>
-                <li>Работа на станке с ЧПУ (при наличии опыта и навыков — оплачивается отдельно и дополнительно сверх оклада).</li>
-              </ul>
-            </div>
-
-            <!-- 4. Требования -->
-            <div class="vacancy-section-block">
-              <h3 class="vacancy-section-title"><span class="title-icon">🎯</span> Требования к кандидату</h3>
-              <ul class="vacancy-styled-list">
-                <li>Опыт работы столяром / мебельщиком на корпусном производстве от 3 лет.</li>
-                <li>Уверенное чтение конструкторских мебельных чертежей и спецификаций.</li>
-                <li>Навыки работы с плитными материалами, деревообрабатывающими станками и ручным электроинструментом.</li>
-                <li>Аккуратность, ответственность, внимание к миллиметрам и бережное отношение к качеству.</li>
-                <li>Владение станками с ЧПУ приветствуется и гарантирует дополнительную оплату.</li>
-              </ul>
-            </div>
-
-            <!-- 5. Условия и бонусы -->
-            <div class="vacancy-section-block">
-              <h3 class="vacancy-section-title"><span class="title-icon">💼</span> Условия работы</h3>
-              <div class="vacancy-conditions-grid">
-                <div class="condition-chip">
-                  <strong>Доход</strong>
-                  Реальный гарантированный минимум от 130 000 ₽ на руки. Стабильные выплаты 2 раза в месяц
-                </div>
-                <div class="condition-chip">
-                  <strong>Бонус за ЧПУ</strong>
-                  Работа на станке с ЧПУ оплачивается дополнительно сверх базовой зарплаты
-                </div>
-                <div class="condition-chip">
-                  <strong>Локация цеха</strong>
-                  Московская обл., Балашиха, мкр-н Гагарина, 13 (тёплый цех, удобная транспортная доступность)
-                </div>
-                <div class="condition-chip">
-                  <strong>Формат</strong>
-                  Работа исключительно в цеху! Никаких выездов к заказчикам и установок на объектах
-                </div>
-                <div class="condition-chip">
-                  <strong>График работы</strong>
-                  5/2, с 09:00 до 19:00. Возможны другие варианты по индивидуальной договорённости
-                </div>
-                <div class="condition-chip">
-                  <strong>Оснащение и быт</strong>
-                  Предоставляется весь необходимый электроинструмент, спецодежда, тёплая раздевалка и аспирация
-                </div>
-              </div>
-            </div>
-
-            <!-- 6. Этапы отбора -->
-            <div class="vacancy-section-block">
-              <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
-              <div class="selection-steps">
-                <div class="selection-step-item"><span class="step-num">1</span> Телефонный звонок / знакомство с HR (Кристина Гужва)</div>
-                <div class="selection-step-item"><span class="step-num">2</span> Встреча на производстве и просмотр цеха</div>
-                <div class="selection-step-item"><span class="step-num">3</span> Оффер и быстрый выход на работу</div>
-              </div>
-            </div>
-
-            <!-- КНОПКИ ОТКЛИКА -->
-            <div class="vacancy-card-footer">
-              <button type="button" class="btn-apply-main" data-open-vacancy="Столяр на производство корпусной мебели (DD Interior)">
-                <span>Откликнуться на вакансию</span>
+            <h3>Сейчас открытых вакансий нет</h3>
+            <p>Набор на позицию столяра на производство корпусной мебели успешно завершён. Компания периодически открывает новые роли на производстве и в проектном отделе. Вы можете отправить резюме в кадровый резерв прямо сейчас — мы свяжемся с вами в первую очередь при открытии подходящей вакансии.</p>
+            <div class="vacancy-card-footer" style="padding-top: 14px; border-top: none;">
+              <button type="button" class="btn-apply-main" data-open-vacancy="Кадровый резерв (DD Interior)">
+                <span>Отправить резюме в резерв</span>
                 <span aria-hidden="true">→</span>
               </button>
-              <a href="https://t.me/guzhvakristina?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%9A%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D0%BE%D0%B4%D1%80%D0%BE%D0%B1%D0%BD%D0%B5%D0%B5%20%D0%BE%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D0%B8%20%D0%A1%D1%82%D0%BE%D0%BB%D1%8F%D1%80%D0%B0%20%D0%B2%20DD%20Interior" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Написать Кристине в Telegram">
-                <span style="font-size: 1.1rem; line-height: 1;">✈️</span>
-                <span>Написать в Telegram</span>
-                <span class="hh-arrow" aria-hidden="true">↗</span>
-              </a>
-              <a href="https://wa.me/79053303666?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%9A%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%82%D0%BA%D0%BB%D0%B8%D0%BA%D0%BD%D1%83%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D1%8E%20%D1%81%D1%82%D0%BE%D0%BB%D1%8F%D1%80%D0%B0%20(DD%20Interior)" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Написать в WhatsApp">
+              <a href="https://wa.me/79053303666?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%9A%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%82%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D1%82%D1%8C%20%D1%80%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%D0%B2%20%D0%BA%D0%B0%D0%B4%D1%80%D0%BE%D0%B2%D1%8B%D0%B9%20%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%B2%20DD%20Interior" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Написать в WhatsApp">
                 <span style="font-size: 1.1rem; line-height: 1;">💬</span>
                 <span>WhatsApp</span>
                 <span class="hh-arrow" aria-hidden="true">↗</span>
@@ -1717,6 +1630,140 @@
                 <span aria-hidden="true">→</span>
               </button>
               <a href="https://volgograd.hh.ru/vacancy/136577589?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Руководитель проектов на hh.ru">
+                <span class="hh-logo-badge" aria-hidden="true">hh</span>
+                <span>hh.ru</span>
+                <span class="hh-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2.2. ВАКАНСИЯ: СПЕЦИАЛИСТ ПО СКЛАДСКОМУ УЧЁТУ И ТО ОБОРУДОВАНИЯ (АСГАРД-Сервис) -->
+        <article class="vacancy-card is-filtered-out" id="vac-warehouse-tech-asgard" data-company="asgard-service">
+          <div class="vacancy-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="vac-body-warehouse-tech-asgard" aria-label="Раскрыть информацию о вакансии Специалист по складскому учёту и ТО оборудования">
+            <div class="vacancy-tags-row">
+              <div class="vacancy-tags-left">
+                <span class="vacancy-badge vacancy-badge-hot">🔥 Новая вакансия</span>
+                <span class="vacancy-badge">📍 г. Королёв (МО)</span>
+                <span class="vacancy-badge">Склад &amp; ТО оборудования</span>
+                <span class="vacancy-badge">⏱ 5/2 (9:00 – 18:00)</span>
+                <span class="vacancy-badge">Опыт от 3 лет</span>
+              </div>
+              <div class="vacancy-salary-badge">от 130 000 ₽ на руки</div>
+            </div>
+
+            <div class="vacancy-company-logo-badge">
+              <div class="mini-logo-box">
+                <img src="assets/images/clients/asgard-service.webp" alt="АСГАРД-Сервис" width="34" height="24">
+              </div>
+              <span class="company-badge-name">ООО «АСГАРД-Сервис» — промышленный инжиниринг и сервис в ТЭК</span>
+            </div>
+
+            <div class="vacancy-title-row">
+              <div class="vacancy-title-group">
+                <h2 class="vacancy-title">Специалист по складскому учёту и техническому обслуживанию оборудования</h2>
+                <p class="vacancy-company-sub">ООО «АСГАРД-Сервис» • Складская и производственно-техническая база в г. Королёв • Учёт ТМЦ, сервисное обслуживание и ремонт парка техники</p>
+              </div>
+              <button type="button" class="vacancy-toggle-btn" aria-hidden="true" tabindex="-1">
+                <span class="toggle-text">Подробнее о вакансии</span>
+                <span class="toggle-icon" aria-hidden="true">▾</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="vacancy-card-body" id="vac-body-warehouse-tech-asgard" hidden>
+            <!-- 1. О компании и роли -->
+            <div class="vacancy-section-block">
+              <p class="vacancy-lead-text">
+                <strong>ООО «АСГАРД-Сервис»</strong> — инженерно-производственная компания, реализующая комплексные производственные и инженерно-технические задачи для предприятий энергетики, нефтепереработки, нефтехимии и нефтетранспортной отрасли как на стационарных промышленных объектах, так и на удалённых производственных площадках.
+              </p>
+              <p class="vacancy-lead-text">
+                Ищете работу, где сможете совместить навыки складского учёта и технического обслуживания? Мы ищем ответственного, порядочного и коммуникабельного <strong>Специалиста по складскому учёту и техническому обслуживанию оборудования</strong>, который станет ключевым звеном в обеспечении бесперебойной работы нашего склада и постоянной технической готовности оборудования.
+              </p>
+            </div>
+
+            <!-- 2. Фокус позиции -->
+            <div class="vacancy-focus-box">
+              <h4>🎯 Главный фокус позиции</h4>
+              <ul class="vacancy-styled-list">
+                <li>Обеспечение бесперебойной работы склада, точный учёт ТМЦ и поддержание в постоянной технической готовности парка оборудования для выездных промышленных бригад компании.</li>
+                <li>Сквозной контроль: приёмка, хранение, выдача инструмента и материалов, проведение планового ТО, мелкого ремонта и ведение базы технического состояния техники.</li>
+              </ul>
+            </div>
+
+            <!-- 3. Чем предстоит заниматься -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🛠</span> Чем предстоит заниматься</h3>
+              <ul class="vacancy-styled-list list-tasks">
+                <li><strong>Ведение складского учёта ТМЦ (товарно-материальных ценностей):</strong> приёмка, размещение, хранение и отпуск ТМЦ (запчастей, расходников и инструмента) ответственным лицам; ведение учёта в специализированной складской программе; проведение регулярных инвентаризаций и контроль остатков.</li>
+                <li><strong>Техническое обслуживание и ремонт оборудования:</strong> приёмка оборудования после использования на объектах, проверка работоспособности (насосы, аппараты высокого давления (АВД), компрессоры, электроинструмент, сварочное оборудование и пр.); обслуживание и ремонт оборудования, поддержание его в рабочем состоянии; ведение учёта ремонтов и технического состояния.</li>
+                <li><strong>Понимание технической части:</strong> понимание устройства и принципов работы насосов, АВД, компрессоров и сварочного оборудования для быстрой диагностики и обслуживания.</li>
+                <li><strong>Коммуникация и взаимодействие:</strong> активное взаимодействие с руководством, отделом закупок и логистики, руководителями проектов и рабочим персоналом по вопросам приёма/выдачи ТМЦ и состояния оборудования.</li>
+              </ul>
+            </div>
+
+            <!-- 4. Требования -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🔍</span> Опыт и навыки, которые для нас важны</h3>
+              <ul class="vacancy-styled-list">
+                <li>Желателен опыт работы кладовщиком, заведующим складом или специалистом по учёту ТМЦ от 3 лет.</li>
+                <li>Уверенное владение ПК и практический опыт работы со складской учётной программой.</li>
+                <li>Технические навыки механика / слесаря: понимание устройства и принципов работы технического оборудования.</li>
+                <li>Готовность и способность проводить самостоятельное техническое обслуживание и несложный ремонт парка техники.</li>
+                <li>Опыт и понимание технологий сварки будут дополнительным преимуществом.</li>
+                <li>Отличные коммуникативные навыки и опыт взаимодействия с различными категориями персонала.</li>
+                <li><strong>Личные качества:</strong> порядочность, пунктуальность, высокая степень ответственности, обязательность и внимательность к деталям при работе с большим объёмом информации.</li>
+              </ul>
+            </div>
+
+            <!-- 5. Условия -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🎁</span> Что мы предлагаем со своей стороны</h3>
+              <div class="vacancy-conditions-grid">
+                <div class="condition-chip">
+                  <strong>Доход</strong>
+                  от 130 000 ₽ на руки стабильно, выплаты два раза в месяц
+                </div>
+                <div class="condition-chip">
+                  <strong>Сверхурочные</strong>
+                  Сверхурочные выходы оплачиваются отдельно сверх оклада
+                </div>
+                <div class="condition-chip">
+                  <strong>Оформление</strong>
+                  Официальное трудоустройство по ТК РФ с первого рабочего дня
+                </div>
+                <div class="condition-chip">
+                  <strong>График</strong>
+                  5/2 с 09:00 до 18:00 (8 рабочих часов)
+                </div>
+                <div class="condition-chip">
+                  <strong>Локация</strong>
+                  г. Королёв (Московская обл.), оборудованный склад и база
+                </div>
+                <div class="condition-chip">
+                  <strong>Перспективы</strong>
+                  Возможность стать ключевым специалистом в быстрорастущей компании
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Этапы отбора -->
+            <div class="vacancy-section-block">
+              <h3 class="vacancy-section-title"><span class="title-icon">🚀</span> Процесс отбора</h3>
+              <div class="selection-steps">
+                <div class="selection-step-item"><span class="step-num">1</span> Онлайн-знакомство с HR-экспертом Кристиной Гужвой</div>
+                <div class="selection-step-item"><span class="step-num">2</span> Встреча с техническим руководством ООО «АСГАРД-Сервис» на базе в Королёве</div>
+                <div class="selection-step-item"><span class="step-num">3</span> Финальный оффер и выход</div>
+              </div>
+            </div>
+
+            <!-- КНОПКИ ОТКЛИКА -->
+            <div class="vacancy-card-footer">
+              <button type="button" class="btn-apply-main" data-open-vacancy="Специалист по складскому учёту и ТО (АСГАРД-Сервис)">
+                <span>Откликнуться</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <a href="https://volgograd.hh.ru/vacancy/139616213?hhtmFromLabel=vacancy_item_title&amp;hhtmFrom=employer_vacancies" target="_blank" rel="noopener noreferrer" class="btn-apply-hh" aria-label="Открыть вакансию Специалист по складскому учёту на hh.ru">
                 <span class="hh-logo-badge" aria-hidden="true">hh</span>
                 <span>hh.ru</span>
                 <span class="hh-arrow" aria-hidden="true">↗</span>
@@ -2357,7 +2404,13 @@
         if (clientId && clientId !== 'all') {
           const cName = companyNames[clientId] || clientId;
           if (filterLabel) {
-            filterLabel.innerHTML = `Открытые вакансии компании: <strong>${cName}</strong>`;
+            if (clientId === 'dd-interior') {
+              filterLabel.innerHTML = `Компания: <strong>${cName}</strong> (набор закрыт)`;
+            } else if (clientId === 'asgard-service') {
+              filterLabel.innerHTML = `Открытые вакансии компании: <strong>${cName} (2)</strong>`;
+            } else {
+              filterLabel.innerHTML = `Открытые вакансии компании: <strong>${cName}</strong>`;
+            }
           }
 
           // Показываем только вакансии выбранной компании
@@ -2369,15 +2422,17 @@
               foundCount++;
               if (!firstFoundCard) firstFoundCard = card;
               card.classList.remove('is-filtered-out');
-              // Авто-раскрываем выбранную вакансию
-              card.classList.add('is-open');
-              card.classList.remove('is-collapsed');
-              const body = card.querySelector('.vacancy-card-body');
-              const header = card.querySelector('.vacancy-card-header');
-              const toggleText = card.querySelector('.toggle-text');
-              if (body) body.hidden = false;
-              if (header) header.setAttribute('aria-expanded', 'true');
-              if (toggleText) toggleText.textContent = 'Свернуть';
+              // Авто-раскрываем выбранную вакансию (если это не пустая карточка)
+              if (!card.classList.contains('vacancy-empty-card')) {
+                card.classList.add('is-open');
+                card.classList.remove('is-collapsed');
+                const body = card.querySelector('.vacancy-card-body');
+                const header = card.querySelector('.vacancy-card-header');
+                const toggleText = card.querySelector('.toggle-text');
+                if (body) body.hidden = false;
+                if (header) header.setAttribute('aria-expanded', 'true');
+                if (toggleText) toggleText.textContent = 'Свернуть';
+              }
             } else {
               card.classList.add('is-filtered-out');
               card.classList.remove('is-open');
@@ -2395,11 +2450,15 @@
             firstFoundCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
         } else if (clientId === 'all') {
-          // Показать все 3 вакансии
+          // Показать все 4 актуальные вакансии
           if (filterLabel) {
-            filterLabel.innerHTML = 'Показаны <strong>все актуальные вакансии (3)</strong>';
+            filterLabel.innerHTML = 'Показаны <strong>все актуальные вакансии (4)</strong>';
           }
           vacancyCards.forEach(card => {
+            if (card.classList.contains('vacancy-empty-card')) {
+              card.classList.add('is-filtered-out');
+              return;
+            }
             card.classList.remove('is-filtered-out');
             card.classList.add('is-open');
             card.classList.remove('is-collapsed');
