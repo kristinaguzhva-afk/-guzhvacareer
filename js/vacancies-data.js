@@ -50,10 +50,10 @@ const CLIENTS_DATA = [
     location: "Москва",
     logo: "assets/images/clients/picnic-city.webp",
     logoPng: "assets/images/clients/picnic-city.png",
-    activeCount: 1,
-    statusText: "1 открытая вакансия",
+    activeCount: 0,
+    statusText: "Вакансии закрыты",
     description: "Сеть загородных парковых комплексов для семейного отдыха, корпоративных мероприятий, кемпинга и гастрономических проектов.",
-    activeVacancies: ["performance-marketer-picnic"]
+    activeVacancies: []
   }
 ];
 
@@ -152,7 +152,7 @@ const VACANCIES_DATA = [
     salary: "от 120 000 до 180 000 ₽ на руки",
     publishedAt: "2026-10-14",
     hhUrl: "https://hh.ru/vacancy/138457120?hhtmFromLabel=vacancy_item_title&hhtmFrom=employer_vacancies",
-    isActive: true,
+    isActive: false,
     shortDesc: "Управление платным трафиком (Яндекс.Директ, VK, myTarget), оптимизация стоимости бронирований (CPA/CPO) и построение сквозной аналитики для сети загородных парков.",
     focus: "Обеспечение стабильного потока целевых лидов и бронирований для загородных локаций, масштабирование эффективных связок и снижение стоимости привлечения клиента (CAC).",
     tasks: [
